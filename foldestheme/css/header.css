@@ -1,0 +1,119 @@
+/* ============================================================
+   HEADER STYLES
+   ============================================================ */
+   header {
+    background-color: var(--primary-color); /* Use primary color for the header background */
+    color: var(--text-color); /* Use defined text color for readability */
+    padding: 20px 0;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for the header */
+}
+
+header .container {
+    max-width: 1200px; /* Maximum width */
+    margin: 0 auto; /* Center the content */
+    padding: 0 20px; /* Padding for spacing */
+    display:block;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
+header .logo:hover {
+    color: var(--secondary-color); /* Lighter color on hover */
+}
+
+/* Default size */
+.header-banner {
+    padding:5px !important;
+    width: 100px;
+    height: auto;
+}
+
+.banner-container {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    gap: 10px; /* Space between banner and badge */
+}
+
+/* EST Badge */
+.est-badge {
+    font-family: 'Times New Roman', serif;
+    font-size: 0.9rem;
+    color: var(--background-color);
+    letter-spacing: 1px;
+    text-decoration:none;
+    font-weight: bold;
+    white-space: nowrap; /* Prevent text from wrapping */
+}
+
+/* ============================================================
+   NAVIGATION MENU
+   ============================================================ */
+nav {
+    display: flex;
+    align-items: center;
+}
+
+nav a {
+    color: var(--secondary-color); /* Use secondary color for links */
+    text-decoration: none; /* Remove underline */
+    padding: 12px 20px;
+    margin-left: 20px;
+    font-size: 32px;
+    border-radius: 4px;
+    font-weight: bold; /* Consistent font weight to prevent shifting */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+nav a:hover {
+    color: var(--neutral-color); /* Dark text color on hover */
+}
+
+
+/* Custom Menu for Home and About Us */
+nav .custom-menu {
+    list-style: none;
+    margin-left: 30px; /* Space between WordPress menu and custom links */
+    display: flex;
+}
+
+nav .custom-menu li {
+    margin-left: 20px; /* Space between custom menu items */
+}
+
+nav .custom-menu a {
+    padding: 12px 15px;
+    font-size: 16px;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+@media (max-width: 768px) {
+    header .container {
+        flex-direction: column; /* Stack logo and nav vertically */
+        text-align: center;
+    }
+
+    nav {
+        margin-top: 15px;
+        justify-content: center;
+        flex-direction: column; /* Stack navigation items vertically */
+    }
+
+    nav a {
+        margin-left: 0;
+        margin-bottom: 10px; /* Space between nav items on mobile */
+    }
+
+    nav .custom-menu {
+        margin-left: 0; /* Remove margin on smaller screens */
+        flex-direction: column;
+    }
+
+    nav .custom-menu li {
+        margin-bottom: 10px; /* Space between custom menu items on mobile */
+    }
+}

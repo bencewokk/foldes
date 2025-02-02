@@ -1,0 +1,60 @@
+/* ============================================================
+   BODY STYLES
+============================================================ */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* ============================================================
+   MAIN CONTAINER
+============================================================ */
+.container {
+    max-width: 1200px; /* Set the same max-width as footer and header */
+    margin: 0 auto;
+    padding: 20px;
+    background-color: var(--container-bg-color, #fff);
+    border-radius: 8px;
+}
+
+/* ============================================================
+   HEADER AND FOOTER
+============================================================ */
+#site-header,
+#site-footer {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    width: 100%;
+}
+
+#site-footer {
+    background-color: var(--neutral-color);
+    color: var(--text-color);
+    text-align: center;
+    margin-top: auto;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN
+============================================================ */
+@media (max-width: 768px) {
+    .container,
+    #site-header,
+    #site-footer {
+        width: 95%; /* Full width for mobile screens */
+        padding: 15px;
+    }
+}

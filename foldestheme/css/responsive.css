@@ -1,0 +1,9 @@
+/* ============================================================
+   RESPONSIVE DESIGN
+   ============================================================ */
+   @media (max-width: 768px) {
+    .footer-widget-area > div {
+        width: 100%; /* Stack widgets vertically */
+        margin-bottom: 20px; /* Space between stacked widgets */
+    }
+}

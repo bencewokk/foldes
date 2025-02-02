@@ -1,0 +1,71 @@
+/* ============================================================
+   FOOTER STYLES
+   ============================================================ */
+   #site-footer {
+    background-color: var(--neutral-color); /* Neutral background */
+    color: var(--text-color);
+    padding: 20px 0;
+    text-align: center;
+    margin-top: auto; /* Push footer to the bottom */
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.footer-widgets {
+    margin-bottom: 20px;
+}
+
+/* Flexbox layout for footer widgets */
+.footer-widget-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer-widget-area > div {
+    width: 30%; /* Adjust width as needed */
+    margin-bottom: 20px;
+}
+
+/* Footer Links */
+.footer-links {
+    margin-top: 20px;
+}
+
+.footer-links ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-links li {
+    display: inline-block;
+    margin-right: 15px;
+}
+
+.footer-links a {
+    color: var(--primary-color); /* Primary color for links */
+    text-decoration: none;
+}
+
+.footer-links a:hover,
+.footer-links a:focus {
+    text-decoration: underline;
+    color: var(--secondary-color); /* Secondary color on hover */
+    outline: none; /* Remove default focus outline */
+}
+
+/* Footer Copyright */
+.footer-copyright {
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.footer-copyright p {
+    margin: 0;
+    color: var(--neutral-color); /* Neutral color for copyright text */
+}

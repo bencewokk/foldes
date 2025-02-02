@@ -1,0 +1,125 @@
+/* ============================================================
+   POST STYLES
+   ============================================================ */
+article {
+    background-color: var(--background-color); /* White background for posts */
+    margin-bottom: 40px !important;
+    padding: 20px; /* Padding inside posts */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow for post */
+    max-width: 800px; /* Limit the width of the posts */
+    margin: 0 auto; /* Center the post horizontally */
+    clear: both; /* Ensure no elements are floating above */
+}
+
+/* Post Header Styles */
+.post-header {
+    margin-bottom: 20px; /* Space between the header and content */
+}
+
+.post-header .post-title {
+    font-size: 2em; /* Larger font size for the title */
+    font-weight: bold;
+    color: var(--background-color); /* Use primary color */
+    margin-bottom: 10px; /* Space below the title */
+    text-align: center; /* Center the text */
+    width: 100%; /* Ensure it takes up full available width */
+    margin-left: auto; /* Center horizontally */
+    margin-right: auto; /* Center horizontally */
+}
+
+.post-header .post-meta {
+    font-size: 0.9em; /* Smaller font size for the meta info */
+    color: var(--background-color); /* Use secondary color */
+}
+
+.post-meta span {
+    margin-right: 10px; /* Space between author and date */
+}
+
+/* Post Content Styles */
+.post-content {
+    font-size: 1.1em; /* Slightly larger font for readability */
+    line-height: 1.6; /* Increased line-height for better spacing */
+    color: var(--text-color); /* Slightly lighter text color */
+}
+
+.post-content .read-more {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: var(--button-bg-color); /* Use button background color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.post-content .read-more:hover {
+    background-color: var(--button-hover-bg-color); /* Hover state for button */
+    color: var(--link-hover-color); /* Optionally change link color on hover */
+}
+
+/* ============================================================
+   POST EXCERPT STYLES
+   ============================================================ */
+.excerpt {
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: var(--secondary-color); /* Use secondary color */
+}
+
+/* ============================================================
+   PAGINATION STYLES
+   ============================================================ */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.pagination a {
+    padding: 10px 20px;
+    margin: 0 5px;
+    background-color: var(--button-bg-color); /* Use button background color */
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: var(--button-hover-bg-color); /* Hover state for pagination */
+    color: var(--link-hover-color); /* Hover color for pagination links */
+}
+
+.pagination .current {
+    background-color: var(--highlight-color); /* Use highlight color */
+    cursor: default;
+}
+
+/* ============================================================
+   RESPONSIVE DESIGN FOR POSTS
+   ============================================================ */
+@media (max-width: 768px) {
+    .container {
+        width: 95%; /* Make the container take up more width on smaller screens */
+    }
+
+    article {
+        max-width: 90%; /* Allow posts to take up more space on smaller screens */
+    }
+
+    .post-header .post-title {
+        font-size: 1.8em; /* Adjust title size on small screens */
+    }
+
+    .post-content {
+        font-size: 1em; /* Slightly smaller font size for post content */
+    }
+
+    .pagination a {
+        padding: 8px 15px; /* Adjust pagination button size */
+    }
+}

@@ -1,0 +1,14 @@
+/* Define color palette */
+:root {
+    --primary-color: #003C76; /* Deep Blue */
+    --secondary-color: #0060A4; /* Lighter Blue */
+    --accent-color: #0094D1; /* Sky Blue */
+    --highlight-color: #00A6E6; /* Brighter Blue */
+    --button-bg-color: #002C5F; /* Dark Blue for buttons */
+    --button-hover-bg-color: #00488F; /* Hover effect for buttons */
+    --white: #e2e2e2;
+    --background-color: rgb(202, 208, 217); /* Light background color */
+    --text-color: #333; /* Dark text color */
+    --link-color: #0060A4; /* Matching link color */
+    --link-hover-color: #00A6E6; /* Lighter color for links on hover */
+}
