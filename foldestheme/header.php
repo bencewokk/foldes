@@ -15,11 +15,13 @@
 <header id="site-header">
     <div class="container">
         <!-- Navigation Menu -->
-        <nav id="main-navigation">
-            <img src="<?php echo get_template_directory_uri(); ?>/banner.png" alt="Banner" class="header-banner">
-            <div class="est-badge">EST. 1953</div>
 
-            <!-- Hardcoded Home and About Us buttons -->
+        <img src="<?php echo get_template_directory_uri(); ?>/banner.png" alt="Banner" class="header-banner">
+        <div class="est-badge">INCEPTA 1953</div>
+
+        <nav id="main-navigation">
+            
+
             <ul class="custom-menu">
                 <li><a href="<?php echo esc_url(home_url('/')); ?>">Otthon</a></li>
                 <li><a href="<?php echo esc_url(home_url('/about-us')); ?>">Rólunk</a></li>
@@ -27,7 +29,6 @@
                 <li><a href="<?php echo esc_url(home_url('/diakoknak')); ?>" class="tab-link">Diákoknak</a></li>
                 <li><a href="<?php echo esc_url(home_url('/szuloknek')); ?>" class="tab-link">Szülőknek</a></li>
             </ul>
-
 
             
         </nav>

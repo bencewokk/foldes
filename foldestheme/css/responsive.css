@@ -1,9 +1,172 @@
 /* ============================================================
-   RESPONSIVE DESIGN
-   ============================================================ */
-   @media (max-width: 768px) {
-    .footer-widget-area > div {
-        width: 100%; /* Stack widgets vertically */
-        margin-bottom: 20px; /* Space between stacked widgets */
+   RESPONSIVE DESIGN BREAKPOINTS
+============================================================ */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 15px;
+    }
+}
+
+@media (max-width: 992px) {
+    /* Header adjustments */
+    .banner-container {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .est-badge {
+        margin-top: 10px;
+        border-left: none;
+        border-top: 2px solid var(--secondary-color);
+    }
+
+    /* Navigation adjustments */
+    nav {
+        flex-wrap: wrap;
+        gap: 10px;
+        padding: 8px 0;
+    }
+    
+    nav a {
+        font-size: 1rem;
+        padding: 10px 15px;
+        margin: 0 5px;
+    }
+    
+    nav .custom-menu {
+        margin-left: 15px;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* General adjustments */
+    body {
+        background-attachment: scroll;
+    }
+
+    /* Header mobile styles */
+    header {
+        padding: 15px 0;
+    }
+    
+    .header-banner {
+        width: 100px;
+    }
+
+    /* Navigation mobile menu */
+    nav {
+        flex-direction: column;
+        padding: 10px 0;
+        margin-top: 10px;
+    }
+    
+    nav a {
+        width: 100%;
+        text-align: center;
+        margin: 5px 0;
+        padding: 12px 10px;
+    }
+    
+    nav a::after {
+        display: none;
+    }
+    
+    nav .custom-menu {
+        margin-left: 0;
+        width: 100%;
+        flex-direction: column;
+        gap: 5px;
+    }
+
+    /* Tag search form */
+    .tag-search form {
+        padding: 1rem;
+        border-radius: 15px;
+    }
+    
+    .tag-search .input-group {
+        min-width: 100%;
+    }
+    
+    .tag-search button {
+        width: 100%;
+        padding: 1rem;
+        font-size: 0.9rem;
+    }
+
+    /* Post adjustments */
+    article {
+        margin: 15px auto;
+        padding: 15px;
+    }
+    
+    .post-header .post-title {
+        font-size: 1.5em;
+    }
+    
+    .post-content {
+        font-size: 1em;
+    }
+
+    /* Footer adjustments */
+    #site-footer {
+        padding: 1.5rem 0;
+        margin-top: 2rem;
+    }
+    
+    .school-name {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    /* Ultra-mobile adjustments */
+    .header-banner {
+        width: 80px;
+    }
+    
+    .est-badge {
+        font-size: 0.8rem;
+        padding: 6px 12px;
+    }
+
+    /* Navigation */
+    nav a {
+        font-size: 0.9rem;
+    }
+
+    /* Post elements */
+    .post-header .post-title {
+        font-size: 1.3em;
+    }
+    
+    .pagination a {
+        padding: 8px 15px;
+        font-size: 0.9rem;
+    }
+
+    /* Footer text */
+    .footer-info {
+        font-size: 0.8rem;
+    }
+}
+
+/* ============================================================
+   TOUCH DEVICE OPTIMIZATIONS
+============================================================ */
+@media (hover: none) and (pointer: coarse) {
+    .tag-search form:hover {
+        transform: none !important;
+    }
+    
+    nav a:hover {
+        background: transparent !important;
+        color: inherit !important;
+    }
+    
+    .tag-search button:hover {
+        transform: none !important;
+        box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3) !important;
     }
 }

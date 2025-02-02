@@ -17,8 +17,8 @@ function foldestheme_enqueue_styles() {
     wp_enqueue_style( 'foldestheme-header', get_template_directory_uri() . '/css/header.css' );
     wp_enqueue_style( 'foldestheme-footer', get_template_directory_uri() . '/css/footer.css' );
     wp_enqueue_style( 'foldestheme-responsive', get_template_directory_uri() . '/css/responsive.css' );
+    wp_enqueue_style( 'foldestheme-search', get_template_directory_uri() . '/css/search.css' );
 
-    // Enqueue layout styles (combined body and container)
     wp_enqueue_style( 'foldestheme-layout', get_template_directory_uri() . '/css/layout.css' );
 
     // Enqueue post-specific styles

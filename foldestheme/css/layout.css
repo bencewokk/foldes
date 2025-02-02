@@ -3,24 +3,17 @@
 ============================================================ */
 body {
     font-family: Arial, sans-serif;
-    background-color: var(--background-color);
+    background-color: transparent; /* Make background transparent */
     color: var(--text-color);
     margin: 0;
     padding: 0;
-    display: flex;
     flex-direction: column;
     min-height: 100vh;
-}
-
-/* ============================================================
-   MAIN CONTAINER
-============================================================ */
-.container {
-    max-width: 1200px; /* Set the same max-width as footer and header */
-    margin: 0 auto;
-    padding: 20px;
-    background-color: var(--container-bg-color, #fff);
-    border-radius: 8px;
+    background-image: url('image2.jpg'); /* Use only image2 */
+    background-size: cover; /* Ensure image covers the screen */
+    background-position: center center; /* Center image */
+    background-attachment: fixed; /* Keep image fixed while scrolling */
+    display: flex;
 }
 
 /* ============================================================
@@ -28,7 +21,6 @@ body {
 ============================================================ */
 #site-header,
 #site-footer {
-    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     width: 100%;
@@ -42,19 +34,6 @@ body {
 }
 
 .footer-content {
-    max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
-}
-
-/* ============================================================
-   RESPONSIVE DESIGN
-============================================================ */
-@media (max-width: 768px) {
-    .container,
-    #site-header,
-    #site-footer {
-        width: 95%; /* Full width for mobile screens */
-        padding: 15px;
-    }
 }

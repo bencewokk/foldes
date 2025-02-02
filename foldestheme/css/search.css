@@ -1,0 +1,154 @@
+/* Tag Search and Sort Form - Modern Edition */
+.tag-search {
+    background: linear-gradient(135deg, var(--primary-color), #1a1a2e);
+    color: var(--background-color);
+    width: 100%;
+    padding: 2rem 1rem;
+    box-sizing: border-box;
+    position: relative;
+    overflow: hidden;
+}
+
+.tag-search::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    transform: rotate(45deg);
+    animation: shimmer 8s infinite linear;
+}
+
+@keyframes shimmer {
+    0% { transform: rotate(45deg) translateX(-50%); }
+    100% { transform: rotate(45deg) translateX(50%); }
+}
+
+.tag-search form {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1rem;
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+}
+
+.tag-search form:hover {
+    transform: translateY(-5px);
+}
+
+/* Modern Input Fields */
+.tag-search .input-group {
+    position: relative;
+    flex: 1;
+    min-width: 250px;
+}
+
+.tag-search input[type="text"],
+.tag-search select {
+    width: 100%;
+    padding: 1rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--background-color);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tag-search input[type="text"]::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.tag-search select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 1rem center;
+    background-size: 1em;
+}
+
+.tag-search input[type="text"]:focus,
+.tag-search select:focus {
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+}
+
+/* Holographic Button */
+.tag-search button {
+    padding: 1rem 2rem;
+    background: linear-gradient(45deg, var(--secondary-color), #00b4d8);
+    color: var(--background-color);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.5s ease;
+    box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+}
+
+.tag-search button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        120deg,
+        transparent,
+        rgba(255, 255, 255, 0.3),
+        transparent
+    );
+    transition: 0.5s;
+}
+
+.tag-search button:hover::before {
+    left: 100%;
+}
+
+.tag-search button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 180, 216, 0.5);
+}
+
+/* Floating Labels */
+.input-group label {
+    position: absolute;
+    left: 1.5rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    transition: all 0.3s ease;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label,
+.input-group select:valid + label {
+    top: -10px;
+    left: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--highlight-color);
+}
+
