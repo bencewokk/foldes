@@ -1,5 +1,6 @@
 import zipfile
 import os
+import time
 
 def zip_directory(source_dir, output_zip):
     if not os.path.exists(source_dir):
@@ -14,7 +15,7 @@ def zip_directory(source_dir, output_zip):
                 zipf.write(file_path, os.path.relpath(file_path, source_dir))
 
     print(f"Directory {source_dir} successfully zipped into {output_zip}.")
-
+    print(time.asctime())
 source_directory = r"foldestheme"
 output_zip_file = r"foldestheme.zip"
 

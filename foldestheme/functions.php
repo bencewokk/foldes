@@ -18,6 +18,8 @@ function foldestheme_enqueue_styles() {
     wp_enqueue_style( 'foldestheme-tanaraink', get_template_directory_uri() . '/css/tanaraink.css' );
     wp_enqueue_style( 'foldestheme-layout', get_template_directory_uri() . '/css/layout.css' );
     wp_enqueue_style( 'foldestheme-posts', get_template_directory_uri() . '/css/posts.css' );
+    wp_enqueue_style( 'foldestheme-iskolankrol', get_template_directory_uri() . '/css/iskolankrol.css' );
+
 
     // Enqueue Google Fonts
     wp_enqueue_style( 'google-fonts-roboto-poppins', 'https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100..900;1,100..900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap', array(), null );
@@ -92,3 +94,15 @@ function foldestheme_inline_styles() {
     </style>";
 }
 add_action('wp_head', 'foldestheme_inline_styles');
+
+function enqueue_teacher_grid_styles() {
+    if (is_page_template('page-tanaraink.php')) {
+        wp_enqueue_style(
+            'teacher-grid',
+            get_template_directory_uri() . '/css/teacher-grid.css',
+            array(),
+            filemtime(get_template_directory() . '/css/teacher-grid.css')
+        );
+    }
+}
+add_action('wp_enqueue_scripts', 'enqueue_teacher_grid_styles');

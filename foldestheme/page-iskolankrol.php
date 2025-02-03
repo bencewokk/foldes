@@ -5,7 +5,7 @@ Template Name: Tanaraink Custom Page
 get_header();  // Include the header
 ?>
 
-<div class="container">
+<div class="foldes-ferenc">
     <article>
         
         <div class="post-content">
@@ -16,7 +16,7 @@ get_header();  // Include the header
             <p>
                 A város és a szülők nagy elvárásokat támasztanak velünk szemben, és ezt kritikusan figyelik. Munkánk sikeressége az iskola, a család és a társadalom együttműködésén alapul. Pedagógiai programunk a hagyományokat és tapasztalatokat összegzi, célunk, hogy korszerű, önálló véleményt alkotó fiatalokat neveljünk. Iskolánk az ország egyik legeredményesebb középiskolája, diákjaink pedig sikeresen szerepelnek tanulmányi versenyeken.
             </p>
-            <div class="foldes-ferenc">
+            <div class="">
             <h2>Névadónk</h2>
                 <h3>Földes Ferenc (1910-1943)</h3>
                 <img src="<?php echo get_template_directory_uri(); ?>/css/foldesferenc.jpg" alt="Földes Ferenc" class="foldes-ferenc-img">
@@ -29,12 +29,6 @@ get_header();  // Include the header
                 <p>
                     Kiváló sportoló és társaságkedvelő ember volt. A második világháború idején munkaszolgálatosként szolgált, és segítette bajtársait. 1943. január 13-án eltűnt a keleti fronton zajló harcok során.
                 </p>
-                <p><strong>Jelentős publikációk:</strong></p>
-                <ul>
-                    <li>A rasszizmus ideológiai szerepei (1939)</li>
-                    <li>A földmunkásság a középfokú iskolákban (1940)</li>
-                    <li><i>Munkásság és parasztság kulturális helyzete Magyarországon</i> (1941)</li>
-                </ul>
             </div>
         </div>
     </article>

@@ -1,6 +1,10 @@
 /* ============================================================
-   HEADER STYLES WITH GRADIENT
+   HEADER STYLES
 ============================================================ */
+
+/* ----------------------------
+   Base Header Styles 
+---------------------------- */
 header {
     background: linear-gradient(
         135deg,
@@ -16,14 +20,18 @@ header {
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Header Container */
 header .container {
     margin: 0 auto;
     padding: 0;
     display: block;
-    max-width: 1000px; /* Match article width */
+    max-width: var(--container-width, 1000px);
     width: 100%;
 }
 
+/* ----------------------------
+   Banner Container 
+---------------------------- */
 .banner-container {
     display: flex;
     align-items: center;
@@ -31,7 +39,7 @@ header .container {
     gap: 10px;
     padding: 0 20px;
     margin: 0 auto;
-    max-width: 1000px; /* Match article width */
+    max-width: var(--container-width, 1000px);
 }
 
 .header-banner {
@@ -45,6 +53,9 @@ header .container {
     transform: scale(1.03);
 }
 
+/* ----------------------------
+   Established Badge 
+---------------------------- */
 .est-badge {
     font-family: 'Times New Roman', serif;
     font-size: 0.9rem;
@@ -61,21 +72,29 @@ header .container {
 }
 
 /* ============================================================
-   CENTERED NAVIGATION MENU
+   NAVIGATION STYLES
 ============================================================ */
+
+/* ----------------------------
+   Base Navigation 
+---------------------------- */
 nav {
     display: flex;
     justify-content: center;
     align-items: center;
     background: rgba(255, 255, 255, 0.05);
     padding: 10px 20px;
-    margin: 15px auto 0;
+    margin-top: 15px;
+    margin-bottom: 15px;
     border-radius: 4px;
     gap: 15px;
-    max-width: 1000px; /* Match article width */
+    max-width: var(--container-width, 1000px);
     width: calc(100%); /* Account for padding */
 }
 
+/* ----------------------------
+   Navigation Links 
+---------------------------- */
 nav a {
     color: var(--secondary-color);
     text-decoration: none;
@@ -89,7 +108,7 @@ nav a {
 
 nav a:hover {
     color: var(--highlight-color);
-    background: rgba(255, 255, 255, 0.05);
+    background: #ffffff0d;
 }
 
 nav a::after {
@@ -108,7 +127,9 @@ nav a:hover::after {
     width: 70%;
 }
 
-/* Centered Custom Menu */
+/* ----------------------------
+   Custom Menu 
+---------------------------- */
 nav .custom-menu {
     list-style: none;
     margin: 0;
