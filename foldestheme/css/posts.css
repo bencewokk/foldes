@@ -33,6 +33,10 @@ article {
     text-align: center;
 }
 
+.post-content p {
+    margin-bottom: 1.5em; /* Uses relative units for better scalability */
+}
+
 /* Post Content Styles */
 .post-content {
     padding: 10px;
