@@ -1,0 +1,22 @@
+
+  /* Poppins Font Styles */
+  .poppins-thin {
+    font-family: "Poppins", serif;
+    font-weight: 100;
+  }
+  
+  .poppins-regular {
+    font-family: "Poppins", serif;
+    font-weight: 400;
+  }
+  
+  .poppins-bold {
+    font-family: "Poppins", serif;
+    font-weight: 700;
+  }
+  
+  .poppins-italic {
+    font-family: "Poppins", serif;
+    font-style: italic;
+  }
+  

@@ -1,0 +1,63 @@
+/* ============================================================
+   GALLERY STYLES
+============================================================ */
+.gallery-flex {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center; /* Center the rows of images */
+  margin: -10px; /* Compensate for the .gallery-item margins */
+}
+
+.gallery-item {
+  flex: 0 0 calc(25% - 20px); /* Four items per row with margin adjustment */
+  margin: 10px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.gallery-item img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Center the image within its container */
+}
+
+/* Caption Styles */
+.gallery-caption {
+  margin-top: 8px;
+  font-size: 1em;
+  color: var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Plus Button Styles */
+.gallery-plus {
+  display: inline-block;
+  background-color: var(--button-bg-color, #0073aa);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  font-size: 20px;
+  cursor: pointer;
+  margin-left: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.gallery-plus:hover {
+  background-color: var(--button-hover-bg-color, #005177);
+}
+
+/* Counter Styles */
+.gallery-counter {
+  display: inline-block;
+  margin-left: 8px;
+  font-size: 1em;
+  font-weight: bold;
+  color: var(--text-color);
+}

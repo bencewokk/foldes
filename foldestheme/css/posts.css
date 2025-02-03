@@ -20,9 +20,6 @@ article {
 
 /* Post Header Styles */
 .post-header {
-    margin-left: 30px;
-    margin-right: 30px;
-
     padding: 10px;
 }
 
@@ -39,7 +36,7 @@ article {
 
 /* Post Content Styles */
 .post-content {
-    padding: 10px;
+    padding: 20px;
     font-size: 1.1em;
     line-height: 1.6;
     color: var(--text-color);

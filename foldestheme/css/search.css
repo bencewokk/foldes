@@ -90,7 +90,7 @@
 
 .input-group input:focus ~ label,
 .input-group input:not(:placeholder-shown) ~ label {
-    top: -8px;
+    top: -10px;
     left: 0.8rem;
     font-size: 0.75rem;
     color: var(--highlight-color);

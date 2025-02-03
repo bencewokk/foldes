@@ -2,18 +2,19 @@
    BODY STYLES
 ============================================================ */
 body {
-    font-family: Arial, sans-serif;
-    background-color: transparent; /* Make background transparent */
+    font-family: "Poppins", sans-serif; /* Changed to Poppins */
+    background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent overlay */
     color: var(--text-color);
     margin: 0;
     padding: 0;
+    display: flex;
     flex-direction: column;
     min-height: 100vh;
     background-image: url('image2_lowres.jpg'); /* Use only image2 */
     background-size: cover; /* Ensure image covers the screen */
-    background-position: center center; /* Center image */
+    background-position: center; /* Center image */
+    background-repeat: no-repeat; /* Prevent tiling */
     background-attachment: fixed; /* Keep image fixed while scrolling */
-    display: flex;
 }
 
 /* ============================================================

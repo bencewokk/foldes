@@ -1,0 +1,26 @@
+.foldes-ferenc {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.foldes-ferenc h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    color: #333; /* Change this color code to any desired color */
+}
+
+.foldes-ferenc-img {
+    max-width: 300px;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.foldes-ferenc ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.foldes-ferenc ul li {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
