@@ -24,8 +24,8 @@
 
             <ul class="custom-menu">
                 <li><a href="<?php echo esc_url(home_url('/')); ?>">Otthon</a></li>
-                <li><a href="<?php echo esc_url(home_url('/about-us')); ?>">Rólunk</a></li>
-                <li><a href="<?php echo esc_url(home_url('/oregdiakok')); ?>" class="tab-link active">Öregdiákok</a></li>
+                <li><a href="<?php echo esc_url(home_url('/rolunk')); ?>">Rólunk</a></li>
+                <li><a href="<?php echo esc_url(home_url('/programok')); ?>" class="tab-link active">Programok</a></li>
                 <li><a href="<?php echo esc_url(home_url('/diakoknak')); ?>" class="tab-link">Diákoknak</a></li>
                 <li><a href="<?php echo esc_url(home_url('/szuloknek')); ?>" class="tab-link">Szülőknek</a></li>
             </ul>

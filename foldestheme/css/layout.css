@@ -9,7 +9,7 @@ body {
     padding: 0;
     flex-direction: column;
     min-height: 100vh;
-    background-image: url('image2.jpg'); /* Use only image2 */
+    background-image: url('image2_lowres.jpg'); /* Use only image2 */
     background-size: cover; /* Ensure image covers the screen */
     background-position: center center; /* Center image */
     background-attachment: fixed; /* Keep image fixed while scrolling */

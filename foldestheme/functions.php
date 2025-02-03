@@ -53,6 +53,26 @@ function foldestheme_widgets_init() {
 }
 add_action( 'widgets_init', 'foldestheme_widgets_init' );
 
+function theme_customizer_settings($wp_customize) {
+    // Important News Section
+    $wp_customize->add_section('important_news_section', array(
+        'title' => 'Fontos Hírek',
+        'priority' => 30,
+    ));
+
+    $wp_customize->add_setting('important_news_text', array(
+        'default' => '❗️ Aktuális hírek és értesítések...',
+        'sanitize_callback' => 'wp_kses_post',
+    ));
+
+    $wp_customize->add_control('important_news_text', array(
+        'label' => 'Hírek Szövege',
+        'section' => 'important_news_section',
+        'type' => 'textarea',
+    ));
+}
+add_action('customize_register', 'theme_customizer_settings');
+
 // Custom excerpt length
 function foldestheme_excerpt_length( $length ) {
     return 20; // Adjust the number of words in the excerpt

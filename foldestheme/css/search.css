@@ -1,9 +1,11 @@
-/* Tag Search and Sort Form - Modern Edition */
+/* ============================================================
+   Tag Search and Sort Form - Final Working Edition
+============================================================ */
 .tag-search {
     background: linear-gradient(135deg, var(--primary-color), #1a1a2e);
     color: var(--background-color);
     width: 100%;
-    padding: 2rem 1rem;
+    padding: 1.5rem 1rem;
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
@@ -16,7 +18,7 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+    background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
     transform: rotate(45deg);
     animation: shimmer 8s infinite linear;
 }
@@ -28,83 +30,112 @@
 
 .tag-search form {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     align-items: center;
     gap: 1rem;
     width: 100%;
-    max-width: 900px;
+    max-width: 1000px;
     margin: 0 auto;
     position: relative;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(10px);
-    border-radius: 20px;
+    border-radius: 12px;
     padding: 1.5rem;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transform: translateY(0);
     transition: transform 0.3s ease;
 }
 
 .tag-search form:hover {
-    transform: translateY(-5px);
+    transform: translateY(-3px);
 }
 
-/* Modern Input Fields */
+/* Input Fields */
 .tag-search .input-group {
     position: relative;
-    flex: 1;
-    min-width: 250px;
+    flex: 1 1 auto;
+    margin-bottom: 0;
+    min-width: 200px;
 }
 
 .tag-search input[type="text"],
 .tag-search select {
     width: 100%;
-    padding: 1rem 1.5rem;
-    font-size: 1rem;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     background: rgba(255, 255, 255, 0.1);
     color: var(--background-color);
     transition: all 0.3s ease;
     backdrop-filter: blur(5px);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+/* Floating Labels */
+.input-group label {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    z-index: 2;
+    max-width: calc(100% - 2rem);
+}
+
+.input-group input:focus ~ label,
+.input-group input:not(:placeholder-shown) ~ label {
+    top: -8px;
+    left: 0.8rem;
+    font-size: 0.75rem;
+    color: var(--highlight-color);
+    padding: 0 0.3rem;
 }
 
 .tag-search input[type="text"]::placeholder {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.tag-search select {
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 1rem center;
-    background-size: 1em;
+    color: transparent;
+    opacity: 0;
 }
 
 .tag-search input[type="text"]:focus,
 .tag-search select:focus {
     background: rgba(255, 255, 255, 0.2);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
 }
 
-/* Holographic Button */
+/* Select Dropdown */
+.tag-search select {
+    padding: 0.75rem 2.5rem 0.75rem 1rem;
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    background-size: 0.8em;
+}
+
+/* Button Styles */
 .tag-search button {
-    padding: 1rem 2rem;
+    padding: 0.75rem 1.5rem;
     background: linear-gradient(45deg, var(--secondary-color), #00b4d8);
     color: var(--background-color);
     border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
     position: relative;
     overflow: hidden;
-    transition: all 0.5s ease;
-    box-shadow: 0 4px 15px rgba(0, 180, 216, 0.3);
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 180, 216, 0.3);
+    flex: none;
 }
 
 .tag-search button::before {
@@ -129,26 +160,106 @@
 
 .tag-search button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 180, 216, 0.5);
+    box-shadow: 0 4px 12px rgba(0, 180, 216, 0.5);
 }
 
-/* Floating Labels */
-.input-group label {
+/* Toggle Switch */
+.toggle-container {
+    position: relative;
+    z-index: 1;
+    min-width: 220px;
+    margin-left: auto;
+    flex: none;
+}
+
+.toggle-switch-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.toggle-switch-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 26px;
+}
+
+.toggle-switch-input {
+    opacity: 0;
+    width: 0;
+    height: 0;
     position: absolute;
-    left: 1.5rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: rgba(255, 255, 255, 0.7);
-    pointer-events: none;
+}
+
+.toggle-switch-track {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 13px;
     transition: all 0.3s ease;
 }
 
-.input-group input:focus + label,
-.input-group input:not(:placeholder-shown) + label,
-.input-group select:valid + label {
-    top: -10px;
-    left: 0.5rem;
-    font-size: 0.8rem;
-    color: var(--highlight-color);
+.toggle-switch-thumb {
+    position: absolute;
+    height: 22px;
+    width: 22px;
+    left: 2px;
+    bottom: 2px;
+    background: #fff;
+    border-radius: 50%;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Checked State */
+.toggle-switch-input:checked + .toggle-switch-track {
+    background: var(--highlight-blue, #4299e1);
+}
+
+.toggle-switch-input:checked + .toggle-switch-track .toggle-switch-thumb {
+    transform: translateX(24px);
+}
+
+/* Hover States */
+.toggle-switch-wrapper:hover .toggle-switch-track {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.toggle-switch-input:focus-visible + .toggle-switch-track {
+    outline: 2px solid rgba(255, 255, 255, 0.5);
+    outline-offset: 2px;
+}
+
+.toggle-label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.95rem;
+    white-space: nowrap;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .tag-search form {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .tag-search .input-group,
+    .toggle-container,
+    .tag-search button {
+        width: 100%;
+        margin-left: 0;
+    }
+
+    .toggle-container {
+        order: 3;
+    }
+
+    .tag-search button {
+        order: 4;
+    }
+}
