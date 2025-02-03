@@ -15,7 +15,7 @@ def zip_directory(source_dir, output_zip):
 
     print(f"Directory {source_dir} successfully zipped into {output_zip}.")
 
-source_directory = r"E:\letoltes\wordpress\foldestheme"
-output_zip_file = r"E:\letoltes\wordpress\foldestheme.zip"
+source_directory = r"foldestheme"
+output_zip_file = r"foldestheme.zip"
 
 zip_directory(source_directory, output_zip_file)
