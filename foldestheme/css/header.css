@@ -85,7 +85,6 @@ nav {
     background: rgba(255, 255, 255, 0.05);
     padding: 10px 20px;
     margin-top: 15px;
-    margin-bottom: 15px;
     border-radius: 4px;
     gap: 15px;
     max-width: var(--container-width, 1000px);

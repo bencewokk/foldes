@@ -3,7 +3,7 @@
 ============================================================ */
 .teachers-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
   gap: 1.5rem;
   width: 1000px;
   margin: 2rem auto;
@@ -15,7 +15,6 @@ h4 {
   color: white !important;
   font-weight: bold !important;
 }
-
 
 .teacher-card {
   background-color: var(--background-color);
@@ -72,7 +71,7 @@ h4 {
 }
 
 .teacher-info {
-  padding: 1.2rem;
+  padding-top: 1.2rem;
   position: relative;
   overflow: hidden;
 }
@@ -81,7 +80,8 @@ h4 {
   margin: 0 0 0.5rem;
   font-size: 1.2rem;
   position: relative;
-  display: inline-block;
+  /* Removing inline-block (optional) if not needed for underline effect */
+  display: block;
 }
 
 .teacher-info h3::after {
@@ -190,4 +190,23 @@ h4 {
 .teacher-card {
   animation: cardEntrance 0.6s ease forwards;
   opacity: 0;
+}
+
+/* Updated teacher-button to appear below the name */
+.teacher-card .teacher-button {
+  display: block;  /* Forces the button to take a full line */
+  margin-top: 0.8em;
+  padding: 0.6em 1.5em;
+  background-color: #2c3e50;
+  color: #fff !important;
+  text-decoration: none;
+  border-radius: 25px;
+  font-size: 0.9em;
+  transition: all 0.3s ease;
+  border: 2px solid #2c3e50;
+}
+
+.teacher-card .teacher-button:hover {
+  background-color: transparent;
+  color: #2c3e50 !important;
 }
