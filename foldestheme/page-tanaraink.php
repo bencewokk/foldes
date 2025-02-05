@@ -14,15 +14,41 @@ get_header();
             get_template_part('template-parts/content', 'page');
         endwhile;
         ?>
+
+        <!-- Search Form -->
+        <div class="tag-search">
+            <form role="search" method="get" action="<?php echo esc_url(get_permalink()); ?>">
+                <div class="input-group">
+                    <input type="text" 
+                           name="teacher_search"
+                           value="<?php echo isset($_GET['teacher_search']) ? esc_attr($_GET['teacher_search']) : ''; ?>"
+                           placeholder=" ">
+                    <label>Írj be egy nevet vagy végzettséget/tantárgyat...</label>
+                </div>
+                
+                <button type="submit">
+                    <?php echo esc_html_x('Keresés', 'submit button', 'textdomain'); ?>
+                </button>
+            </form>
+        </div>
         
         <?php
-        $teacher_query = new WP_Query(array(
+        $search_query = isset($_GET['teacher_search']) ? sanitize_text_field($_GET['teacher_search']) : '';
+
+        $query_args = array(
             'post_type'      => 'post',
             'tag'           => 'tanar',
             'posts_per_page' => -1,
             'orderby'       => 'menu_order',
             'order'         => 'ASC'
-        ));
+        );
+
+        // Add search parameters if search is performed
+        if (!empty($search_query)) {
+            $query_args['s'] = $search_query;
+        }
+
+        $teacher_query = new WP_Query($query_args);
 
         if ($teacher_query->have_posts()) :
         ?>
@@ -47,7 +73,6 @@ get_header();
                         </div>
                         <div class="teacher-info">
                             <h3 class="teacher-name"><?php the_title(); ?></h3>
-                            <!-- Button added here under the name -->
                             <a href="<?php echo esc_url(get_permalink()); ?>" class="teacher-button">
                                 Bővebben
                             </a>
@@ -57,7 +82,18 @@ get_header();
             </div>
             <?php wp_reset_postdata(); ?>
         <?php else : ?>
-            <p class="no-teachers"><?php esc_html_e('Nincsenek tanárok megjeleníthetőek.', 'textdomain'); ?></p>
+            <p class="no-teachers">
+                <?php
+                if (!empty($search_query)) {
+                    printf(
+                        esc_html__('Nincs találat erre: "%s"', 'textdomain'),
+                        esc_html($search_query)
+                    );
+                } else {
+                    esc_html_e('Nincsenek tanárok megjeleníthetőek.', 'textdomain');
+                }
+                ?>
+            </p>
         <?php endif; ?>
     </div>
 </main>

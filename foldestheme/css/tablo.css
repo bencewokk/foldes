@@ -1,4 +1,8 @@
-/* Unique grid system */
+/* -------------------------------
+   Unique Grid System for Tablo Articles
+   ------------------------------- */
+
+/* Grid for Tablo Articles (cards) */
 .tablo-grid-container {
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr)); /* Ensures equal columns */
@@ -14,7 +18,7 @@
     background: #ffffff;
     border-radius: 6px;
     padding: 1rem;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
     transition: all 0.2s ease;
     text-align: center;
     break-inside: avoid;
@@ -23,7 +27,7 @@
 
 .tablo-grid-item:hover {
     transform: translateY(-2px);
-    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
 .tablo-grid-title {
@@ -42,7 +46,7 @@
 }
 
 .tablo-grid-title a:hover {
-    color: #2b6cb0;
+    color: #2871BD;
 }
 
 /* Pagination */
@@ -66,6 +70,7 @@
     border: 1px solid #2b6cb0;
 }
 
+/* Search form styles */
 .tablo-search-form {
     margin: 2rem auto;
     display: flex;
@@ -97,15 +102,6 @@
     background: #2d5a8e;
 }
 
-/* Specific styles for grid title links */
-.tablo-grid-title a {
-    color: #333;
-}
-
-.tablo-grid-title a:hover {
-    color: #2871BD;
-}
-
 /* Post title links */
 .post-title a {
     color: #333;
@@ -116,13 +112,50 @@
     color: #2871BD;
 }
 
-/* Specific styles for grid title links */
-.tablo-grid-title a,
-.tablo-grid-title a:any-link,
-.tablo-grid-title a:-webkit-any-link {
-    color: #333;
+/* -------------------------------
+   New CSS for the Years Grid
+   ------------------------------- */
+
+.years-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 0 15px;
+    box-sizing: border-box;
 }
 
-.tablo-grid-title a:hover {
+.year-item {
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 1rem;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.year-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+
+.year-item a {
+    color: #333;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease;
+    display: block;
+    padding: 0.25rem;
+}
+
+.year-item a:hover {
     color: #2871BD;
+}
+
+.year-article-post {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border-radius: 8px;
 }

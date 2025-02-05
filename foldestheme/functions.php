@@ -153,3 +153,9 @@ add_action('wp_footer', function() {
         HTML;
     }
 });
+
+function enqueue_lightbox_assets() {
+    wp_enqueue_style( 'lightbox-css', get_template_directory_uri() . '/path-to/lightbox.css' );
+    wp_enqueue_script( 'lightbox-js', get_template_directory_uri() . '/path-to/lightbox.js', array('jquery'), null, true );
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_lightbox_assets' );
