@@ -41,3 +41,46 @@ article {
     line-height: 1.6;
     color: var(--text-color);
 }
+
+/* Fontos badge styling */
+.fontos-badge {
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    background: #ff4757;
+    color: white;
+    padding: 5px 15px;
+    font-size: 0.8em;
+    font-weight: bold;
+    border-radius: 3px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.fontos-badge::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -10px;
+    border-left: 10px solid transparent;
+    border-right: 10px solid #b33a45;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+}
+
+.post-card {
+    position: relative; /* Needed for badge positioning */
+    overflow: hidden; /* Keeps badge within card bounds */
+}
+
+/* Post title links */
+.post-title a,
+.post-title a:any-link,
+.post-title a:-webkit-any-link {
+    color: #333;
+    text-decoration: none;
+}
+
+.post-title a:hover {
+    color: #2871BD;
+}

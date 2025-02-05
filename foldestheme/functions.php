@@ -19,6 +19,8 @@ function foldestheme_enqueue_styles() {
     wp_enqueue_style( 'foldestheme-layout', get_template_directory_uri() . '/css/layout.css' );
     wp_enqueue_style( 'foldestheme-posts', get_template_directory_uri() . '/css/posts.css' );
     wp_enqueue_style( 'foldestheme-iskolankrol', get_template_directory_uri() . '/css/iskolankrol.css' );
+    wp_enqueue_style( 'foldestheme-tablo', get_template_directory_uri() . '/css/tablo.css' );
+
 
 
     // Enqueue Google Fonts
@@ -106,3 +108,48 @@ function enqueue_teacher_grid_styles() {
     }
 }
 add_action('wp_enqueue_scripts', 'enqueue_teacher_grid_styles');
+
+// In your theme's functions.php
+function fresh_visit_redirect() {
+    if (!is_admin() && is_front_page() && !is_user_logged_in()) {
+        // Start PHP session if not already started
+        if (!session_id()) {
+            session_start();
+        }
+
+        // Check for fresh session
+        if (!isset($_SESSION['initial_visit'])) {
+            $_SESSION['initial_visit'] = true;
+            
+            // Set JavaScript flag in localStorage
+            add_action('wp_footer', function() {
+                echo '<script>localStorage.setItem("initialRedirect", "pending");</script>';
+            });
+            
+            wp_redirect(esc_url(home_url('/otthon')));
+            exit;
+        }
+
+        // Clean up if needed
+        if (isset($_SESSION['initial_visit']) && !isset($_COOKIE['PHPSESSID'])) {
+            unset($_SESSION['initial_visit']);
+        }
+    }
+}
+add_action('template_redirect', 'fresh_visit_redirect');
+
+// JavaScript fallback in footer
+add_action('wp_footer', function() {
+    if (!is_user_logged_in() && is_front_page()) {
+        echo <<<HTML
+        <script>
+        if (localStorage.getItem('initialRedirect') === 'pending') {
+            localStorage.removeItem('initialRedirect');
+        } else if (!sessionStorage.getItem('sessionActive')) {
+            sessionStorage.setItem('sessionActive', 'true');
+            window.location.href = '/otthon';
+        }
+        </script>
+        HTML;
+    }
+});

@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Tag Search and Sort Template
+ * Template Name: Otthon
  */
 get_header();
 ?>
@@ -9,18 +9,18 @@ get_header();
     <div class="container">
         <!-- Tag Search and Sort Form -->
         <div class="tag-search">
-            <form action="<?php echo esc_url( home_url( '/' ) ); ?>" method="get">
+            <form action="<?php echo esc_url(home_url('/')); ?>" method="get">
                 <!-- Search Input -->
                 <div class="input-group searchbar-group">
-                    <input type="text" id="tag-search" name="tag" placeholder=" ">
+                    <input type="text" id="tag-search" name="tag" placeholder=" " value="<?php echo isset($_GET['tag']) ? esc_attr($_GET['tag']) : ''; ?>">
                     <label for="tag-search">Írj be egy címkét...</label>
                 </div>
 
                 <!-- Order Select -->
                 <div class="input-group">
                     <select id="order" name="order">
-                        <option value="DESC">Legújabb</option>
-                        <option value="ASC">Legrégebbi</option>
+                        <option value="DESC" <?php selected(get_query_var('order'), 'DESC'); ?>>Legújabb</option>
+                        <option value="ASC" <?php selected(get_query_var('order'), 'ASC'); ?>>Legrégebbi</option>
                     </select>
                 </div>
 
@@ -28,7 +28,12 @@ get_header();
                 <div class="toggle-container">
                     <label class="toggle-switch-group">
                         <div class="toggle-switch-wrapper">
-                            <input type="checkbox" class="toggle-switch-input" name="fontos_toggle" value="1">
+                            <?php
+                            // Check if initial load (no parameters)
+                            $is_initial_load = !isset($_GET['tag']) && !isset($_GET['order']) && !isset($_GET['fontos_toggle']);
+                            ?>
+                            <input type="checkbox" class="toggle-switch-input" name="fontos_toggle" value="1" 
+                                <?php checked($is_initial_load || (isset($_GET['fontos_toggle']) && $_GET['fontos_toggle'] === '1')); ?>>
                             <div class="toggle-switch-track">
                                 <div class="toggle-switch-thumb"></div>
                             </div>
@@ -45,43 +50,72 @@ get_header();
         </div>
 
         <?php
-        // Set up query arguments from URL parameters.
-        $order          = get_query_var('order') ? get_query_var('order') : 'DESC';
-        $tag            = get_query_var('tag') ? sanitize_text_field( get_query_var('tag') ) : '';
-        $fontos_toggle  = isset( $_GET['fontos_toggle'] ) && $_GET['fontos_toggle'] === '1';
+        // Query parameters
+        $order = isset($_GET['order']) ? sanitize_text_field($_GET['order']) : 'DESC';
+        $searched_tag = isset($_GET['tag']) ? sanitize_text_field($_GET['tag']) : '';
+        
+        // Determine initial load state
+        $is_initial_load = !isset($_GET['tag']) && !isset($_GET['order']) && !isset($_GET['fontos_toggle']);
+        $fontos_toggle = $is_initial_load ? true : (isset($_GET['fontos_toggle']) && $_GET['fontos_toggle'] === '1');
 
-        // Merge any existing query vars with our new arguments.
-        $query_args = array_merge( $wp_query->query_vars, array(
-            'order' => $order,
-            'tag'   => $tag,
-        ));
+        // Rest of the query code remains the same...
+        // Base tax query - always require 'hír' tag
+        $tax_query = array(
+            'relation' => 'AND',
+            array(
+                'taxonomy' => 'post_tag',
+                'field'    => 'slug',
+                'terms'    => array('hir'),
+            )
+        );
 
-        // If the Fontos toggle is enabled, modify the SQL clauses.
-        if ( $fontos_toggle ) {
-            add_filter( 'posts_clauses', function ( $clauses ) {
+
+        // Add searched tags if provided
+        if (!empty($searched_tag)) {
+            $searched_tags = array_map('trim', explode(',', $searched_tag));
+            $tax_query[] = array(
+                'taxonomy' => 'post_tag',
+                'field'    => 'slug',
+                'terms'    => $searched_tags,
+            );
+        }
+
+        // Build query args
+        $query_args = array(
+            'post_type'      => 'post',
+            'posts_per_page' => 10,
+            'order'          => $order,
+            'tax_query'      => $tax_query,
+        );
+
+        // Handle fontos toggle
+        if ($fontos_toggle) {
+            add_filter('posts_clauses', function ($clauses) {
                 global $wpdb;
-                $fontos_term = get_term_by( 'name', 'fontos', 'post_tag' );
-                if ( $fontos_term ) {
-                    $term_taxonomy_id = intval( $fontos_term->term_taxonomy_id );
-                    // Join the term_relationships table with a date check.
+                $fontos_term = get_term_by('name', 'fontos', 'post_tag');
+                if ($fontos_term) {
+                    $term_taxonomy_id = intval($fontos_term->term_taxonomy_id);
                     $clauses['join'] .= " LEFT JOIN {$wpdb->term_relationships} AS fontos_tr 
                         ON {$wpdb->posts}.ID = fontos_tr.object_id 
                         AND fontos_tr.term_taxonomy_id = {$term_taxonomy_id}
                         AND {$wpdb->posts}.post_date >= DATE_SUB(NOW(), INTERVAL 6 WEEK)";
-                    // Order posts: those matching the Fontos tag first.
                     $clauses['orderby'] = "fontos_tr.object_id IS NOT NULL DESC, " . $clauses['orderby'];
                 }
                 return $clauses;
-            } );
+            });
         }
 
-        // Use a custom WP_Query instead of query_posts.
-        $custom_query = new WP_Query( $query_args );
+        $custom_query = new WP_Query($query_args);
         ?>
 
-        <?php if ( $custom_query->have_posts() ) : ?>
-            <?php while ( $custom_query->have_posts() ) : $custom_query->the_post(); ?>
-                <article <?php post_class( 'post-card' ); ?>>
+        <?php if ($custom_query->have_posts()) : ?>
+            <?php while ($custom_query->have_posts()) : $custom_query->the_post(); ?>
+                <article <?php post_class('post-card'); ?>>
+
+                  <?php if(has_tag('fontos')) : ?>
+                      <div class="fontos-badge" data-tooltip="Ez azért lett előrehozva, mert fontos">Fontos</div>
+                  <?php endif; ?>
+
                     <header class="post-header">
                         <h2 class="post-title"><?php the_title(); ?></h2>
                     </header>
@@ -97,10 +131,13 @@ get_header();
             <?php endwhile; ?>
 
             <div class="pagination">
-                <?php 
-                // Pagination with previous and next links.
-                previous_posts_link( '<i class="fas fa-chevron-left"></i> Newer Posts', $custom_query->max_num_pages );
-                next_posts_link( 'Older Posts <i class="fas fa-chevron-right"></i>', $custom_query->max_num_pages );
+                <?php
+                echo paginate_links(array(
+                    'total'     => $custom_query->max_num_pages,
+                    'prev_text' => '<i class="fas fa-chevron-left"></i> Newer Posts',
+                    'next_text' => 'Older Posts <i class="fas fa-chevron-right"></i>',
+                    'current'   => max(1, get_query_var('paged')),
+                ));
                 ?>
             </div>
         <?php else : ?>

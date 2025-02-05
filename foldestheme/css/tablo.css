@@ -1,0 +1,128 @@
+/* Unique grid system */
+.tablo-grid-container {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr)); /* Ensures equal columns */
+    gap: 1rem;
+    width: 100%;
+    max-width: 1000px; /* Total container width */
+    margin: 2rem auto;
+    padding: 0 15px; /* Prevents edge touching */
+    box-sizing: border-box;
+}
+
+.tablo-grid-item {
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 1rem;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    transition: all 0.2s ease;
+    text-align: center;
+    break-inside: avoid;
+    min-width: 0; /* Fixes text overflow */
+}
+
+.tablo-grid-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.12);
+}
+
+.tablo-grid-title {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+}
+
+.tablo-grid-title a {
+    color: #333;
+    text-decoration: none;
+    display: block;
+    padding: 0.25rem;
+    transition: color 0.2s ease;
+}
+
+.tablo-grid-title a:hover {
+    color: #2b6cb0;
+}
+
+/* Pagination */
+.tablo-pagination {
+    grid-column: 1 / -1;
+    margin: 2rem 0;
+    text-align: center;
+}
+
+.tablo-pagination a,
+.tablo-pagination span {
+    padding: 0.4rem 0.8rem;
+    margin: 0 0.2rem;
+    border-radius: 3px;
+    font-size: 0.85rem;
+}
+
+/* Search highlighting styles */
+.tablo-grid-item.search-match {
+    background: #f0f7ff;
+    border: 1px solid #2b6cb0;
+}
+
+.tablo-search-form {
+    margin: 2rem auto;
+    display: flex;
+    gap: 1rem;
+    max-width: 600px;
+    padding: 0 15px;
+}
+
+.tablo-search-form .search-field {
+    flex: 1;
+    padding: 0.5em;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+}
+
+.tablo-search-form .search-submit {
+    padding: 0.5em 1.5em;
+    background: #2b6cb0;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background 0.2s ease;
+}
+
+.tablo-search-form .search-submit:hover {
+    background: #2d5a8e;
+}
+
+/* Specific styles for grid title links */
+.tablo-grid-title a {
+    color: #333;
+}
+
+.tablo-grid-title a:hover {
+    color: #2871BD;
+}
+
+/* Post title links */
+.post-title a {
+    color: #333;
+    text-decoration: none;
+}
+
+.post-title a:hover {
+    color: #2871BD;
+}
+
+/* Specific styles for grid title links */
+.tablo-grid-title a,
+.tablo-grid-title a:any-link,
+.tablo-grid-title a:-webkit-any-link {
+    color: #333;
+}
+
+.tablo-grid-title a:hover {
+    color: #2871BD;
+}

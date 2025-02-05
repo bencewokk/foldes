@@ -38,3 +38,19 @@ body {
     margin: 0 auto;
     padding: 0 20px;
 }
+
+/* Override default browser link styles */
+a:any-link,
+a:-webkit-any-link {
+    color: #2871BD;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover,
+a:any-link:hover,
+a:-webkit-any-link:hover {
+    color: #1B4C7E;
+    text-decoration: underline;
+}
+
