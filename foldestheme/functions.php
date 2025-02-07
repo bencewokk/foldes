@@ -20,6 +20,7 @@ function foldestheme_enqueue_styles() {
     wp_enqueue_style( 'foldestheme-posts', get_template_directory_uri() . '/css/posts.css' );
     wp_enqueue_style( 'foldestheme-iskolankrol', get_template_directory_uri() . '/css/iskolankrol.css' );
     wp_enqueue_style( 'foldestheme-tablo', get_template_directory_uri() . '/css/tablo.css' );
+    
 
 
 
@@ -109,35 +110,6 @@ function enqueue_teacher_grid_styles() {
 }
 add_action('wp_enqueue_scripts', 'enqueue_teacher_grid_styles');
 
-// In your theme's functions.php
-function fresh_visit_redirect() {
-    if (!is_admin() && is_front_page() && !is_user_logged_in()) {
-        // Start PHP session if not already started
-        if (!session_id()) {
-            session_start();
-        }
-
-        // Check for fresh session
-        if (!isset($_SESSION['initial_visit'])) {
-            $_SESSION['initial_visit'] = true;
-            
-            // Set JavaScript flag in localStorage
-            add_action('wp_footer', function() {
-                echo '<script>localStorage.setItem("initialRedirect", "pending");</script>';
-            });
-            
-            wp_redirect(esc_url(home_url('/otthon')));
-            exit;
-        }
-
-        // Clean up if needed
-        if (isset($_SESSION['initial_visit']) && !isset($_COOKIE['PHPSESSID'])) {
-            unset($_SESSION['initial_visit']);
-        }
-    }
-}
-add_action('template_redirect', 'fresh_visit_redirect');
-
 // JavaScript fallback in footer
 add_action('wp_footer', function() {
     if (!is_user_logged_in() && is_front_page()) {
@@ -159,3 +131,45 @@ function enqueue_lightbox_assets() {
     wp_enqueue_script( 'lightbox-js', get_template_directory_uri() . '/path-to/lightbox.js', array('jquery'), null, true );
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_lightbox_assets' );
+
+function enqueue_fancybox_assets() {
+    // Enqueue Fancybox CSS from a CDN.
+    wp_enqueue_style(
+        'fancybox-css',
+        'https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css',
+        array(),
+        '3.5.7'
+    );
+
+    // Enqueue Fancybox JS from a CDN.
+    wp_enqueue_script(
+        'fancybox-js',
+        'https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js',
+        array( 'jquery' ),
+        '3.5.7',
+        true
+    );
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_fancybox_assets' );
+
+function add_fancybox_to_images( $content ) {
+    // This pattern matches images that are not already wrapped in a link.
+    // It looks for an <img> tag that is optionally wrapped in a <p> tag.
+    $pattern = '/(<p>\s*)?(<img [^>]+src="([^"]+)"[^>]*>)(\s*<\/p>)?/i';
+
+    // The replacement wraps the image in an anchor linking to the image URL.
+    $replacement = '<a data-fancybox="gallery" href="$3">$2</a>';
+    
+    $content = preg_replace( $pattern, $replacement, $content );
+    return $content;
+}
+add_filter( 'the_content', 'add_fancybox_to_images' );
+
+function add_fancybox_to_linked_images( $content ) {
+    // This pattern finds <a> tags that link to an image file.
+    $pattern = '/<a(?![^>]*data-fancybox)([^>]+href="([^"]+\.(?:jpg|jpeg|png|gif))"[^>]*)>/i';
+    $replacement = '<a data-fancybox="gallery"$1>';
+    $content = preg_replace( $pattern, $replacement, $content );
+    return $content;
+}
+add_filter( 'the_content', 'add_fancybox_to_linked_images' );

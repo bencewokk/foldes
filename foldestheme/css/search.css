@@ -28,7 +28,7 @@
 ============================================================ */
 .tag-search form {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap; /* allow items to wrap on smaller screens */
     align-items: center;
     gap: 1rem;
     width: 100%;
@@ -53,12 +53,10 @@
 ============================================================ */
 .tag-search .input-group {
     position: relative;
-    flex: 1 1 auto;
-    margin-bottom: 0;
+    flex: 1 1 auto;  /* allow inputs to grow */
     min-width: 200px;
 }
 
-/* Text Inputs */
 .tag-search input[type="text"] {
     width: 100%;
     padding: 0.75rem 1rem;
@@ -74,7 +72,6 @@
     z-index: 1;
 }
 
-/* Select Dropdowns */
 .tag-search select {
     width: 100%;
     padding: 0.75rem 2.5rem 0.75rem 1rem;
@@ -127,54 +124,12 @@
 }
 
 /* ============================================================
-   Button Styles
-============================================================ */
-.tag-search button {
-    padding: 0.75rem 1.5rem;
-    background: linear-gradient(45deg, var(--secondary-color), #00b4d8);
-    color: var(--background-color);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: bold;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    position: relative;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    box-shadow: 0 2px 8px rgba(0, 180, 216, 0.3);
-    flex: none;
-}
-
-.tag-search button::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-    transition: 0.5s;
-}
-
-.tag-search button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 180, 216, 0.5);
-}
-
-.tag-search button:hover::before {
-    left: 100%;
-}
-
-/* ============================================================
-   Toggle Switch Components
+   Toggle Switch Components & Layout Toggle
 ============================================================ */
 .toggle-container {
     position: relative;
-    z-index: 1;
-    min-width: 220px;
-    margin-left: auto;
-    flex: none;
+    /* Removed margin-left: auto to keep items inline */
+    flex: 0 0 auto;
 }
 
 .toggle-switch-group {
@@ -221,7 +176,6 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Toggle States */
 .toggle-switch-input:checked + .toggle-switch-track {
     background: var(--highlight-blue, #4299e1);
 }
@@ -245,6 +199,59 @@
     white-space: nowrap;
 }
 
+/* Layout Toggle Styles */
+.layout-toggle {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.layout-toggle label {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+}
+
+/* ============================================================
+   Button Styles
+============================================================ */
+.tag-search button {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(45deg, var(--secondary-color), #00b4d8);
+    color: var(--background-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 180, 216, 0.3);
+    flex: 0 0 auto;
+}
+
+.tag-search button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: 0.5s;
+}
+
+.tag-search button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 180, 216, 0.5);
+}
+
+.tag-search button:hover::before {
+    left: 100%;
+}
+
 /* ============================================================
    Animations
 ============================================================ */
@@ -261,19 +268,24 @@
         flex-direction: column;
         gap: 1rem;
     }
-
+    
     .tag-search .input-group,
     .toggle-container,
+    .layout-toggle,
     .tag-search button {
         width: 100%;
-        margin-left: 0;
     }
-
+    
+    /* Reorder elements if needed on mobile */
     .toggle-container {
         order: 3;
     }
-
-    .tag-search button {
+    
+    .layout-toggle {
         order: 4;
+    }
+    
+    .tag-search button {
+        order: 5;
     }
 }

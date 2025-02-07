@@ -7,7 +7,8 @@ article {
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    width: 1000px;
+    /* Use max-width instead of fixed width */
+    max-width: 1000px;
     clear: both;
 }
 
@@ -70,17 +71,53 @@ article {
 
 .post-card {
     position: relative; /* Needed for badge positioning */
-    overflow: hidden; /* Keeps badge within card bounds */
+    overflow: hidden;   /* Keeps badge within card bounds */
+    background: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-/* Post title links */
-.post-title a,
-.post-title a:any-link,
-.post-title a:-webkit-any-link {
-    color: #333;
-    text-decoration: none;
+
+
+/* Grid View Styles */
+.post-container.grid-view {
+    display: grid;
+    padding-top: 20px;
+    /* Use auto-fill or auto-fit for responsive behavior */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    /* Constrain grid container to 1000px and center it */
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
 }
 
-.post-title a:hover {
-    color: #2871BD;
+/* List View Styles */
+.post-container.list-view {
+    display: block;
+    /* Constrain list view container to 1000px and center it */
+    max-width: 1000px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Override article styles for grid items to let them fill the grid cell */
+.post-container.grid-view article {
+    margin: 0;        /* Remove auto margins from articles in grid view */
+    max-width: none;  /* Allow grid items to fill available space */
+}
+
+
+/* H2 clickable title link styles */
+.post-header h2 a {
+    color: var(--background-color);               /* Base link color */
+    text-decoration: none;     /* Remove underline */
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+}
+
+.post-header h2 a:hover,
+.post-header h2 a:focus {
+    color: #2871BD;            /* Change color on hover/focus */
+    text-decoration: underline;/* Underline on hover/focus */
 }
