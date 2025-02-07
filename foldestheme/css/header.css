@@ -166,11 +166,27 @@ nav .custom-menu li a {
 
 
 .gtranslate_wrapper select {
-    width: 70px;
+    width: 80px;
     background: none;
     font-size: 0.9rem;
     color: var(--secondary-color);
     outline: none;
     border: none;
+    font-weight: bold;
 
+}
+
+.gtranslate_wrapper:hover {
+    cursor: pointer;
+    color: var(--highlight-color);
+}
+
+.gtranslate_wrapper select:focus {
+    border: 1px solid var(--highlight-color);
+    box-shadow: 0 0 5px var(--highlight-color);
+}
+
+.gtranslate_wrapper select option {
+    background: var(--background-color);
+    color: var(--secondary-color);
 }
