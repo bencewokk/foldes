@@ -1,89 +1,119 @@
 <?php
-require_once('wp-load.php');
-function upload_csv_to_wp($csv_file_path) {
-    if (!file_exists($csv_file_path) || !is_readable($csv_file_path)) {
-        echo "CSV file not found or unreadable.";
+/*
+Plugin Name: Competition Loader
+Description: Handles competition data loading at /loadverseny
+Version: 1.4
+*/
+
+// Main initialization
+function competition_loader_init() {
+    register_competition_components();
+    add_import_endpoint();
+    add_action('template_redirect', 'handle_csv_import');
+}
+add_action('init', 'competition_loader_init');
+
+// Register custom post type and taxonomy
+function register_competition_components() {
+    // Competition Entry post type
+    register_post_type('competition_entry', [
+        'labels' => [
+            'name' => __('Competition Entries'),
+            'singular_name' => __('Competition Entry'),
+        ],
+        'public' => true,
+        'has_archive' => true,
+        'rewrite' => ['slug' => 'competitions'],
+        'supports' => ['title', 'editor', 'custom-fields'],
+    ]);
+
+    // Competition Tags taxonomy
+    register_taxonomy('competition_tags', 'competition_entry', [
+        'label' => __('Competition Tags'),
+        'rewrite' => ['slug' => 'competition-tag'],
+        'hierarchical' => false,
+        'show_admin_column' => true,
+    ]);
+}
+
+// Add custom rewrite endpoint
+function add_import_endpoint() {
+    add_rewrite_endpoint('loadverseny', EP_ROOT);
+}
+
+// CSV import handler
+function handle_csv_import() {
+    global $wp_query;
+    
+    // Check for our specific endpoint
+    if (!isset($wp_query->query_vars['loadverseny'])) {
         return;
     }
 
-    $file_handle = fopen($csv_file_path, 'r');
-    $headers = fgetcsv($file_handle); // Skip header row
+    // Start output
+    ob_start();
+    echo "<h1>Competition Data Loader</h1><pre>\n";
 
-    while (($row = fgetcsv($file_handle)) !== false) {
-        // Check if the row has the correct number of columns
-        if (count($row) < 15) {
-            echo "Skipping row with missing columns: " . implode(', ', $row) . "\n";
-            continue; // Skip rows with insufficient data
-        }
-
-        // Map CSV columns to variables
-        list(
-            $targy, $verseny, $tipus, $iskolai, $varosi, $megyei, 
-            $regionalis, $oszagos, $nemzetkozi, $donto, $tanarok, 
-            $diak, $osztaly, $megjegyzes, $tanev
-        ) = $row;
-
-        // Collect helyezés tags (Only add if there is content)
-        $helyezes_tags = [];
-        if (!empty($iskolai) && $iskolai != 'tovább') $helyezes_tags[] = 'Iskolai';
-        if (!empty($varosi) && $varosi != 'tovább') $helyezes_tags[] = 'Varosi';
-        if (!empty($megyei) && $megyei != 'tovább') $helyezes_tags[] = 'Megyei';
-        if (!empty($regionalis) && $regionalis != 'tovább') $helyezes_tags[] = 'Regionalis';
-        if (!empty($oszagos) && $oszagos != 'tovább') $helyezes_tags[] = 'Oszagos';
-        if (!empty($nemzetkozi) && $nemzetkozi != 'tovább') $helyezes_tags[] = 'Nemzetkozi';
-
-        // Add döntő tag if exists and not empty
-        $donto_tag = ($donto !== '' && $donto != 'tovább') ? "Donto$donto" : '';
-
-        // Combine tags
-        $helyezes_tag_combined = implode('', $helyezes_tags);
-        if ($tipus) $helyezes_tag_combined .= " ($tipus)";
-        if ($donto_tag) $helyezes_tag_combined .= " $donto_tag";
-
-        // Create post content
-        $post_title = "$diak - $verseny";
-        
-        // Build post content with fallbacks if variables are empty
-        $post_content = "$diak ($osztaly) részt vett a $verseny versenyen";
-        if ($tipus) $post_content .= " ($tipus)";
-        $post_content .= ", vezető tanár: $tanarok a $tanev tanévben. Megjegyzések: $megjegyzes.";
-
-        // Create WordPress post
-        $post_id = wp_insert_post([
-            'post_title'   => $post_title,
-            'post_content' => $post_content,
-            'post_status'  => 'publish',
-            'post_type'    => 'post',
-            'post_author'  => 1
-        ]);
-
-        if ($post_id) {
-            // Prepare tags array, ensure we have relevant tags
-            $tag_array = array_filter(array_merge(
-                array_map('trim', [$targy, $verseny, $tipus, $tanarok, $tanev, $diak, $osztaly]),
-                [$helyezes_tag_combined],
-                $donto_tag ? [$donto_tag] : []
-            ));
-
-            // Ensure tags are always added
-            if (!empty($tag_array)) {
-                wp_set_post_tags($post_id, $tag_array);
-            } else {
-                wp_set_post_tags($post_id, 'No Tags');
-            }
-
-            echo "Post created: $post_id ($post_title)\n";
-        } else {
-            echo "Error creating post for: $diak\n";
-        }
+    // Authorization check
+    if (!current_user_can('manage_options')) {
+        wp_die('🚫 Access denied! Administrator required.');
     }
 
-    fclose($file_handle);
+    // File path - adjust if needed
+    $csv_path = 'E:\letoltes\wordpress\filteredtest.csv';
+    echo "📂 Loading: " . esc_html($csv_path) . "\n\n";
+
+    if (!file_exists($csv_path)) {
+        wp_die("❌ Error: File not found!");
+    }
+
+    // Process CSV
+    try {
+        $handle = fopen($csv_path, "r");
+        fgetcsv($handle); // Skip header
+        
+        $count = 0;
+        while ($data = fgetcsv($handle)) {
+            echo "Processing: " . esc_html($data[0]) . "... ";
+            
+            // Create post
+            $post_id = wp_insert_post([
+                'post_title'   => sanitize_text_field($data[0] . ' - ' . $data[11]),
+                'post_content' => sprintf(
+                    "Tanár: %s\nDiák: %s\nOsztály: %s\nMegjegyzés: %s",
+                    sanitize_text_field($data[10]),
+                    sanitize_text_field($data[11]),
+                    sanitize_text_field($data[12]),
+                    sanitize_text_field($data[13])
+                ),
+                'post_type'    => 'competition_entry',
+                'post_status'  => 'publish',
+            ]);
+
+            if (!is_wp_error($post_id)) {
+                echo "✅ Created ID: $post_id\n";
+                $count++;
+            } else {
+                echo "❌ Error: " . esc_html($post_id->get_error_message()) . "\n";
+            }
+        }
+        
+        echo "\n✨ Complete! Imported $count entries.";
+        
+    } finally {
+        fclose($handle);
+        $output = ob_get_clean();
+        wp_die($output, 'Import Results');
+    }
 }
 
+// Activation setup
+function competition_loader_activate() {
+    flush_rewrite_rules();
+}
+register_activation_hook(__FILE__, 'competition_loader_activate');
 
-
-
-// Set your CSV path
-$csv_file_path = 'C:\Users\bence\Desktop\foldes\filteredtest.xlsx';
-upload_csv_to_wp($csv_file_path);
+function competition_loader_deactivate() {
+    flush_rewrite_rules();
+}
+register_deactivation_hook(__FILE__, 'competition_loader_deactivate');

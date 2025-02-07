@@ -19,6 +19,7 @@ function foldestheme_enqueue_styles() {
     wp_enqueue_style( 'foldestheme-layout', get_template_directory_uri() . '/css/layout.css' );
     wp_enqueue_style( 'foldestheme-posts', get_template_directory_uri() . '/css/posts.css' );
     wp_enqueue_style( 'foldestheme-iskolankrol', get_template_directory_uri() . '/css/iskolankrol.css' );
+    wp_enqueue_style( 'foldestheme-verseny', get_template_directory_uri() . '/css/verseny.css' );
     wp_enqueue_style( 'foldestheme-tablo', get_template_directory_uri() . '/css/tablo.css' );
     
 
@@ -173,3 +174,15 @@ function add_fancybox_to_linked_images( $content ) {
     return $content;
 }
 add_filter( 'the_content', 'add_fancybox_to_linked_images' );
+
+// Add competition entry linking
+function competition_entry_links($content) {
+    if(is_singular('competition_entry')) {
+        $archive_link = '<div class="competition-archive-link">
+            <a href="'.home_url('/versenyek/').'">← Back to all competitions</a>
+        </div>';
+        return $content . $archive_link;
+    }
+    return $content;
+}
+add_filter('the_content', 'competition_entry_links');

@@ -164,20 +164,13 @@ nav .custom-menu li a {
     text-decoration: none;
 }
 
-/* filepath: /c:/Users/bence/Desktop/foldes/foldestheme/style.css */
-.gtranslate_wrapper {
-    display: inline-block;
-    margin-top: 10px;
-    margin-left: 15px;
-    padding: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-}
 
 .gtranslate_wrapper select {
-    border: none;
+    width: 70px;
     background: none;
-    font-size: 14px;
-    color: #333;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    outline: none;
+    border: none;
+
 }

@@ -15,12 +15,14 @@
         <nav id="main-navigation">
             <ul class="custom-menu">
                 <li><a href="<?php echo esc_url(home_url('/')); ?>">Otthon</a></li>
-                <li><a href="<?php echo esc_url(home_url('/iskolankrol')); ?>">Iskolánkról</a></li>
-                <li><a href="<?php echo esc_url(home_url('/diakoknak')); ?>">Diákoknak</a></li>
                 <li><a href="<?php echo esc_url(home_url('/szuloknek')); ?>">Szülőknek</a></li>
                 <li><a href="<?php echo esc_url(home_url('/tanaraink')); ?>">Tanáraink</a></li>
                 <li><a href="<?php echo esc_url(home_url('/osztalyaink')); ?>">Osztályaink</a></li>
                 <li><a href="<?php echo esc_url(home_url('/tablok')); ?>">Tablók</a></li>
+                <li><a href="<?php echo esc_url(home_url('/versenyek')); ?>">Versenyek</a></li>
+                <li><a href="<?php echo esc_url(home_url('/iskolankrol')); ?>">Iskolánkról</a></li>
+                <li><a href="<?php echo esc_url(home_url('/diakoknak')); ?>">Diákoknak</a></li>
+
                 <div class="gtranslate_wrapper">
                     <?php echo do_shortcode('[gtranslate]'); ?> 
                 </div>
