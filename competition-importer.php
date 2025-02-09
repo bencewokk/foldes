@@ -2,7 +2,7 @@
 /*
 Plugin Name: Competition Loader with Tags
 Description: Handles competition data loading with proper tagging
-Version: 1.6
+Version: 1.7
 */
 
 // Main initialization
@@ -57,7 +57,7 @@ function handle_csv_import() {
         wp_die('🚫 Access denied! Administrator required.');
     }
 
-    $csv_path = 'E:\letoltes\wordpress\filteredtest.csv';
+    $csv_path = 'E:\letoltes\wordpress\filtered_FFG_versenyek_osszegyujtott.csv';
     echo "📂 File: " . esc_html($csv_path) . "\n\n";
 
     if (!file_exists($csv_path)) {
@@ -102,7 +102,7 @@ function handle_csv_import() {
             $tags[] = 'Típus: ' . $data[2];
             $tags[] = 'Tanév: ' . $data[14];
             
-            // Level tags
+            // Level tags and find best position
             $levels = [
                 3 => 'Iskolai',
                 4 => 'Városi',
@@ -112,10 +112,61 @@ function handle_csv_import() {
                 8 => 'Nemzetközi'
             ];
             
+            $best_position = null;
+            $best_level = null;
+            $position_text = '';
+            
             foreach ($levels as $index => $label) {
                 if (!empty($data[$index])) {
-                    $tags[] = $label . ' Szint: ' . $data[$index];
+                    $position = trim($data[$index]);
+                    $tags[] = $label . ' Szint: ' . $position;
+                    
+                    // Special case handling
+                    $lower_pos = strtolower($position);
+                    
+                    // Handle numeric positions
+                    if (preg_match('/(\d+)/', $position, $matches)) {
+                        $current_position = intval($matches[1]);
+                        
+                        // Check if this is an improvement over current best
+                        $is_better = false;
+                        if ($best_position === null) {
+                            $is_better = true;
+                        } else if ($label === 'Országos' || $label === 'Nemzetközi') {
+                            $is_better = true; // Always prefer national/international results
+                        } else if ($best_level === $label && $current_position < $best_position) {
+                            $is_better = true;
+                        }
+                        
+                        if ($is_better) {
+                            $best_position = $current_position;
+                            $best_level = $label;
+                            $position_text = $label . ' ' . $current_position . '.';
+                        }
+                    }
+                    // Handle special text cases
+                    else if (strpos($lower_pos, 'döntő') !== false || 
+                             strpos($lower_pos, 'döntőbe jutott') !== false) {
+                        if ($best_position === null || $label === 'Országos' || $label === 'Nemzetközi') {
+                            $position_text = $label . ' döntős';
+                            $best_level = $label;
+                            $best_position = 0; // To ensure it's considered better than numeric positions
+                        }
+                    }
+                    else if (strpos($lower_pos, 'tovább') !== false || 
+                             strpos($lower_pos, 'fordulóba jutott') !== false) {
+                        if ($best_position === null) {
+                            $position_text = $label . ' továbbjutott';
+                            $best_level = $label;
+                            $best_position = 999; // Lower priority than numeric positions
+                        }
+                    }
                 }
+            }
+            
+            // Add best position tag if found
+            if ($position_text) {
+                $tags[] = 'Legjobb helyezés: ' . $position_text;
             }
             
             // Teacher tags
@@ -126,11 +177,9 @@ function handle_csv_import() {
                 }
             }
             
-            // Class tag
+            // Class and student tags
             $tags[] = 'Osztály: ' . $data[12];
-            
-            // Diák tag
-            $tags[] = 'Diák: ' . $data[11]; // Add Diák tag
+            $tags[] = 'Diák: ' . $data[11];
             
             // Debug tags
             echo "🏷️ Tags to add:\n";

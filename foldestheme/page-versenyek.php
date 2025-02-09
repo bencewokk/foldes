@@ -16,7 +16,6 @@ get_header();
             <input type="text" id="tag-search-input" name="search" placeholder="Search in tags..." value="<?php echo isset($_GET['search']) ? esc_attr($_GET['search']) : ''; ?>">
             <label for="tag-search-input">Keress rá bármire...</label>
         </div>
-        <!-- Add other form elements like select, toggle, etc., here -->
         <button type="submit">Search</button>
     </form>
 </div>
@@ -25,6 +24,52 @@ get_header();
     <h1 class="versenyek-title">Versenyek</h1>
 
     <?php
+    // Helper function to get position weight
+    function get_position_weight($helyezes) {
+        // Define level weights (higher = more important)
+        $level_weights = [
+            'nemzetközi' => 2000000,
+            'országos' => 3000000,
+            'regionális' => 4000000,
+            'megyei' => 5000000,
+            'városi' => 6000000,
+            'iskolai' => 7000000
+        ];
+
+        // Initialize weight
+        $weight = 0;
+        $helyezes = mb_strtolower($helyezes); // Convert to lowercase for comparison
+
+        // Check for empty value
+        if (empty($helyezes)) {
+            return 0;
+        }
+
+        // Check each level
+        foreach ($level_weights as $level => $base_weight) {
+            if (mb_strpos($helyezes, $level) !== false) {
+                $weight = $base_weight;
+                break;
+            }
+        }
+
+        // Extract numeric position if exists
+        if (preg_match('/(\d+)/', $helyezes, $matches)) {
+            // Subtract position to sort within same level (lower number = higher rank)
+            // Using 10000 as buffer to handle positions up to 9999
+            $weight -= intval($matches[1]);
+        } else {
+            // Handle special cases
+            if (mb_strpos($helyezes, 'döntős') !== false) {
+                $weight -= 10; // Place after numbered positions
+            } else if (mb_strpos($helyezes, 'továbbjutott') !== false) {
+                $weight -= 9000; // Place near end of level
+            }
+        }
+
+        return $weight;
+    }
+
     // Get search term from URL
     $search_term = isset($_GET['search']) ? sanitize_text_field($_GET['search']) : '';
 
@@ -52,10 +97,12 @@ get_header();
                 'osztaly' => '',
                 'tanev' => '',
                 'szint' => '',
-                'tanar' => ''
+                'tanar' => '',
+                'legjobb_helyezes' => '',
+                'helyezes_weight' => 0  // New field for sorting
             );
 
-            $match_found = false; // Flag to check if the entry matches the search term
+            $match_found = false;
 
             // Parse tags
             $tags = get_the_terms(get_the_ID(), 'competition_tags');
@@ -69,6 +116,10 @@ get_header();
                             case 'Verseny': $entry['verseny'] = $parts[1]; break;
                             case 'Osztály': $entry['osztaly'] = $parts[1]; break;
                             case 'Tanév': $entry['tanev'] = $parts[1]; break;
+                            case 'Legjobb helyezés': 
+                                $entry['legjobb_helyezes'] = $parts[1];
+                                $entry['helyezes_weight'] = get_position_weight($parts[1]);
+                                break;
                             case 'Megyei Szint':
                             case 'Országos Szint':
                             case 'Nemzetközi Szint': 
@@ -77,7 +128,6 @@ get_header();
                             case 'Tanár': $entry['tanar'] = $parts[1]; break;
                         }
 
-                        // Check if the tag matches the search term
                         if (stripos($tag->name, $search_term) !== false) {
                             $match_found = true;
                         }
@@ -85,7 +135,6 @@ get_header();
                 }
             }
 
-            // Only add the entry if it matches the search term
             if ($match_found || empty($search_term)) {
                 $entries[] = $entry;
             }
@@ -93,8 +142,14 @@ get_header();
         
         // Sort entries
         usort($entries, function($a, $b) use ($sort, $order) {
-            $cmp = strnatcasecmp($a[$sort], $b[$sort]);
-            return ($order === 'asc') ? $cmp : -$cmp;
+            if ($sort === 'legjobb_helyezes') {
+                // Special sorting for positions
+                $cmp = $b['helyezes_weight'] - $a['helyezes_weight']; // Higher weight first
+                return ($order === 'asc') ? -$cmp : $cmp;
+            } else {
+                $cmp = strnatcasecmp($a[$sort], $b[$sort]);
+                return ($order === 'asc') ? $cmp : -$cmp;
+            }
         });
     }
     ?>
@@ -110,6 +165,7 @@ get_header();
                         'verseny' => 'Verseny',
                         'osztaly' => 'Osztály',
                         'tanev' => 'Tanév',
+                        'legjobb_helyezes' => 'Legjobb helyezés',
                         'tanar' => 'Tanár'
                     );
                     
@@ -133,6 +189,7 @@ get_header();
                         <td><?php echo esc_html($entry['verseny']); ?></td>
                         <td><?php echo esc_html($entry['osztaly']); ?></td>
                         <td><?php echo esc_html($entry['tanev']); ?></td>
+                        <td><?php echo esc_html($entry['legjobb_helyezes']); ?></td>
                         <td><?php echo esc_html($entry['tanar']); ?></td>
                     </tr>
                 <?php endforeach; ?>
