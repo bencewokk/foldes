@@ -1,5 +1,5 @@
 /* ============================================================
-   Tag Search Container & Background Effects
+    Tag Search Container & Background Effects
 ============================================================ */
 .tag-search {
     background: linear-gradient(135deg, var(--primary-color), #1a1a2e);
@@ -24,7 +24,7 @@
 }
 
 /* ============================================================
-   Form Layout & Interaction
+    Form Layout & Interaction
 ============================================================ */
 .tag-search form {
     display: flex;
@@ -49,7 +49,7 @@
 }
 
 /* ============================================================
-   Input & Select Elements
+    Input & Select Elements
 ============================================================ */
 .tag-search .input-group {
     position: relative;
@@ -94,7 +94,7 @@
 }
 
 /* ============================================================
-   Floating Labels
+    Floating Labels
 ============================================================ */
 .input-group label {
     position: absolute;
@@ -124,7 +124,7 @@
 }
 
 /* ============================================================
-   Toggle Switch Components & Layout Toggle
+    Toggle Switch Components & Layout Toggle
 ============================================================ */
 .toggle-container {
     position: relative;
@@ -213,7 +213,7 @@
 }
 
 /* ============================================================
-   Button Styles
+    Button Styles
 ============================================================ */
 .tag-search button {
     padding: 0.75rem 1.5rem;
@@ -253,7 +253,7 @@
 }
 
 /* ============================================================
-   Animations
+    Animations
 ============================================================ */
 @keyframes shimmer {
     0% { transform: rotate(45deg) translateX(-50%); }
@@ -261,7 +261,7 @@
 }
 
 /* ============================================================
-   Responsive Design
+    Responsive Design
 ============================================================ */
 @media (max-width: 768px) {
     .tag-search form {
@@ -288,4 +288,118 @@
     .tag-search button {
         order: 5;
     }
+}
+
+/* ============================================================
+    Year Filter Container
+============================================================ */
+.year-filter {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+}
+
+.year-filter .input-group {
+    position: relative;
+    flex: 1;
+    min-width: 120px;
+}
+
+.year-filter input[type="number"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 0.9rem;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--background-color);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1;
+}
+
+.year-filter input[type="number"]:focus {
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+.year-filter input[type="number"]::placeholder {
+    color: transparent;
+    opacity: 0;
+}
+
+/* Floating Label Styles for Year Filter */
+.year-filter .input-group label {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    z-index: 2;
+}
+
+.year-filter .input-group input:focus ~ label,
+.year-filter .input-group input:not(:placeholder-shown) ~ label {
+    top: -10px;
+    left: 0.8rem;
+    font-size: 0.75rem;
+    color: var(--highlight-color);
+    padding: 0 0.3rem;
+}
+
+/* Remove number input arrows */
+.year-filter input[type="number"]::-webkit-inner-spin-button,
+.year-filter input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.year-filter input[type="number"] {
+    appearance: textfield;
+    -moz-appearance: textfield;
+}
+
+/* Responsive Design for Year Filter */
+@media (max-width: 768px) {
+    .year-filter {
+        width: 100%;
+    }
+}
+
+/* ============================================================
+    New: Search & Year Filter in One Row
+============================================================ */
+.search-year-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    flex-wrap: nowrap; /* Prevent items from wrapping into a new row */
+}
+
+/* Let the search input group expand */
+.search-year-row .search-group {
+    flex: 1;
+}
+
+/* Keep the year filter items inline and flexible */
+.search-year-row .year-filter {
+    display: flex;
+    gap: 1rem;
+    flex: 1;
+}
+
+.year-filter .input-group {
+    flex: 1;
+}
+
+/* Make the submit button expand and use all available space */
+.search-year-row button {
+    flex: 1 1 auto;
 }

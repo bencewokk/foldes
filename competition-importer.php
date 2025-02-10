@@ -57,7 +57,7 @@ function handle_csv_import() {
         wp_die('🚫 Access denied! Administrator required.');
     }
 
-    $csv_path = 'E:\letoltes\wordpress\filtered_FFG_versenyek_osszegyujtott.csv';
+    $csv_path = 'C:\Users\bence\Desktop\foldes\filtered_FFG_versenyek_osszegyujtott.csv';
     echo "📂 File: " . esc_html($csv_path) . "\n\n";
 
     if (!file_exists($csv_path)) {

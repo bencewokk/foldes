@@ -33,14 +33,29 @@ get_header();
                     </select>
                 </div>
 
-                <!-- Toggle Switch -->
+                <!-- Year Filter -->
+                <div class="year-filter">
+                    <div class="input-group">
+                        <input type="number" id="from-year" name="from_year" placeholder=" " value="<?php echo isset($_GET['from_year']) ? intval($_GET['from_year']) : ''; ?>">
+                        <label for="from-year">Évtől</label>
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="to-year" name="to_year" placeholder=" " value="<?php echo isset($_GET['to_year']) ? intval($_GET['to_year']) : ''; ?>">
+                        <label for="to-year">Évig</label>
+                    </div>
+                </div>
+
+                <!-- Toggle Switch (Fontos hírek elől) -->
                 <div class="toggle-container">
                     <label class="toggle-switch-group">
                         <div class="toggle-switch-wrapper">
                             <?php
-                            // Set the toggle to true by default if not provided in GET parameters.
-                            $fontos_toggle = isset($_GET['fontos_toggle']) ? $_GET['fontos_toggle'] === '1' : true;
+                            // By default, we want the toggle to be ON.
+                            // If the GET parameter exists, check its value.
+                            $fontos_toggle = isset($_GET['fontos_toggle']) ? ($_GET['fontos_toggle'] === '1') : true;
                             ?>
+                            <!-- Hidden input ensures a value is sent when unchecked -->
+                            <input type="hidden" name="fontos_toggle" value="0">
                             <input type="checkbox" class="toggle-switch-input" name="fontos_toggle" value="1" <?php checked( $fontos_toggle ); ?>>
                             <div class="toggle-switch-track">
                                 <div class="toggle-switch-thumb"></div>
@@ -58,11 +73,13 @@ get_header();
         </div>
 
         <?php
-        $order = isset($_GET['order']) ? sanitize_text_field( $_GET['order'] ) : 'DESC';
-        $tag   = isset($_GET['tag']) ? sanitize_text_field( $_GET['tag'] ) : '';
+        // Get query variables from the form.
+        $order  = isset($_GET['order'])  ? sanitize_text_field( $_GET['order'] )  : 'DESC';
+        $tag    = isset($_GET['tag'])    ? sanitize_text_field( $_GET['tag'] )    : '';
         // $fontos_toggle is already set above.
         $layout = isset($_GET['layout']) ? sanitize_text_field( $_GET['layout'] ) : 'list';
 
+        // Build the basic query arguments.
         $query_args = array_merge( $wp_query->query_vars, array(
             'order'         => $order,
             's'             => $tag,
@@ -70,6 +87,30 @@ get_header();
             'tag_operator'  => 'AND',
         ));
 
+        // Add date query if at least one year is provided.
+        $from_year = isset($_GET['from_year']) && !empty($_GET['from_year']) ? intval($_GET['from_year']) : null;
+        $to_year   = isset($_GET['to_year'])   && !empty($_GET['to_year'])   ? intval($_GET['to_year'])   : null;
+
+        if ( $from_year || $to_year ) {
+            $date_query = array();
+            if ( $from_year ) {
+                $date_query['after'] = array(
+                    'year'  => $from_year,
+                    'month' => 1,
+                    'day'   => 1,
+                );
+            }
+            if ( $to_year ) {
+                $date_query['before'] = array(
+                    'year'  => $to_year,
+                    'month' => 12,
+                    'day'   => 31,
+                );
+            }
+            $query_args['date_query'] = array( $date_query );
+        }
+
+        // Apply the 'fontos' filter if the toggle is on.
         if ( $fontos_toggle ) {
             add_filter( 'posts_clauses', function ( $clauses ) {
                 global $wpdb;
