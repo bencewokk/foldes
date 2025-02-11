@@ -29,16 +29,16 @@
         <div class="gtranslate_wrapper">
             <?php echo do_shortcode('[gtranslate]'); ?> 
         </div>
+    </nav>
+    
+    <!-- Lower navigation with updated classes -->
+    <nav class="secondary-nav">
         <button id="lower-nav-toggle" aria-expanded="false" aria-label="Toggle lower navigation">
             <svg viewBox="0 0 24 24">
                 <path d="M7 10l5 5 5-5z"/>
             </svg>
         </button>
-    </nav>
-    
-    <!-- Lower nav -->
-    <nav id="lower-navigation">
-        <div class="lower-nav-content">
+        <div class="secondary-nav__content">
             <div class="nav-section">
                 <h3>Iskolai Élet</h3>
                 <ul>

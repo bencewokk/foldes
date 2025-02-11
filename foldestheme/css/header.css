@@ -9,7 +9,7 @@ header {
     background: linear-gradient(
         135deg,
         var(--primary-color) 0%,
-        #1a1a2e 100%
+        var(--text-color) 100%
     );
     color: var(--background-color);
     padding: 20px 0;
@@ -85,13 +85,14 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, var(--primary-color) 0%, #1a1a2e 100%);
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--text-color) 100%);
     padding: 10px 20px;
     border-radius: 0 0 4px 4px;
     gap: 15px;
     width: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+
 /* ----------------------------
    Navigation Links 
 ---------------------------- */
@@ -104,29 +105,24 @@ nav a {
     font-weight: bold;
     transition: all 0.3s ease;
     position: relative;
+    overflow: hidden; /* Ensures the pseudo-element is contained */
 }
 
-nav a:hover {
-    color: var(--highlight-color);
-    text-decoration: none;
-    background: var(--highlight-color);
-}
-
+/* Animated underline effect */
 nav a::after {
     content: '';
     position: absolute;
-    bottom: -5px;
-    left: 50%;
-    transform: translateX(-50%);
-    height: 2px;
+    bottom: 0;
+    left: 0;
     width: 0;
-    background: var(--highlight-color);
+    height: 2px;
+    background: var(--highlight-color) !important;
     transition: width 0.3s ease;
-    text-decoration: none;
+    z-index: 1; /* Ensures the line appears above other elements */
 }
 
 nav a:hover::after {
-    width: 70%;
+    width: 100%; /* Expands the underline on hover */
 }
 
 /* ----------------------------
@@ -158,11 +154,6 @@ nav .custom-menu li img {
     height: auto;
 }
 
-nav .custom-menu li a {
-    font-size: 0.95rem;
-    padding: 8px 12px;
-    text-decoration: none;
-}
 
 .gtranslate_wrapper select {
     width: 80px;
@@ -187,111 +178,4 @@ nav .custom-menu li a {
 .gtranslate_wrapper select option {
     background: var(--background-color);
     color: var(--secondary-color);
-}
-/* Toggle Button */
-#lower-nav-toggle {
-    position: absolute; /* Changed from fixed */
-    right: 20px;
-    top: 10px; /* Reduced to fit within nav height */
-    z-index: 1001;
-    background: linear-gradient(
-        135deg,
-        var(--primary-color) 0%,
-        #1a1a2e 100%
-    );
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-}
-
-#lower-nav-toggle.rotated {
-    transform: rotate(180deg);
-}
-
-#lower-nav-toggle svg {
-    width: 20px;
-    height: 20px;
-    fill: var(--background-color);
-}
-
-/* Navigation Container */
-.nav-container {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    background: linear-gradient(135deg, var(--primary-color) 0%, #1a1a2e 100%);
-}
-
-/* Lower Navigation */
-#lower-navigation {
-    height: 0;
-    overflow: hidden;
-    width: 100%;
-    background: linear-gradient(
-        135deg,
-        var(--primary-color) 0%,
-        #0c0c16 100%
-    );
-    transition: height 0.3s ease;
-}
-
-#lower-navigation.expanded {
-    height: auto;
-    min-height: 200px; /* Adjust based on your content */
-}
-
-.lower-nav-content {
-    max-width: var(--container-width, 1000px);
-    margin: 0 auto;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-#lower-navigation.expanded .lower-nav-content {
-    opacity: 1;
-}
-
-.nav-section {
-    padding: 15px;
-}
-
-.nav-section h3 {
-    color: var(--secondary-color);
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-    padding-bottom: 5px;
-    border-bottom: 2px solid var(--highlight-color);
-}
-
-.nav-section ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.nav-section ul li {
-    margin-bottom: 8px;
-}
-
-.nav-section ul li a {
-    color: var(--background-color);
-    text-decoration: none;
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
-}
-
-.nav-section ul li a:hover {
-    color: var(--highlight-color);
 }

@@ -50,7 +50,7 @@ a:-webkit-any-link {
 a:hover,
 a:any-link:hover,
 a:-webkit-any-link:hover {
-    color: #1B4C7E;
+    color: #48a0f8;
     text-decoration: underline;
 }
 

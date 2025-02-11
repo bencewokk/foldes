@@ -48,8 +48,8 @@ article {
     position: absolute;
     top: 10px;
     right: -10px;
-    background: #ff4757;
-    color: white;
+    background: var(--highlight-color);
+    color: var(--white);
     padding: 5px 15px;
     font-size: 0.8em;
     font-weight: bold;
@@ -64,7 +64,7 @@ article {
     right: 0;
     bottom: -10px;
     border-left: 10px solid transparent;
-    border-right: 10px solid #b33a45;
+    border-right: 10px solid var(--highlight-color);
     border-top: 10px solid transparent;
     border-bottom: 10px solid transparent;
 }
@@ -72,13 +72,11 @@ article {
 .post-card {
     position: relative; /* Needed for badge positioning */
     overflow: hidden;   /* Keeps badge within card bounds */
-    background: #f9f9f9;
+    background: var(--background-color);
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
-
-
 
 /* Grid View Styles */
 .post-container.grid-view {
@@ -108,7 +106,6 @@ article {
     max-width: none;  /* Allow grid items to fill available space */
 }
 
-
 /* H2 clickable title link styles */
 .post-header h2 a {
     color: var(--background-color);               /* Base link color */
@@ -118,6 +115,6 @@ article {
 
 .post-header h2 a:hover,
 .post-header h2 a:focus {
-    color: #2871BD;            /* Change color on hover/focus */
+    color: var(--secondary-color);            /* Change color on hover/focus */
     text-decoration: underline;/* Underline on hover/focus */
 }
