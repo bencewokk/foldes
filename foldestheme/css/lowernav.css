@@ -1,109 +1,140 @@
-/* Toggle Button */
+/* ============================================================
+   LOWER NAVIGATION STYLES - TIGHT & 1000px CONSTRAINED
+============================================================ */
+
+/* ----------------------------
+   Hamburger Toggle Button - Centered
+---------------------------- */
 #lower-nav-toggle {
     position: absolute;
-    right: 20px;
-    z-index: 1001;
+    bottom: -20px; /* Position below the main nav */
+    left: 50%;
+    transform: translateX(-50%);
     background: var(--primary-color);
-    border: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
     border-radius: 50%;
-    width: 30px;
-    height: 30px;
+    width: 40px;
+    height: 40px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease, top 0.3s ease, bottom 0.3s ease;
+    padding: 0;
+    transition: all 0.3s ease;
+    z-index: 100;
+}
+  
+#lower-nav-toggle:hover {
+background: var(--highlight-color);
+border-color: rgba(255, 255, 255, 0.4);
+transform: translateX(-50%) scale(1.1);
 }
 
-/* When the navigation is closed, position the button above the nav */
-#lower-navigation:not(.expanded) #lower-nav-toggle {
-    top: -15px; /* Adjust as needed */
+#lower-nav-toggle:active {
+transform: translateX(-50%) scale(0.95);
 }
 
-/* When the navigation is expanded, position the button at the bottom */
-#lower-navigation.expanded #lower-nav-toggle {
-    bottom: -15px; /* Adjust as needed */
+/* Hamburger icon */
+#lower-nav-toggle .hamburger {
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+width: 20px;
+height: 14px;
 }
 
-#lower-nav-toggle.rotated {
-    transform: rotate(180deg);
+#lower-nav-toggle .hamburger span {
+display: block;
+width: 100%;
+height: 2px;
+background: white;
+transition: all 0.3s ease;
+transform-origin: center;
 }
 
-#lower-nav-toggle svg {
-    width: 20px;
-    height: 20px;
-    fill: var(--background-color);
+/* Transform to X when expanded */
+#lower-nav-toggle.rotated .hamburger span:nth-child(1) {
+transform: translateY(6px) rotate(45deg);
 }
 
-/* Navigation Container */
-.nav-container {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    width: 100%;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--text-color) 100%);
+#lower-nav-toggle.rotated .hamburger span:nth-child(2) {
+opacity: 0;
 }
 
-/* Lower Navigation */
-#lower-navigation {
-    position: relative; /* Ensure the toggle button positions relative to this container */
-    height: 0;
+#lower-nav-toggle.rotated .hamburger span:nth-child(3) {
+transform: translateY(-6px) rotate(-45deg);
+}
+  /* ----------------------------
+     Lower Navigation Content 
+  ---------------------------- */
+  .secondary-nav__content {
+    width: 1000px;         /* Constrained width */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;              /* Reduced gap for a tighter layout */
     overflow: hidden;
-    width: 100%;
-    background: rgba(26, 26, 46, 0.98);
-    transition: height 0.3s ease;
-}
-
-#lower-navigation.expanded {
-    height: auto;
-    min-height: 200px; /* Adjust based on your content */
-}
-
-.lower-nav-content {
-    max-width: var(--container-width, 1000px);
-    margin: 0 auto;
-    padding: 20px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 20px;
-    opacity: 0;
-    transition: opacity 0.2s ease;
-}
-
-#lower-navigation.expanded .lower-nav-content {
-    opacity: 1;
-}
-
-.nav-section {
-    padding: 15px;
-}
-
-.nav-section h3 {
-    color: var(--secondary-color);
-    font-size: 1.1rem;
+    max-height: 0;
+    transition: max-height 0.5s ease-out;
+    will-change: max-height;
     margin-bottom: 10px;
-    padding-bottom: 5px;
+  }
+  
+  /* Expanded state */
+  #lower-navigation.expanded .secondary-nav__content {
+    max-height: 500px; /* Adjust as needed for your content */
+  }
+  
+  /* ----------------------------
+     Navigation Sections 
+  ---------------------------- */
+  .nav-section {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .nav-section h3 {
+    color: var(--secondary-color, #333);
+    font-size: 1.2rem;
+    margin-bottom: 8px;     /* Tighter spacing */
+    padding-bottom: 4px;
     border-bottom: 2px solid var(--highlight-color);
-}
-
-.nav-section ul {
+  }
+  
+  .nav-section ul {
     list-style: none;
     padding: 0;
     margin: 0;
-}
+    width: 100%;
+  }
+  
 
-.nav-section ul li {
-    margin-bottom: 8px;
-}
-
-.nav-section ul li a {
-    color: var(--background-color);
+  
+  .nav-section ul li a {
+    display: block;
+    color: var(--secondary-color, #333);
+    font-size: 0.95rem;     /* Slightly smaller font size */
     text-decoration: none;
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
-}
-
-.nav-section ul li a:hover {
-    color: var(--highlight-color);
-}
+    padding: 6px 10px;      /* Tighter padding */
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-align: center;
+  }
+  
+  .nav-section ul li a:hover,
+  .nav-section ul li a:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--highlight-color, #f39c12);
+  }
+  
+  /* ----------------------------
+     Responsive Adjustments 
+  ---------------------------- */
+  @media (max-width: 768px) {
+    .secondary-nav__content {
+      flex-direction: column;
+    }
+  }
+  

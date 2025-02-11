@@ -6,12 +6,8 @@
    Base Header Styles 
 ---------------------------- */
 header {
-    background: linear-gradient(
-        135deg,
-        var(--primary-color) 0%,
-        var(--text-color) 100%
-    );
-    color: var(--background-color);
+    background: linear-gradient(135deg, var(--primary-color), #1a1a2e);
+    color: var(--secondary-color);
     padding: 20px 0;
     display: flex;
     justify-content: center;
@@ -28,6 +24,8 @@ header .container {
     max-width: var(--container-width, 1000px);
     width: 100%;
 }
+
+
 
 /* ----------------------------
    Banner Container 
@@ -59,7 +57,7 @@ header .container {
 .est-badge {
     font-family: 'Times New Roman', serif;
     font-size: 0.9rem;
-    color: var(--background-color);
+    color: var(--badge-color);
     letter-spacing: 2px;
     padding: 8px 15px;
     border: 2px solid;
@@ -85,12 +83,19 @@ nav {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, var(--primary-color) 0%, var(--text-color) 100%);
+    background: linear-gradient(135deg, var(--primary-color), #1a1a2e);
+
     padding: 10px 20px;
-    border-radius: 0 0 4px 4px;
     gap: 15px;
     width: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.nav-container {
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* Ensures it stays above other elements */
+    background-color: #fff; /* Set a background so content beneath doesn’t show through */
 }
 
 /* ----------------------------
@@ -116,7 +121,7 @@ nav a::after {
     left: 0;
     width: 0;
     height: 2px;
-    background: var(--highlight-color) !important;
+    background: var(--highlight-color);
     transition: width 0.3s ease;
     z-index: 1; /* Ensures the line appears above other elements */
 }
@@ -163,6 +168,7 @@ nav .custom-menu li img {
     outline: none;
     border: none;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .gtranslate_wrapper:hover {
