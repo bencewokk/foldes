@@ -11,14 +11,11 @@ get_header();
 
 <div class="tag-search">
     <form id="tag-search-form" method="GET" action="">
-      <!-- Single Row Container for Search Input, Year Filters, and Button -->
       <div class="search-year-row">
-        <!-- Search Input -->
         <div class="input-group search-group">
           <input type="text" id="tag-search-input" name="search" placeholder=" ">
-          <label for="tag-search-input">Keresés címkékben</label>
+          <label for="tag-search-input">Keress rá bármire...</label>
         </div>
-        <!-- Year Filters -->
         <div class="year-filter">
           <div class="input-group">
             <input type="number" id="from-year" name="from_year" placeholder=" ">
@@ -29,7 +26,19 @@ get_header();
             <label for="to-year">Évig</label>
           </div>
         </div>
-        <!-- Submit Button -->
+        <div class="input-group search-group">
+            <input 
+                type="number" 
+                id="entries-per-page" 
+                name="entries_per_page" 
+                placeholder=" "
+                value="<?php echo htmlspecialchars($_GET['entries_per_page'] ?? '400'); ?>" 
+                min="1" 
+                max="5000" 
+                required 
+            />
+            <label for="entries-per-page">Bejegyzés szám:</label>
+        </div>
         <button type="submit">Keresés</button>
       </div>
     </form>
@@ -81,6 +90,11 @@ get_header();
     $to_year = isset($_GET['to_year']) ? intval($_GET['to_year']) : null;
     $sort = isset($_GET['sort']) ? sanitize_text_field($_GET['sort']) : 'targy';
     $order = isset($_GET['order']) ? sanitize_text_field($_GET['order']) : 'asc';
+    $entries_per_page = isset($_GET['entries_per_page']) ? intval($_GET['entries_per_page']) : 400;
+    $entries_per_page = min(max($entries_per_page, 1), 1600); // Clamp between 1 and 1600
+
+    $paged = max(1, get_query_var('paged', isset($_GET['paged']) ? intval($_GET['paged']) : 1));
+    $offset = ($paged - 1) * $entries_per_page;
 
     $args = array(
         'post_type' => 'competition_entry',
@@ -102,7 +116,7 @@ get_header();
                 'tanev' => '',
                 'start_year' => null,
                 'szint' => '',
-                'tanar' => '',
+                'tanar' => [],
                 'legjobb_helyezes' => '',
                 'helyezes_weight' => 0
             );
@@ -129,12 +143,9 @@ get_header();
                                 $entry['legjobb_helyezes'] = $parts[1];
                                 $entry['helyezes_weight'] = get_position_weight($parts[1]);
                                 break;
-                            case 'Megyei Szint':
-                            case 'Országos Szint':
-                            case 'Nemzetközi Szint': 
-                                $entry['szint'] = $parts[1]; 
+                            case 'Tanár': 
+                                $entry['tanar'][] = $parts[1]; 
                                 break;
-                            case 'Tanár': $entry['tanar'] = $parts[1]; break;
                         }
 
                         if (stripos($tag->name, $search_term) !== false) {
@@ -144,26 +155,11 @@ get_header();
                 }
             }
 
-            // Year filtering logic
-            if ($from_year || $to_year) {
-                $year_match = false;
-                if ($entry['start_year']) {
-                    $year = $entry['start_year'];
-                    if ($from_year && $to_year) {
-                        $year_match = ($year >= $from_year && $year <= $to_year);
-                    } elseif ($from_year) {
-                        $year_match = ($year >= $from_year);
-                    } elseif ($to_year) {
-                        $year_match = ($year <= $to_year);
-                    }
-                }
-            }
-
             if (($match_found || empty($search_term)) && $year_match) {
                 $entries[] = $entry;
             }
         endwhile;
-        
+
         usort($entries, function($a, $b) use ($sort, $order) {
             if ($sort === 'legjobb_helyezes') {
                 $cmp = $b['helyezes_weight'] - $a['helyezes_weight'];
@@ -174,9 +170,12 @@ get_header();
             }
         });
     }
+
+    $total_entries = count($entries);
+    $paged_entries = array_slice($entries, $offset, $entries_per_page);
     ?>
 
-    <?php if (!empty($entries)) : ?>
+    <?php if (!empty($paged_entries)) : ?>
         <table class="versenyek-table">
             <thead>
                 <tr>
@@ -204,7 +203,7 @@ get_header();
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($entries as $entry) : ?>
+                <?php foreach ($paged_entries as $entry) : ?>
                     <tr class="versenyek-row">
                         <td><?php echo esc_html($entry['targy']); ?></td>
                         <td><?php echo esc_html($entry['diak']); ?></td>
@@ -212,11 +211,24 @@ get_header();
                         <td><?php echo esc_html($entry['osztaly']); ?></td>
                         <td><?php echo esc_html($entry['tanev']); ?></td>
                         <td><?php echo esc_html($entry['legjobb_helyezes']); ?></td>
-                        <td><?php echo esc_html($entry['tanar']); ?></td>
+                        <td><?php echo esc_html(implode(', ', $entry['tanar'])); ?></td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
         </table>
+
+        <div class="pagination">
+            <?php
+            $base_url = remove_query_arg('paged', $_SERVER['REQUEST_URI']);
+            if ($paged > 1) {
+                echo '<a href="'.esc_url(add_query_arg('paged', $paged - 1, $base_url)).'">Előző oldal</a>';
+            }
+            if ($offset + count($paged_entries) < $total_entries) {
+                echo '<a href="'.esc_url(add_query_arg('paged', $paged + 1, $base_url)).'">Következő oldal</a>';
+            }
+            ?>
+        </div>
+
     <?php else : ?>
         <p class="versenyek-no-results">Nincsenek verseny bejegyzések.</p>
     <?php endif; ?>

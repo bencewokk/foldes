@@ -33,28 +33,13 @@ get_header();
                     </select>
                 </div>
 
-                <!-- Year Filter -->
-                <div class="year-filter">
-                    <div class="input-group">
-                        <input type="number" id="from-year" name="from_year" placeholder=" " value="<?php echo isset($_GET['from_year']) ? intval($_GET['from_year']) : ''; ?>">
-                        <label for="from-year">Évtől</label>
-                    </div>
-                    <div class="input-group">
-                        <input type="number" id="to-year" name="to_year" placeholder=" " value="<?php echo isset($_GET['to_year']) ? intval($_GET['to_year']) : ''; ?>">
-                        <label for="to-year">Évig</label>
-                    </div>
-                </div>
-
                 <!-- Toggle Switch (Fontos hírek elől) -->
                 <div class="toggle-container">
                     <label class="toggle-switch-group">
                         <div class="toggle-switch-wrapper">
                             <?php
-                            // By default, we want the toggle to be ON.
-                            // If the GET parameter exists, check its value.
                             $fontos_toggle = isset($_GET['fontos_toggle']) ? ($_GET['fontos_toggle'] === '1') : true;
                             ?>
-                            <!-- Hidden input ensures a value is sent when unchecked -->
                             <input type="hidden" name="fontos_toggle" value="0">
                             <input type="checkbox" class="toggle-switch-input" name="fontos_toggle" value="1" <?php checked( $fontos_toggle ); ?>>
                             <div class="toggle-switch-track">

@@ -28,7 +28,7 @@
 ============================================================ */
 .tag-search form {
     display: flex;
-    flex-wrap: wrap; /* allow items to wrap on smaller screens */
+    flex-wrap: wrap;
     align-items: center;
     gap: 1rem;
     width: 100%;
@@ -53,11 +53,13 @@
 ============================================================ */
 .tag-search .input-group {
     position: relative;
-    flex: 1 1 auto;  /* allow inputs to grow */
+    flex: 1 1 auto;
     min-width: 200px;
 }
 
-.tag-search input[type="text"] {
+.tag-search input[type="text"],
+.tag-search input[type="number"],
+.tag-search select {
     width: 100%;
     padding: 0.75rem 1rem;
     font-size: 0.9rem;
@@ -72,25 +74,51 @@
     z-index: 1;
 }
 
+/* Style for the select dropdown */
 .tag-search select {
-    width: 100%;
-    padding: 0.75rem 2.5rem 0.75rem 1rem;
-    font-size: 0.9rem;
-    border: none;
-    border-radius: 8px;
+    padding-right: 2.5rem;  /* To make space for the dropdown arrow */
     background: rgba(255, 255, 255, 0.1) url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e") no-repeat right 0.75rem center/0.8em;
-    color: var(--background-color);
     appearance: none;
     -webkit-appearance: none;
-    transition: all 0.3s ease;
+}
+
+/* Ensure number input gets the placeholder effect */
+.tag-search input[type="number"]::placeholder {
+    color: transparent;
+    opacity: 0;
 }
 
 /* Input Focus States */
 .tag-search input[type="text"]:focus,
+.tag-search input[type="number"]:focus,
 .tag-search select:focus {
     background: rgba(255, 255, 255, 0.2);
     outline: none;
     box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+}
+
+/* Floating Label Styles for Year Filter */
+.tag-search .input-group label {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.7);
+    pointer-events: none;
+    transition: all 0.3s ease;
+    font-size: 0.9rem;
+    z-index: 2;
+    max-width: calc(100% - 2rem);
+}
+
+.tag-search .input-group input:focus ~ label,
+.tag-search .input-group input:not(:placeholder-shown) ~ label,
+.tag-search .input-group select:focus ~ label {
+    top: -10px;
+    left: 0.8rem;
+    font-size: 0.75rem;
+    color: var(--highlight-color);
+    padding: 0 0.3rem;
 }
 
 /* ============================================================
@@ -128,7 +156,6 @@
 ============================================================ */
 .toggle-container {
     position: relative;
-    /* Removed margin-left: auto to keep items inline */
     flex: 0 0 auto;
 }
 
@@ -229,7 +256,7 @@
     overflow: hidden;
     transition: all 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 180, 216, 0.3);
-    flex: 0 0 auto;
+    flex: 1 1 auto;
 }
 
 .tag-search button::before {
@@ -260,35 +287,7 @@
     100% { transform: rotate(45deg) translateX(50%); }
 }
 
-/* ============================================================
-    Responsive Design
-============================================================ */
-@media (max-width: 768px) {
-    .tag-search form {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .tag-search .input-group,
-    .toggle-container,
-    .layout-toggle,
-    .tag-search button {
-        width: 100%;
-    }
-    
-    /* Reorder elements if needed on mobile */
-    .toggle-container {
-        order: 3;
-    }
-    
-    .layout-toggle {
-        order: 4;
-    }
-    
-    .tag-search button {
-        order: 5;
-    }
-}
+
 
 /* ============================================================
     Year Filter Container
@@ -373,22 +372,20 @@
 }
 
 /* ============================================================
-    New: Search & Year Filter in One Row
+    Search & Year Filter in One Row
 ============================================================ */
 .search-year-row {
     display: flex;
     gap: 1rem;
     align-items: center;
     width: 100%;
-    flex-wrap: nowrap; /* Prevent items from wrapping into a new row */
+    flex-wrap: nowrap;
 }
 
-/* Let the search input group expand */
 .search-year-row .search-group {
     flex: 1;
 }
 
-/* Keep the year filter items inline and flexible */
 .search-year-row .year-filter {
     display: flex;
     gap: 1rem;
@@ -399,7 +396,7 @@
     flex: 1;
 }
 
-/* Make the submit button expand and use all available space */
 .search-year-row button {
     flex: 1 1 auto;
 }
+

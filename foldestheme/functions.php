@@ -21,6 +21,8 @@ function foldestheme_enqueue_styles() {
     wp_enqueue_style( 'foldestheme-iskolankrol', get_template_directory_uri() . '/css/iskolankrol.css' );
     wp_enqueue_style( 'foldestheme-verseny', get_template_directory_uri() . '/css/verseny.css' );
     wp_enqueue_style( 'foldestheme-tablo', get_template_directory_uri() . '/css/tablo.css' );
+    wp_enqueue_style( 'foldestheme-pagination', get_template_directory_uri() . '/css/pagination.css' );
+
     
 
 
@@ -186,3 +188,8 @@ function competition_entry_links($content) {
     return $content;
 }
 add_filter('the_content', 'competition_entry_links');
+
+function enqueue_lower_navbar_script() {
+    wp_enqueue_script('lower-navbar', get_template_directory_uri() . '/js/lower-navbar.js', array(), '1.0', true);
+}
+add_action('wp_enqueue_scripts', 'enqueue_lower_navbar_script');
