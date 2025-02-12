@@ -86,8 +86,8 @@ get_header();
     }
 
     $search_term = isset($_GET['search']) ? sanitize_text_field($_GET['search']) : '';
-    $from_year = isset($_GET['from_year']) ? intval($_GET['from_year']) : null;
-    $to_year = isset($_GET['to_year']) ? intval($_GET['to_year']) : null;
+    $from_year = isset($_GET['from_year']) ? intval($_GET['from_year']) : 2000;
+    $to_year = isset($_GET['to_year']) ? intval($_GET['to_year']) : 2100;
     $sort = isset($_GET['sort']) ? sanitize_text_field($_GET['sort']) : 'targy';
     $order = isset($_GET['order']) ? sanitize_text_field($_GET['order']) : 'asc';
     $entries_per_page = isset($_GET['entries_per_page']) ? intval($_GET['entries_per_page']) : 400;
@@ -107,63 +107,79 @@ get_header();
 
     if ($query->have_posts()) {
         while ($query->have_posts()) : $query->the_post();
-            $entry = array(
-                'post_id' => get_the_ID(),
-                'targy' => '',
-                'diak' => '',
-                'verseny' => '',
-                'osztaly' => '',
-                'tanev' => '',
-                'start_year' => null,
-                'szint' => '',
-                'tanar' => [],
-                'legjobb_helyezes' => '',
-                'helyezes_weight' => 0
-            );
+        $entry = array(
+            'post_id' => get_the_ID(),
+            'targy' => '',
+            'diak' => '',
+            'verseny' => '',
+            'osztaly' => '',
+            'tanev' => '',
+            'start_year' => null,
+            'szint' => '',
+            'tanar' => [],
+            'legjobb_helyezes' => '',
+            'helyezes_weight' => 0
+        );
 
-            $match_found = false;
-            $year_match = true;
+        $match_found = false;
+        $year_match = true;  // Default to true
 
-            $tags = get_the_terms(get_the_ID(), 'competition_tags');
-            if ($tags && !is_wp_error($tags)) {
-                foreach ($tags as $tag) {
-                    $parts = explode(': ', $tag->name, 2);
-                    if (count($parts) === 2) {
-                        switch ($parts[0]) {
-                            case 'Tárgy': $entry['targy'] = $parts[1]; break;
-                            case 'Diák': $entry['diak'] = $parts[1]; break;
-                            case 'Verseny': $entry['verseny'] = $parts[1]; break;
-                            case 'Osztály': $entry['osztaly'] = $parts[1]; break;
-                            case 'Tanév': 
-                                $entry['tanev'] = $parts[1];
-                                $years = explode('-', $parts[1]);
-                                $entry['start_year'] = !empty($years[0]) ? intval($years[0]) : null;
-                                break;
-                            case 'Legjobb helyezés': 
-                                $entry['legjobb_helyezes'] = $parts[1];
-                                $entry['helyezes_weight'] = get_position_weight($parts[1]);
-                                break;
-                            case 'Tanár': 
-                                $entry['tanar'][] = $parts[1]; 
-                                break;
-                        }
+        $tags = get_the_terms(get_the_ID(), 'competition_tags');
+        if ($tags && !is_wp_error($tags)) {
+            foreach ($tags as $tag) {
+                $parts = explode(': ', $tag->name, 2);
+                if (count($parts) === 2) {
+                    switch ($parts[0]) {
+                        case 'Tárgy': $entry['targy'] = $parts[1]; break;
+                        case 'Diák': $entry['diak'] = $parts[1]; break;
+                        case 'Verseny': $entry['verseny'] = $parts[1]; break;
+                        case 'Osztály': $entry['osztaly'] = $parts[1]; break;
+                        case 'Tanév': 
+                            $entry['tanev'] = $parts[1];
+                            $years = explode('-', $parts[1]);
+                            $entry['start_year'] = !empty($years[0]) ? intval($years[0]) : null;
+                            break;
+                        case 'Legjobb helyezés': 
+                            $entry['legjobb_helyezes'] = $parts[1];
+                            $entry['helyezes_weight'] = get_position_weight($parts[1]);
+                            break;
+                        case 'Tanár': 
+                            $entry['tanar'][] = $parts[1]; 
+                            break;
+                    }
 
-                        if (stripos($tag->name, $search_term) !== false) {
-                            $match_found = true;
-                        }
+                    if (stripos($tag->name, $search_term) !== false) {
+                        $match_found = true;
                     }
                 }
             }
+        }
 
-            if (($match_found || empty($search_term)) && $year_match) {
-                $entries[] = $entry;
+        // Apply year filtering logic here:
+        if (!empty($entry['start_year'])) {
+            if ($from_year && $entry['start_year'] < $from_year) {
+                $year_match = false;
             }
-        endwhile;
+            if ($to_year && $entry['start_year'] > $to_year) {
+                $year_match = false;
+            }
+        }
+
+        if (($match_found || empty($search_term)) && $year_match) {
+            $entries[] = $entry;
+        }
+    endwhile;
 
         usort($entries, function($a, $b) use ($sort, $order) {
             if ($sort === 'legjobb_helyezes') {
                 $cmp = $b['helyezes_weight'] - $a['helyezes_weight'];
                 return ($order === 'asc') ? -$cmp : $cmp;
+            } elseif ($sort === 'tanar') {
+                // Convert teacher arrays to strings before comparison
+                $aTeacher = is_array($a['tanar']) ? implode(', ', $a['tanar']) : $a['tanar'];
+                $bTeacher = is_array($b['tanar']) ? implode(', ', $b['tanar']) : $b['tanar'];
+                $cmp = strnatcasecmp($aTeacher, $bTeacher);
+                return ($order === 'asc') ? $cmp : -$cmp;
             } else {
                 $cmp = strnatcasecmp($a[$sort], $b[$sort]);
                 return ($order === 'asc') ? $cmp : -$cmp;

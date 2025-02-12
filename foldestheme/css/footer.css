@@ -3,11 +3,7 @@
 ============================================================ */
 #site-footer {
     padding: 3rem 0;
-    background: linear-gradient(
-        135deg,
-        var(--primary-color) 0%,
-        var(--text-color) 100%
-    );
+    background: linear-gradient(135deg, var(--primary-color), #1a1a2e);
     color: var(--background-color);
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
     border-top: 2px solid rgba(255, 255, 255, 0.1);

@@ -108,7 +108,7 @@ article {
 /* Override article styles for grid items to let them fill the grid cell */
 .post-container.grid-view article {
     margin: 0;        /* Remove auto margins from articles in grid view */
-    max-width: none;  /* Allow grid items to fill available space */
+    max-width: 100%;  /* Allow grid items to fill available space */
 }
 
 /* H2 clickable title link styles */

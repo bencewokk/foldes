@@ -13,7 +13,7 @@
 .versenyek-title {
     font-size: 2em;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--secondary-color);
     text-align: center;
     margin-bottom: 30px;
 }
@@ -28,20 +28,18 @@
 .versenyek-table td {
     padding: 15px;
     text-align: left;
-    background-color: #ffffff;
+    background-color: var(--white);
 }
 
 .versenyek-table th {
-    background-color: #f8f9fa;
+    background-color: var(--white);
     font-weight: 600;
-    color: #2c3e50;
+    color: var(--text-color, #2c3e50);
     cursor: pointer;
-    transition: background-color 0.3s ease;
-    border-bottom: 2px solid #e0e0e0;
 }
 
 .versenyek-table th.sortable:hover {
-    background-color: #e9ecef;
+    background-color: var(--table-header-hover-background-color, #e9ecef);
 }
 
 .versenyek-table tr.versenyek-row {
@@ -54,24 +52,24 @@
 }
 
 .versenyek-table td {
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border-color, #e0e0e0);
     border-left: none;
     border-right: none;
 }
 
 .versenyek-table td:first-child {
-    border-left: 1px solid #e0e0e0;
+    border-left: 1px solid var(--border-color, #e0e0e0);
     border-radius: 8px 0 0 8px;
 }
 
 .versenyek-table td:last-child {
-    border-right: 1px solid #e0e0e0;
+    border-right: 1px solid var(--border-color, #e0e0e0);
     border-radius: 0 8px 8px 0;
 }
 
 .versenyek-no-results {
     text-align: center;
-    color: #95a5a6;
+    color: var(--secondary-color);
     font-size: 1.2em;
     margin-top: 20px;
 }
