@@ -373,12 +373,6 @@
     -moz-appearance: textfield;
 }
 
-/* Responsive Design for Year Filter */
-@media (max-width: 768px) {
-    .year-filter {
-        width: 100%;
-    }
-}
 
 /* ============================================================
     Search & Year Filter in One Row

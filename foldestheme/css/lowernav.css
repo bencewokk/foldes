@@ -129,12 +129,5 @@ transform: translateY(-6px) rotate(-45deg);
     color: var(--highlight-color, #f39c12);
   }
   
-  /* ----------------------------
-     Responsive Adjustments 
-  ---------------------------- */
-  @media (max-width: 768px) {
-    .secondary-nav__content {
-      flex-direction: column;
-    }
-  }
+
   

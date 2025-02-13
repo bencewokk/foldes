@@ -150,30 +150,6 @@ h4 {
   margin-bottom: 0.3rem;
 }
 
-/* Responsive Design - Maintain original breakpoints */
-@media (max-width: 1040px) {
-  .teachers-grid {
-    width: calc(100% - 40px);
-    max-width: 1000px;
-  }
-}
-
-@media (max-width: 900px) {
-  .teachers-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (max-width: 640px) {
-  .teachers-grid {
-    grid-template-columns: 1fr;
-    max-width: 500px;
-  }
-  
-  .image-container {
-    padding-bottom: 133.33%;
-  }
-}
 
 /* Add subtle entrance animation */
 @keyframes cardEntrance {

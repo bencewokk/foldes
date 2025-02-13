@@ -1,5 +1,5 @@
 /* ============================================================
-   FOOTER STYLES WITH GRADIENT
+   FOOTER STYLES WITH GRADIENT (RESPONSIVE)
 ============================================================ */
 #site-footer {
     padding: 3rem 0;
@@ -72,4 +72,52 @@
 .creator a:hover {
     color: var(--highlight-color);
     text-decoration: underline;
+}
+
+/* ============================================================
+   RESPONSIVE MEDIA QUERIES
+============================================================ */
+@media screen and (max-width: 768px) {
+    #site-footer {
+        padding: 2rem 0;
+    }
+
+    .footer-content {
+        padding: 0 1rem;
+    }
+
+    .school-name {
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+    }
+
+    .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .footer-column p {
+        margin: 0.5rem 0;
+        font-size: 0.9rem;
+    }
+
+    .creator {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .school-name {
+        font-size: 1rem;
+    }
+
+    .footer-bottom {
+        font-size: 0.85rem;
+    }
+
+    .creator {
+        display: block;
+        margin-top: 0.5rem;
+    }
 }

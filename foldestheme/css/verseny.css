@@ -74,14 +74,3 @@
     margin-top: 20px;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .versenyek-container {
-        padding: 10px;
-    }
-
-    .versenyek-table th,
-    .versenyek-table td {
-        padding: 10px;
-    }
-}
