@@ -18,14 +18,11 @@
 document.addEventListener('DOMContentLoaded', function() {
   const toggleTheme = document.getElementById('toggleTheme');
   
-  // Always initialize with high contrast OFF (normal theme)
   toggleTheme.checked = false;
   document.body.classList.remove('theme-two');
 
   toggleTheme.addEventListener('change', function() {
     document.body.classList.toggle('theme-two', this.checked);
-    // Optionally, you can still update localStorage if you want to preserve
-    // the preference for future toggles, but it won't be used on page load.
     localStorage.setItem('high-contrast', this.checked ? 'on' : 'off');
   });
 
