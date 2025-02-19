@@ -13,7 +13,7 @@ get_header();
                 <!-- Search Input -->
                 <div class="input-group searchbar-group">
                     <input type="text" id="tag-search" name="tag" placeholder=" " value="<?php echo esc_attr( isset($_GET['tag']) ? sanitize_text_field( $_GET['tag'] ) : '' ); ?>">
-                    <label for="tag-search">Írj be egy címkét...</label>
+                    <label for="tag-search">Keress rá bármire a hírek között...</label>
                 </div>
 
                 <!-- Order Select -->

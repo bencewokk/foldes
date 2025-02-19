@@ -8,12 +8,15 @@
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
     /* Text uses the light background color for contrast */
     color: var(--background-color);
-
-    width: 100%;
+    align-self: center;
+    width: 1200px;
     padding: 1.5rem 1rem;
     box-sizing: border-box;
     position: relative;
     overflow: hidden;
+    border-radius: 12px;
+
+
 }
 
 .tag-search::before {
@@ -38,7 +41,7 @@
     align-items: center;
     gap: 1rem;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     position: relative;
     background: rgba(226, 226, 226, 0.05);

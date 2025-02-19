@@ -8,7 +8,7 @@
     grid-template-columns: repeat(5, minmax(0, 1fr)); /* Ensures equal columns */
     gap: 1rem;
     width: 100%;
-    max-width: 1000px; /* Total container width */
+    max-width: 1200px; 
     margin: 2rem auto;
     padding: 0 15px; /* Prevents edge touching */
     box-sizing: border-box;
@@ -75,7 +75,6 @@
     margin: 2rem auto;
     display: flex;
     gap: 1rem;
-    max-width: 600px;
     padding: 0 15px;
 }
 
@@ -121,7 +120,7 @@
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
     gap: 1rem;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 2rem auto;
     padding-bottom: 10px;
     box-sizing: border-box;

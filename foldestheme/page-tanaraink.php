@@ -36,14 +36,13 @@ get_header();
         $search_query = isset($_GET['teacher_search']) ? sanitize_text_field($_GET['teacher_search']) : '';
 
         $query_args = array(
-            'post_type'      => 'post',
-            'tag'           => 'tanar',
-            'posts_per_page' => -1,
-            'orderby'       => 'menu_order',
-            'order'         => 'ASC'
-        );
+    'post_type'      => 'post',
+    'tag'            => 'tanar',  // This is the issue!
+    'posts_per_page' => -1,
+    'orderby'        => 'menu_order',
+    'order'          => 'ASC'
+);
 
-        // Add search parameters if search is performed
         if (!empty($search_query)) {
             $query_args['s'] = $search_query;
         }
@@ -51,36 +50,118 @@ get_header();
         $teacher_query = new WP_Query($query_args);
 
         if ($teacher_query->have_posts()) :
-        ?>
+            $all_teachers = $teacher_query->posts;
+            
+            // Separate teachers into groups
+            $ig_teachers = array();
+            $igh_teachers = array();
+            $other_teachers = array();
+            
+            foreach ($all_teachers as $teacher_post) {
+                if (has_term('ig', 'teacher_position', $teacher_post->ID)) {
+                    $ig_teachers[] = $teacher_post;
+                } elseif (has_term('igh', 'teacher_position', $teacher_post->ID)) {
+                    $igh_teachers[] = $teacher_post;
+                } else {
+                    $other_teachers[] = $teacher_post;
+                }
+            }
+            ?>
+            
             <div class="teachers-grid">
-                <?php while ($teacher_query->have_posts()) : $teacher_query->the_post(); 
-                    $teacher_title = get_post_meta(get_the_ID(), 'teacher_title', true);
-                ?>
+                <?php
+                // Display ig teachers first
+                foreach ($ig_teachers as $teacher_post) {
+                    setup_postdata($teacher_post);
+                    $teacher_title = get_post_meta($teacher_post->ID, 'teacher_title', true);
+                    ?>
                     <article class="teacher-card">
                         <div class="image-container">
-                            <?php if (has_post_thumbnail()) : ?>
-                                <img src="<?php the_post_thumbnail_url('medium_large'); ?>" 
-                                     alt="<?php the_title_attribute(); ?>">
+                            <?php if (has_post_thumbnail($teacher_post->ID)) : ?>
+                                <img src="<?php echo esc_url(get_the_post_thumbnail_url($teacher_post->ID, 'medium_large')); ?>" 
+                                    alt="<?php echo esc_attr(get_the_title($teacher_post->ID)); ?>">
                             <?php endif; ?>
                             <div class="teacher-overlay">
                                 <div class="teacher-overlay-content">
                                     <h4><?php echo esc_html($teacher_title); ?></h4>
                                     <div class="teacher-bio">
-                                        <?php echo wp_kses_post(get_the_excerpt()); ?>
+                                        <?php echo wp_kses_post(get_the_excerpt($teacher_post->ID)); ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="teacher-info">
-                            <h3 class="teacher-name"><?php the_title(); ?></h3>
-                            <a href="<?php echo esc_url(get_permalink()); ?>" class="teacher-button">
+                            <h3 class="teacher-name"><?php echo esc_html(get_the_title($teacher_post->ID)); ?></h3>
+                            <a href="<?php echo esc_url(get_permalink($teacher_post->ID)); ?>" class="teacher-button">
                                 Bővebben
                             </a>
                         </div>
                     </article>
-                <?php endwhile; ?>
+                <?php
+                }
+
+                foreach ($igh_teachers as $teacher_post) {
+                    setup_postdata($teacher_post);
+                    $teacher_title = get_post_meta($teacher_post->ID, 'teacher_title', true);
+                    ?>
+                    <article class="teacher-card">
+                        <div class="image-container">
+                            <?php if (has_post_thumbnail($teacher_post->ID)) : ?>
+                                <img src="<?php echo esc_url(get_the_post_thumbnail_url($teacher_post->ID, 'medium_large')); ?>" 
+                                     alt="<?php echo esc_attr(get_the_title($teacher_post->ID)); ?>">
+                            <?php endif; ?>
+                            <div class="teacher-overlay">
+                                <div class="teacher-overlay-content">
+                                    <h4><?php echo esc_html($teacher_title); ?></h4>
+                                    <div class="teacher-bio">
+                                        <?php echo wp_kses_post(get_the_excerpt($teacher_post->ID)); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="teacher-info">
+                            <h3 class="teacher-name"><?php echo esc_html(get_the_title($teacher_post->ID)); ?></h3>
+                            <a href="<?php echo esc_url(get_permalink($teacher_post->ID)); ?>" class="teacher-button">
+                                Bővebben
+                            </a>
+                        </div>
+                    </article>
+                <?php
+                }
+
+                // Display other teachers last
+                foreach ($other_teachers as $teacher_post) {
+                    setup_postdata($teacher_post);
+                    $teacher_title = get_post_meta($teacher_post->ID, 'teacher_title', true);
+                    ?>
+                    <article class="teacher-card">
+                        <div class="image-container">
+                            <?php if (has_post_thumbnail($teacher_post->ID)) : ?>
+                                <img src="<?php echo esc_url(get_the_post_thumbnail_url($teacher_post->ID, 'medium_large')); ?>" 
+                                    alt="<?php echo esc_attr(get_the_title($teacher_post->ID)); ?>">
+                            <?php endif; ?>
+                            <div class="teacher-overlay">
+                                <div class="teacher-overlay-content">
+                                    <h4><?php echo esc_html($teacher_title); ?></h4>
+                                    <div class="teacher-bio">
+                                        <?php echo wp_kses_post(get_the_excerpt($teacher_post->ID)); ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="teacher-info">
+                            <h3 class="teacher-name"><?php echo esc_html(get_the_title($teacher_post->ID)); ?></h3>
+                            <a href="<?php echo esc_url(get_permalink($teacher_post->ID)); ?>" class="teacher-button">
+                                Bővebben
+                            </a>
+                        </div>
+                    </article>
+                <?php
+                }
+                wp_reset_postdata();
+                ?>
             </div>
-            <?php wp_reset_postdata(); ?>
+            
         <?php else : ?>
             <p class="no-teachers">
                 <?php

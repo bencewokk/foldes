@@ -23,7 +23,12 @@
     transition: all 0.3s ease;
     z-index: 100;
 }
-  
+
+#lower-navigation:hover .secondary-nav__content {
+  transition: all 0.2s ease;
+  max-height: 10px; /* Adjust this value if needed */
+}
+
 #lower-nav-toggle:hover {
 background: var(--highlight-color);
 border-color: rgba(255, 255, 255, 0.4);
@@ -68,7 +73,7 @@ transform: translateY(-6px) rotate(-45deg);
      Lower Navigation Content 
   ---------------------------- */
   .secondary-nav__content {
-    width: 1000px;         /* Constrained width */
+    width: 1200px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -108,7 +113,7 @@ transform: translateY(-6px) rotate(-45deg);
     list-style: none;
     padding: 0;
     margin: 0;
-    width: 100%;
+    width: 60%;
   }
   
 

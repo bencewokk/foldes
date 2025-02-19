@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <ul>
                     <li><a href="/tanterv">Csengetés</a></li>
                     <li><a href="/orarend">Órarend</a></li>
-                    <li><a href="/szakkörök">Szakkörök</a></li>
+                    <li><a href="/szakkorok">Szakkörök</a></li>
                     <li><a href="/galeria">Sport</a></li>
                     <li><a href="/galeria">Továbbtanulás</a></li>
                     <li><a href="/galeria">Kihez fordulhatok?</a></li>

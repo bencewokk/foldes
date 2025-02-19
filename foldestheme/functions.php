@@ -23,6 +23,8 @@ function foldestheme_enqueue_styles() {
     wp_enqueue_style( 'foldestheme-tablo', get_template_directory_uri() . '/css/tablo.css' );
     wp_enqueue_style( 'foldestheme-pagination', get_template_directory_uri() . '/css/pagination.css' );
     wp_enqueue_style( 'foldestheme-lowernav', get_template_directory_uri() . '/css/lowernav.css' );
+    wp_enqueue_style( 'foldestheme-lshape', get_template_directory_uri() . '/css/lshape.css' );
+
 
 
     
