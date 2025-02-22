@@ -8,9 +8,28 @@
 <body <?php body_class(); ?>>
 
 <header id="site-header">
-    <div class="container">
-        <img src="<?php echo get_template_directory_uri(); ?>/banner.png" alt="Banner" class="header-banner">
-        <div class="est-badge">INCEPTA 1953</div>
+    <div class="header-container">
+    <button class="mobile-nav-toggle" aria-label="Mobile Menu" aria-expanded="false">
+      <span class="hamburger"></span>
+    </button>
+        <div class="header-left">
+             <a href="<?php echo home_url('/'); ?>" class="home-link">
+                <img src="<?php echo get_template_directory_uri(); ?>/banner.png" alt="School Banner" class="header-banner">
+            </a>
+            <a href="<?php echo home_url('/'); ?>" class="home-link">
+                <h1 class="school-name">Földes Ferenc Gimnázium</h1>
+            </a
+            <p class="school-motto">“Jót, s jól.”</p>
+        </div>
+        <div class="header-right">
+            <div class="header-contact">
+                <div class="contact-item">E-mail: <a href="mailto:ffg@ffg.hu">ffg@ffg.hu</a></div>
+                <div class="contact-item">Titkárság: <a href="tel:+3646508459">+36 (46) 508-459</a></div>
+            </div>
+            <div class="gtranslate_wrapper">
+                <?php echo do_shortcode('[gtranslate]'); ?>
+            </div>
+        </div>
     </div>
 </header>
 
@@ -32,7 +51,36 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.add('theme-two');
   }
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+  const mobileToggle = document.querySelector('.mobile-nav-toggle');
+  const body = document.body;
+  
+  mobileToggle.addEventListener('click', function() {
+    const isExpanded = this.getAttribute('aria-expanded') === 'true';
+    this.setAttribute('aria-expanded', !isExpanded);
+    body.classList.toggle('nav-active');
+  });
+  
+  // Close menu when clicking outside
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-container') && !e.target.closest('.mobile-nav-toggle')) {
+      mobileToggle.setAttribute('aria-expanded', 'false');
+      body.classList.remove('nav-active');
+    }
+  });
+  
+  // Close menu on ESC key
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      mobileToggle.setAttribute('aria-expanded', 'false');
+      body.classList.remove('nav-active');
+    }
+  });
+});
 </script>
+
+
 
 <div class="nav-container">
     <nav id="main-navigation">
@@ -55,9 +103,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <li><a href="<?php echo esc_url(home_url('/tablok')); ?>">Tablók</a></li>
             <li><a href="<?php echo esc_url(home_url('/versenyek')); ?>">Versenyek</a></li>
         </ul>
-        <div class="gtranslate_wrapper">
-            <?php echo do_shortcode('[gtranslate]'); ?> 
-        </div>
+        
     </nav>
     
     <nav id="lower-navigation" class="secondary-nav">
@@ -84,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <div class="nav-section">
                 <h3>Diákoknak</h3>
                 <ul>
-                    <li><a href="/tanterv">Csengetés</a></li>
+                    <li><a href="/csengetes">Csengetés</a></li>
                     <li><a href="/orarend">Órarend</a></li>
                     <li><a href="/szakkorok">Szakkörök</a></li>
                     <li><a href="/galeria">Sport</a></li>

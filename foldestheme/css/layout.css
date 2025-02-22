@@ -35,7 +35,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background-image: url('image2_lowres.jpg'); /* Use only image2 */
+    background-image: url('image2_lowres.jpg'); 
     background-size: cover; /* Ensure image covers the screen */
     background-position: center; /* Center image */
     background-repeat: no-repeat; /* Prevent tiling */
@@ -45,7 +45,6 @@ body {
 /* ============================================================
    HEADER AND FOOTER
 ============================================================ */
-#site-header,
 #site-footer {
     margin: 0 auto;
     padding: 20px;

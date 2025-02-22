@@ -10,50 +10,55 @@
 /* ============================================================
    HEADER STYLES
 ============================================================ */
-
-/* ----------------------------
-   Base Header Styles 
----------------------------- */
-header {
+#site-header {
     background: linear-gradient(135deg, var(--primary-color), #1a1a2e);
     color: var(--secondary-color);
-    padding: 20px 0;
-    display: flex;
-    justify-content: center;
-    text-align: center;
+    padding-top: 15px;
+    padding-bottom: 5px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-
+    position: relative;
 }
 
-.nav-container {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    width: 1200px;
-
-    background-color: #fff;
+.header-container {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* ----------------------------
-   Banner Container 
----------------------------- */
-.banner-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
+    justify-content: space-between;
+    align-items: baseline;
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 0 20px;
-    max-width: 100%;
+}
+
+.header-left {
+    flex: 0 1 auto;
+    display: flex;
+    align-items: baseline;
+    gap: 15px;
+}
+
+
+.header-right {
+    flex: 0 1 auto;
+    text-align: right;
+}
+
+.school-name {
+    font-size: 2rem;
+    color: var(--secondary-color);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.school-motto {
+    font-size: 1.1rem;
+    color: var(--highlight-color);
+    margin-top: 0.5rem;
+    font-style: italic;
 }
 
 .header-banner {
-    padding: 5px;
-    width: 120px;
-    height: auto;
+    max-height: 80px;
+    width: auto;
     transition: transform 0.3s ease;
 }
 
@@ -61,9 +66,6 @@ header {
     transform: scale(1.03);
 }
 
-/* ----------------------------
-   Established Badge 
----------------------------- */
 .est-badge {
     font-family: 'Times New Roman', serif;
     font-size: 0.9rem;
@@ -77,42 +79,66 @@ header {
         rgba(255,255,255,0.5)
     ) 1;
     background: rgba(0, 0, 0, 0.2);
-    margin-top: 10px;
-    width: 1200px;
+    display: inline-block;
+}
 
+/* ============================================================
+   HEADER CONTACT INFO
+============================================================ */
+.header-contact {
+    text-align: right;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.contact-item {
+    font-size: 0.9rem;
+    color: var(--highlight-color);
+    white-space: nowrap;
+}
+
+.contact-item a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-item a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* Adjust gtranslate wrapper if needed */
+.gtranslate_wrapper {
+    display: inline-block;
+    vertical-align: middle;
 }
 
 /* ============================================================
    NAVIGATION STYLES
 ============================================================ */
 
-/* ----------------------------
-   Base Navigation 
----------------------------- */
-nav {
+.nav-container {
     position: sticky;
     top: 0;
     z-index: 1000;
+    width: 100%;
+    background: linear-gradient(135deg, var(--primary-color), #1a1a2e);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+nav {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, var(--primary-color), #1a1a2e);
+    max-width: 1200px;
+    margin: 0 auto;
     padding: 10px 20px;
     gap: 15px;
-    width: 100%;
-
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.nav-container {
-    width: 100%;
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 10px;
-}
 
 /* ----------------------------
    Navigation Links 
@@ -164,31 +190,4 @@ nav .custom-menu li a {
     font-size: 0.95rem;
     padding: 8px 12px;
     text-decoration: none;
-}
-
-/* ----------------------------
-   Responsive Styles 
----------------------------- */
-@media (max-width: 768px) {
-    .banner-container {
-        flex-direction: column;
-    }
-    
-    .header-banner {
-        width: 100px;
-    }
-    
-    nav {
-        flex-direction: column;
-        padding: 10px;
-    }
-    
-    nav .custom-menu {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    nav a {
-        padding: 10px;
-    }
 }

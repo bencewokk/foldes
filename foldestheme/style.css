@@ -10,3 +10,20 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Text Domain: my-custom-theme
 */
 
+/* Import other stylesheets */
+@import url('css/reset.css');
+@import url('css/main.css');
+@import url('css/colors.css');
+@import url('css/header.css');
+@import url('css/footer.css');
+@import url('css/responsive.css');
+@import url('css/search.css');
+@import url('css/tanaraink.css');
+@import url('css/layout.css');
+@import url('css/posts.css');
+@import url('css/iskolankrol.css');
+@import url('css/verseny.css');
+@import url('css/tablo.css');
+@import url('css/pagination.css');
+@import url('css/lowernav.css');
+@import url('css/lshape.css');
