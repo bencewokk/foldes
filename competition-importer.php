@@ -24,10 +24,11 @@ function register_competition_components() {
         'public' => true,
         'has_archive' => true,
         'rewrite' => ['slug' => 'competitions'],
-        'supports' => ['title', 'editor', 'custom-fields'],
+        'supports' => ['title', 'editor', 'custom-fields', 'thumbnail'], // Added thumbnail support here
         'show_in_menu' => true,
         'menu_icon' => 'dashicons-awards',
     ]);
+    
 
     // Taxonomy
     register_taxonomy('competition_tags', 'competition_entry', [

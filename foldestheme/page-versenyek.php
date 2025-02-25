@@ -120,7 +120,8 @@ get_header();
                 'tanar' => [],
                 'legjobb_helyezes' => '',
                 'helyezes_weight' => 0,
-                'content' => get_the_content()
+                'content' => get_the_content(),
+                'has_thumbnail' => has_post_thumbnail()
             );
 
             $match_found = false;
@@ -205,6 +206,7 @@ get_header();
         <table class="versenyek-table">
             <thead>
                 <tr>
+                    <th class="has-image-column">Kép</th>
                     <?php
                     $columns = array(
                         'targy' => 'Tárgy',
@@ -231,7 +233,14 @@ get_header();
             <tbody>
                 <?php foreach ($paged_entries as $entry) : ?>
                     <!-- Main row (clickable) -->
-                    <tr class="versenyek-row clickable">
+                    <tr class="versenyek-row clickable <?php echo $entry['has_thumbnail'] ? 'has-thumbnail' : ''; ?>">
+                        <td class="image-indicator">
+                            <?php if ($entry['has_thumbnail']) : ?>
+                                <div class="image-badge" title="Kattints a kép megtekintéséhez">
+                                    <span class="image-icon"></span>
+                                </div>
+                            <?php endif; ?>
+                        </td>
                         <td><?php echo esc_html($entry['targy']); ?></td>
                         <td><?php echo esc_html($entry['diak']); ?></td>
                         <td><?php echo esc_html($entry['verseny']); ?></td>
@@ -242,8 +251,16 @@ get_header();
                     </tr>
                     <!-- Hidden details row -->
                     <tr class="entry-details" style="display: none;">
-                        <td colspan="7">
+                        <td colspan="8">
                             <?php 
+                            // Display thumbnail if exists
+                            if ($entry['has_thumbnail']) {
+                                $post_id = $entry['post_id'];
+                                echo '<div class="entry-thumbnail">';
+                                echo get_the_post_thumbnail($post_id, 'large');
+                                echo '</div>';
+                            }
+                            
                             // Apply content filters so shortcodes, etc. work
                             echo apply_filters('the_content', $entry['content']); 
                             ?>
@@ -285,21 +302,124 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = url.toString();
         });
     });
-    
-    // Toggle the hidden details row when a main row is clicked
+
+    // Updated toggle function for the hidden details row
     document.querySelectorAll('.versenyek-row.clickable').forEach(row => {
         row.style.cursor = 'pointer';
         row.addEventListener('click', function() {
             const detailsRow = this.nextElementSibling;
+            
+            // First remove active class from all rows
+            document.querySelectorAll('.versenyek-row.active').forEach(activeRow => {
+                activeRow.classList.remove('active');
+            });
+            
+            document.querySelectorAll('.entry-details.active').forEach(activeDetails => {
+                activeDetails.classList.remove('active');
+            });
+            
             if (detailsRow && detailsRow.classList.contains('entry-details')) {
-                detailsRow.style.display = (detailsRow.style.display === 'none') ? 'table-row' : 'none';
+                if (detailsRow.style.display === 'none') {
+                    // Close any open details first
+                    document.querySelectorAll('.entry-details').forEach(details => {
+                        details.style.display = 'none';
+                    });
+                    
+                    // Then open this one and add active classes
+                    detailsRow.style.display = 'table-row';
+                    this.classList.add('active');
+                    detailsRow.classList.add('active');
+                } else {
+                    // Just close this one
+                    detailsRow.style.display = 'none';
+                }
             }
         });
     });
 });
-
-
 </script>
+
+<style>
+/* Styles for thumbnail indicators and display */
+.has-image-column {
+    width: 40px;
+    text-align: center;
+}
+
+.image-indicator {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.image-badge {
+    display: inline-block;
+    background-color: #0073aa;
+    color: white;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    animation: pulse 2s infinite;
+    box-shadow: 0 0 0 rgba(0, 115, 170, 0.4);
+}
+
+.image-icon {
+    font-size: 16px;
+}
+
+.versenyek-row.has-thumbnail {
+    background-color: rgba(0, 115, 170, 0.05);
+}
+
+.versenyek-row.has-thumbnail:hover {
+    background-color: rgba(0, 115, 170, 0.1);
+}
+
+.entry-thumbnail {
+    margin: 20px auto;
+    text-align: center;
+    max-width: 90%;
+}
+
+.entry-thumbnail img {
+    max-width: 50%;
+    height: auto;
+    border: 2px solid #0073aa;
+    border-radius: 6px;
+    padding: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(0, 115, 170, 0.7);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(0, 115, 170, 0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(0, 115, 170, 0);
+    }
+}
+
+/* Dark effect for opened entries */
+tr.entry-details.active {
+    background-color: rgba(0, 0, 0, 0.03);
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the row that has been clicked to open details */
+tr.versenyek-row.clickable.active {
+    background-color: rgba(0, 0, 0, 0.08);
+    font-weight: 600;
+}
+
+/* Specific styling for rows with thumbnails that are active */
+tr.versenyek-row.has-thumbnail.active {
+    background-color: rgba(0, 115, 170, 0.2);
+}
+</style>
 
 <?php
 wp_reset_postdata();
