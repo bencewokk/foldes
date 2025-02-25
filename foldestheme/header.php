@@ -3,6 +3,7 @@
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
@@ -19,6 +20,7 @@
             </a>
             <p class="school-motto">“Jót, s jól.”</p>
         </div>
+        
         <div class="header-right">
             <div class="header-contact">
                 <div class="contact-item">E-mail: <a href="mailto:ffg@ffg.hu">ffg@ffg.hu</a></div>
@@ -30,6 +32,91 @@
         </div>
     </div>
 </header>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const accessibilityPanel = document.querySelector('.accessibility-panel');
+    const accessibilityButton = document.querySelector('.accessibility-button');
+    const accessibilityOptions = document.querySelector('.accessibility-options');
+
+    // Toggle panel visibility
+    accessibilityButton.addEventListener('click', function (e) {
+      accessibilityPanel.classList.toggle('active');
+      e.stopPropagation(); // Prevent immediate closing when clicking the button
+    });
+
+    // Close panel when clicking outside
+    document.addEventListener('click', function (e) {
+      if (!accessibilityPanel.contains(e.target)) {
+        accessibilityPanel.classList.remove('active');
+      }
+    });
+
+    // Close panel on ESC key
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        accessibilityPanel.classList.remove('active');
+      }
+    });
+
+    // Theme toggle logic
+    const toggleTheme = document.getElementById('toggleTheme');
+    toggleTheme.addEventListener('change', function () {
+      document.body.classList.toggle('theme-two', this.checked);
+      localStorage.setItem('high-contrast', this.checked ? 'on' : 'off');
+    });
+
+    // Load saved theme preference
+    const savedTheme = localStorage.getItem('high-contrast');
+    if (savedTheme === 'on') {
+      toggleTheme.checked = true;
+      document.body.classList.add('theme-two');
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Font Toggle Logic
+    const toggleFont = document.getElementById('toggleFont');
+    toggleFont.addEventListener('change', function () {
+      document.body.classList.toggle('dyslexia-font', this.checked);
+      localStorage.setItem('dyslexia-font', this.checked ? 'on' : 'off');
+    });
+
+    // Load saved font preference
+    const savedFont = localStorage.getItem('dyslexia-font');
+    if (savedFont === 'on') {
+      toggleFont.checked = true;
+      document.body.classList.add('dyslexia-font');
+    }
+  });
+</script>
+
+
+<div class="accessibility-panel">
+  <button class="accessibility-button" aria-label="Accessibility Options">
+    <i class="fas fa-universal-access"></i>
+  </button>
+  <div class="accessibility-options">
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+      <input type="checkbox" id="toggleTheme" class="a11y-toggle-input">
+      <label class="a11y-toggle-track" for="toggleTheme">
+        <span class="a11y-toggle-thumb"></span>
+      </label>
+      <label for="toggleTheme" class="a11y-toggle-label">Nagy kontraszt</label>
+    </div>
+
+    <!-- Font Toggle -->
+    <div class="font-toggle">
+      <input type="checkbox" id="toggleFont" class="a11y-toggle-input">
+      <label class="a11y-toggle-track" for="toggleFont">
+        <span class="a11y-toggle-thumb"></span>
+      </label>
+      <label for="toggleFont" class="a11y-toggle-label">Dyslexia-barát szöveg</label>
+    </div>
+  </div>
+</div>
+
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
@@ -103,23 +190,18 @@ document.addEventListener('DOMContentLoaded', function () {
 <div class="nav-container">
     <nav id="main-navigation">
     <div class="toggle-container">
-        <div class="toggle-switch-group">
-                <div class="toggle-switch-wrapper">
-                <input type="checkbox" id="toggleTheme" class="toggle-switch-input">
-                <label class="toggle-switch-track" for="toggleTheme">
-                    <span class="toggle-switch-thumb"></span>
-                </label>
-                </div>
-            </div>
-        </div>
-
-        <label style="color: var(--secondary-color); font-weight: bold;font-size: 0.95rem;">Nagy kontraszt</label>
         <ul class="custom-menu">
             <li><a href="<?php echo esc_url(home_url('/')); ?>">Otthon</a></li>
             <li><a href="<?php echo esc_url(home_url('/iskolankrol')); ?>">Iskolánkról</a></li>
+            <li><a href="<?php echo esc_url(home_url('/beiratkozas')); ?>">Beiratkozás</a></li>
+            <li><a href="<?php echo esc_url(home_url('/esemenyek')); ?>">Események</a></li>
             <li><a href="<?php echo esc_url(home_url('/tanaraink')); ?>">Tanáraink</a></li>
             <li><a href="<?php echo esc_url(home_url('/tablok')); ?>">Tablók</a></li>
             <li><a href="<?php echo esc_url(home_url('/versenyek')); ?>">Versenyek</a></li>
+            <li><a href="<?php echo esc_url(home_url('/kapcsolat')); ?>">Kapcsolat</a></li>
+            <li><a href="https://ffg.e-kreta.hu>">Enapló</a></li>
+
+
         </ul>
         
     </nav>
@@ -136,12 +218,11 @@ document.addEventListener('DOMContentLoaded', function () {
             <div class="nav-section">
                 <h3>Szülőknek</h3>
                 <ul>
-                    <li><a href="/hirek">Hírek</a></li>
                     <li><a href="/esemenyek">Menza</a></li>
                     <li><a href="/esemenyek">Tehetség gondozás</a></li>
-                    <li><a href="/esemenyek">Beiratkozás</a></li>
                     <li><a href="/galeria">Szülői Munkaközösség</a></li>
-                    <li><a href="/galeria">Kihez fordulhatok?</a></li>
+                    <li><a href="/galeria">placeholder</a></li>
+
                 </ul>
             </div>
             
@@ -149,23 +230,20 @@ document.addEventListener('DOMContentLoaded', function () {
                 <h3>Diákoknak</h3>
                 <ul>
                     <li><a href="/csengetes">Csengetés</a></li>
-                    <li><a href="/orarend">Órarend</a></li>
                     <li><a href="/szakkorok">Szakkörök</a></li>
                     <li><a href="/galeria">Sport</a></li>
                     <li><a href="/galeria">Továbbtanulás</a></li>
-                    <li><a href="/galeria">Kihez fordulhatok?</a></li>
                 </ul>
             </div>
             
             <div class="nav-section">
                 <h3>Információk</h3>
                 <ul>
-                    <li><a href="/dokumentumok">Enapló</a></li>
-                    <li><a href="/kapcsolat">Kapcsolat</a></li>
-                    <li><a href="/kapcsolat">Események</a></li>
                     <li><a href="/kapcsolat">Öregdiák</a></li>
                     <li><a href="/galeria">DÖK</a></li>
                     <li><a href="/galeria">Alapitványok</a></li>
+                    <li><a href="/galeria">Kihez fordulhatok?</a></li>
+
                 </ul>
             </div>
         </div>
