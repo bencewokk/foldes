@@ -2,7 +2,7 @@
    FOOTER STYLES WITH GRADIENT (RESPONSIVE)
 ============================================================ */
 #site-footer {
-    padding: 3rem 0;
+    padding: 3rem 1rem;
     background: linear-gradient(135deg, var(--primary-color), #1a1a2e);
     color: var(--background-color);
     box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
@@ -10,43 +10,53 @@
 }
 
 .footer-content {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.25rem;
     color: var(--background-color);
 }
 
 .school-name {
-    font-size: 1.25rem;
+    font-size: clamp(1.1rem, 4vw, 1.5rem); /* Responsive font size */
     text-align: center;
+    font-weight: 600;
 }
 
 .footer-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem;
-    margin-bottom: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Responsive grid */
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-column {
+    text-align: center;
 }
 
 .footer-column p {
     margin: 0.75rem 0;
-    line-height: 1.5;
+    line-height: 1.6;
+    font-size: 0.95rem;
 }
 
 .footer-column a {
     color: var(--background-color);
     text-decoration: none;
     transition: all 0.2s ease;
+    display: inline-block;
+    padding: 0.25rem 0;
 }
 
 .footer-column a:hover {
     opacity: 0.9;
     text-decoration: underline;
+    transform: translateY(-2px);
 }
 
 .footer-bottom {
-    margin-top: 1.5rem;
-    padding-top: 1.5rem;
+    margin-top: 2rem;
+    padding-top: 2rem;
     text-align: center;
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
@@ -59,6 +69,11 @@
     display: inline-block;
     font-size: 0.9rem;
     color: var(--background-color);
+    transition: background 0.3s ease;
+}
+
+.creator:hover {
+    background: rgba(255, 255, 255, 0.15);
 }
 
 .creator a {
@@ -66,57 +81,10 @@
     text-decoration: none;
     margin: 0 0.25rem;
     transition: all 0.2s ease;
+    font-weight: 500;
 }
 
 .creator a:hover {
     color: var(--highlight-color);
     text-decoration: underline;
-}
-
-/* ============================================================
-   RESPONSIVE MEDIA QUERIES
-============================================================ */
-@media screen and (max-width: 768px) {
-    #site-footer {
-        padding: 2rem 0;
-    }
-
-    .footer-content {
-        padding: 0 1rem;
-    }
-
-    .school-name {
-        font-size: 1.1rem;
-        margin-bottom: 1rem;
-    }
-
-    .footer-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .footer-column p {
-        margin: 0.5rem 0;
-        font-size: 0.9rem;
-    }
-
-    .creator {
-        padding: 0.5rem 1rem;
-        font-size: 0.8rem;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .school-name {
-        font-size: 1rem;
-    }
-
-    .footer-bottom {
-        font-size: 0.85rem;
-    }
-
-    .creator {
-        display: block;
-        margin-top: 0.5rem;
-    }
 }

@@ -1,0 +1,51 @@
+@media (min-width: 480px) {
+    .school-name {
+        font-size: 1.25rem;
+    }
+    
+    .creator {
+        display: inline-block;
+        max-width: none;
+    }
+}
+
+@media (min-width: 768px) {
+    #site-footer {
+        padding: 3rem 0;
+    }
+    
+    .footer-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+    
+    .school-name {
+        font-size: 1.5rem;
+    }
+    
+    .footer-bottom {
+        margin-top: 2rem;
+        padding-top: 2rem;
+    }
+    
+    .creator {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .footer-grid {
+        gap: 3rem;
+    }
+    
+    .footer-column p {
+        margin: 0.75rem 0;
+    }
+}
+
+@media (min-width: 1200px) {
+    .footer-content {
+        padding: 0;
+    }
+}

@@ -13,7 +13,6 @@ function foldestheme_enqueue_styles() {
     wp_enqueue_style( 'foldestheme-colors', get_template_directory_uri() . '/css/colors.css' );
     wp_enqueue_style( 'foldestheme-header', get_template_directory_uri() . '/css/header.css' );
     wp_enqueue_style( 'foldestheme-footer', get_template_directory_uri() . '/css/footer.css' );
-    wp_enqueue_style( 'foldestheme-responsive', get_template_directory_uri() . '/css/responsive.css' );
     wp_enqueue_style( 'foldestheme-search', get_template_directory_uri() . '/css/search.css' );
     wp_enqueue_style( 'foldestheme-tanaraink', get_template_directory_uri() . '/css/tanaraink.css' );
     wp_enqueue_style( 'foldestheme-layout', get_template_directory_uri() . '/css/layout.css' );
@@ -23,7 +22,12 @@ function foldestheme_enqueue_styles() {
     wp_enqueue_style( 'foldestheme-tablo', get_template_directory_uri() . '/css/tablo.css' );
     wp_enqueue_style( 'foldestheme-pagination', get_template_directory_uri() . '/css/pagination.css' );
     wp_enqueue_style( 'foldestheme-lowernav', get_template_directory_uri() . '/css/lowernav.css' );
-    wp_enqueue_style( 'foldestheme-lshape', get_template_directory_uri() . '/css/lshape.css' );
+
+    wp_enqueue_style( 'foldestheme-searchresponsive', get_template_directory_uri() . '/css/searchresponsive.css' );
+    wp_enqueue_style( 'foldestheme-navresponsive', get_template_directory_uri() . '/css/navresponsive.css' );
+    wp_enqueue_style( 'foldestheme-postsresponsive', get_template_directory_uri() . '/css/postsresponsive.css' );
+    wp_enqueue_style( 'foldestheme-footerresponsive', get_template_directory_uri() . '/css/footerresponsive.css' );
+
 
 
 

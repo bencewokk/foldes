@@ -74,7 +74,8 @@ transform: translateY(-6px) rotate(-45deg);
   ---------------------------- */
   .secondary-nav__content {
     width: 1200px;
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
     justify-content: center;
     align-items: center;
     gap: 8px;              /* Reduced gap for a tighter layout */
@@ -134,7 +135,7 @@ transform: translateY(-6px) rotate(-45deg);
     color: var(--highlight-color, #f39c12);
   }
 
-  
+
   
 
   

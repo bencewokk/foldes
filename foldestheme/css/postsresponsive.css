@@ -1,0 +1,147 @@
+/* ============================================================
+   RESPONSIVE ADJUSTMENTS
+============================================================ */
+
+@media (max-width: 1200px) {
+    .page-container {
+        padding: 0 20px;
+    }
+    
+    .page-container.has-posts {
+        gap: 30px;
+    }
+    
+    .post-container.grid-view {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+}
+
+@media (max-width: 992px) {
+    .page-container.has-posts {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+    }
+    
+    .content-column {
+        grid-column: 1;
+        grid-row: auto;
+    }
+    
+    .sidebar-column {
+        grid-column: 1;
+        grid-row: auto;
+        position: static;
+        margin-top: 30px;
+    }
+    
+    .post-header .post-title {
+        font-size: 1.8em;
+    }
+    
+    .post-container.grid-view {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+    }
+}
+
+@media (max-width: 768px) {
+    .page-container {
+        margin: 15px auto;
+    }
+    
+    .post-header .post-title {
+        font-size: 1.6em;
+    }
+    
+    .post-content {
+        padding: 15px;
+        font-size: 1em;
+    }
+    
+    .sidebar-column {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .post-container.grid-view {
+        grid-template-columns: 1fr;
+    }
+    
+    .fontos-badge {
+        right: 0;
+        top: 5px;
+        font-size: 0.7em;
+        padding: 4px 12px;
+    }
+    
+    .fontos-badge::after {
+        bottom: -8px;
+        border-width: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-container {
+        padding: 0 15px;
+        margin: 10px auto;
+    }
+    
+    .post-header .post-title {
+        font-size: 1.4em;
+        padding: 8px;
+    }
+    
+    .post-content {
+        padding: 10px;
+        font-size: 0.95em;
+    }
+    
+    .sidebar-column {
+        padding: 15px;
+        margin-bottom: 20px;
+    }
+    
+    .sidebar-post-excerpt {
+        font-size: 0.85em;
+    }
+    
+    .read-more {
+        font-size: 0.9em;
+    }
+    
+    .fontos-badge {
+        position: relative;
+        top: auto;
+        right: auto;
+        display: inline-block;
+        margin-bottom: 10px;
+    }
+    
+    .fontos-badge::after {
+        content: none;
+    }
+    
+    .container {
+        padding: 0 10px;
+    }
+}
+
+/* Mobile-first adjustments for small devices */
+@media (max-width: 360px) {
+    .post-header .post-title {
+        font-size: 1.2em;
+    }
+    
+    .post-content {
+        font-size: 0.9em;
+        line-height: 1.5;
+    }
+    
+    .sidebar-column {
+        padding: 10px;
+    }
+    
+    .post-container.grid-view article {
+        padding: 15px;
+    }
+}
