@@ -107,68 +107,78 @@ get_header();
 
     if ($query->have_posts()) {
         while ($query->have_posts()) : $query->the_post();
-        $entry = array(
-            'post_id' => get_the_ID(),
-            'targy' => '',
-            'diak' => '',
-            'verseny' => '',
-            'osztaly' => '',
-            'tanev' => '',
-            'start_year' => null,
-            'szint' => '',
-            'tanar' => [],
-            'legjobb_helyezes' => '',
-            'helyezes_weight' => 0
-        );
+            // Build the entry array, including post content for inline display.
+            $entry = array(
+                'post_id' => get_the_ID(),
+                'targy' => '',
+                'diak' => '',
+                'verseny' => '',
+                'osztaly' => '',
+                'tanev' => '',
+                'start_year' => null,
+                'szint' => '',
+                'tanar' => [],
+                'legjobb_helyezes' => '',
+                'helyezes_weight' => 0,
+                'content' => get_the_content()
+            );
 
-        $match_found = false;
-        $year_match = true;  // Default to true
+            $match_found = false;
+            $year_match = true;  // Default to true
 
-        $tags = get_the_terms(get_the_ID(), 'competition_tags');
-        if ($tags && !is_wp_error($tags)) {
-            foreach ($tags as $tag) {
-                $parts = explode(': ', $tag->name, 2);
-                if (count($parts) === 2) {
-                    switch ($parts[0]) {
-                        case 'Tárgy': $entry['targy'] = $parts[1]; break;
-                        case 'Diák': $entry['diak'] = $parts[1]; break;
-                        case 'Verseny': $entry['verseny'] = $parts[1]; break;
-                        case 'Osztály': $entry['osztaly'] = $parts[1]; break;
-                        case 'Tanév': 
-                            $entry['tanev'] = $parts[1];
-                            $years = explode('-', $parts[1]);
-                            $entry['start_year'] = !empty($years[0]) ? intval($years[0]) : null;
-                            break;
-                        case 'Legjobb helyezés': 
-                            $entry['legjobb_helyezes'] = $parts[1];
-                            $entry['helyezes_weight'] = get_position_weight($parts[1]);
-                            break;
-                        case 'Tanár': 
-                            $entry['tanar'][] = $parts[1]; 
-                            break;
-                    }
+            $tags = get_the_terms(get_the_ID(), 'competition_tags');
+            if ($tags && !is_wp_error($tags)) {
+                foreach ($tags as $tag) {
+                    $parts = explode(': ', $tag->name, 2);
+                    if (count($parts) === 2) {
+                        switch ($parts[0]) {
+                            case 'Tárgy': 
+                                $entry['targy'] = $parts[1]; 
+                                break;
+                            case 'Diák': 
+                                $entry['diak'] = $parts[1]; 
+                                break;
+                            case 'Verseny': 
+                                $entry['verseny'] = $parts[1]; 
+                                break;
+                            case 'Osztály': 
+                                $entry['osztaly'] = $parts[1]; 
+                                break;
+                            case 'Tanév': 
+                                $entry['tanev'] = $parts[1];
+                                $years = explode('-', $parts[1]);
+                                $entry['start_year'] = !empty($years[0]) ? intval($years[0]) : null;
+                                break;
+                            case 'Legjobb helyezés': 
+                                $entry['legjobb_helyezes'] = $parts[1];
+                                $entry['helyezes_weight'] = get_position_weight($parts[1]);
+                                break;
+                            case 'Tanár': 
+                                $entry['tanar'][] = $parts[1]; 
+                                break;
+                        }
 
-                    if (stripos($tag->name, $search_term) !== false) {
-                        $match_found = true;
+                        if (stripos($tag->name, $search_term) !== false) {
+                            $match_found = true;
+                        }
                     }
                 }
             }
-        }
 
-        // Apply year filtering logic here:
-        if (!empty($entry['start_year'])) {
-            if ($from_year && $entry['start_year'] < $from_year) {
-                $year_match = false;
+            // Apply year filtering logic:
+            if (!empty($entry['start_year'])) {
+                if ($from_year && $entry['start_year'] < $from_year) {
+                    $year_match = false;
+                }
+                if ($to_year && $entry['start_year'] > $to_year) {
+                    $year_match = false;
+                }
             }
-            if ($to_year && $entry['start_year'] > $to_year) {
-                $year_match = false;
-            }
-        }
 
-        if (($match_found || empty($search_term)) && $year_match) {
-            $entries[] = $entry;
-        }
-    endwhile;
+            if (($match_found || empty($search_term)) && $year_match) {
+                $entries[] = $entry;
+            }
+        endwhile;
 
         usort($entries, function($a, $b) use ($sort, $order) {
             if ($sort === 'legjobb_helyezes') {
@@ -220,7 +230,8 @@ get_header();
             </thead>
             <tbody>
                 <?php foreach ($paged_entries as $entry) : ?>
-                    <tr class="versenyek-row">
+                    <!-- Main row (clickable) -->
+                    <tr class="versenyek-row clickable">
                         <td><?php echo esc_html($entry['targy']); ?></td>
                         <td><?php echo esc_html($entry['diak']); ?></td>
                         <td><?php echo esc_html($entry['verseny']); ?></td>
@@ -228,6 +239,15 @@ get_header();
                         <td><?php echo esc_html($entry['tanev']); ?></td>
                         <td><?php echo esc_html($entry['legjobb_helyezes']); ?></td>
                         <td><?php echo esc_html(implode(', ', $entry['tanar'])); ?></td>
+                    </tr>
+                    <!-- Hidden details row -->
+                    <tr class="entry-details" style="display: none;">
+                        <td colspan="7">
+                            <?php 
+                            // Apply content filters so shortcodes, etc. work
+                            echo apply_filters('the_content', $entry['content']); 
+                            ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
@@ -252,6 +272,7 @@ get_header();
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+    // Sorting functionality
     document.querySelectorAll('.sortable').forEach(header => {
         header.addEventListener('click', function() {
             const sortField = this.dataset.sort;
@@ -264,7 +285,20 @@ document.addEventListener('DOMContentLoaded', function() {
             window.location.href = url.toString();
         });
     });
+    
+    // Toggle the hidden details row when a main row is clicked
+    document.querySelectorAll('.versenyek-row.clickable').forEach(row => {
+        row.style.cursor = 'pointer';
+        row.addEventListener('click', function() {
+            const detailsRow = this.nextElementSibling;
+            if (detailsRow && detailsRow.classList.contains('entry-details')) {
+                detailsRow.style.display = (detailsRow.style.display === 'none') ? 'table-row' : 'none';
+            }
+        });
+    });
 });
+
+
 </script>
 
 <?php
