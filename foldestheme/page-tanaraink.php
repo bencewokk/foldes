@@ -37,7 +37,7 @@ get_header();
 
         $query_args = array(
     'post_type'      => 'post',
-    'tag'            => 'tanar',  // This is the issue!
+    'tag'            => 'tanar',  
     'posts_per_page' => -1,
     'orderby'        => 'menu_order',
     'order'          => 'ASC'
@@ -58,9 +58,9 @@ get_header();
             $other_teachers = array();
             
             foreach ($all_teachers as $teacher_post) {
-                if (has_term('ig', 'teacher_position', $teacher_post->ID)) {
+                if (has_Tag('ig', $teacher_post->ID)) {
                     $ig_teachers[] = $teacher_post;
-                } elseif (has_term('igh', 'teacher_position', $teacher_post->ID)) {
+                } elseif (has_tag('igh', $teacher_post->ID)) {
                     $igh_teachers[] = $teacher_post;
                 } else {
                     $other_teachers[] = $teacher_post;

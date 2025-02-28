@@ -139,4 +139,3 @@ function enqueue_lower_navbar_script() {
     wp_enqueue_script('lower-navbar', get_template_directory_uri() . '/js/lower-navbar.js', array(), '1.0', true);
 }
 add_action('wp_enqueue_scripts', 'enqueue_lower_navbar_script');
-
