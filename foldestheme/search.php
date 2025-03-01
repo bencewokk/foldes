@@ -16,26 +16,24 @@ get_header();
                     <!-- Search Input -->
                     <div class="input-group search-group">
                         <input type="text" id="search-query" name="s" placeholder=" " value="<?php echo esc_attr(isset($_GET['s']) ? sanitize_text_field($_GET['s']) : ''); ?>">
-                        <label for="search-query">Search for anything...</label>
+                        <label for="search-query">Keresés bármire...</label>
                     </div>
-
-                    
                 </div>
 
                 <!-- Post Type Filter -->
                 <div class="input-group">
                     <select id="post-type" name="post_type">
                         <!-- All Content option -->
-                        <option value="any" <?php selected(isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : 'any', 'any'); ?>>All Content</option>
+                        <option value="any" <?php selected(isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : 'any', 'any'); ?>>Minden tartalom</option>
                         
                         <!-- Explicitly add Competition Entries if it exists -->
                         <?php if (post_type_exists('competition_entries')) : ?>
-                            <option value="competition_entries" <?php selected(isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : '', 'competition_entries'); ?>>Competition Entries</option>
+                            <option value="competition_entries" <?php selected(isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : '', 'competition_entries'); ?>>Verseny bejegyzések</option>
                         <?php endif; ?>
                         
                         <!-- Standard post types: Posts and Pages -->
-                        <option value="post" <?php selected(isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : '', 'post'); ?>>Posts</option>
-                        <option value="page" <?php selected(isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : '', 'page'); ?>>Pages</option>
+                        <option value="post" <?php selected(isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : '', 'post'); ?>>Bejegyzések</option>
+                        <option value="page" <?php selected(isset($_GET['post_type']) ? sanitize_text_field($_GET['post_type']) : '', 'page'); ?>>Oldalak</option>
                         
                         <!-- Dynamically add other public custom post types, excluding competition_entries -->
                         <?php
@@ -57,7 +55,7 @@ get_header();
                 <!-- Category Filter (shown only for post types that support categories) -->
                 <div class="input-group category-filter">
                     <select id="category" name="category_name">
-                        <option value="">All Categories</option>
+                        <option value="">Minden kategória</option>
                         <?php
                         $categories = get_categories(array('hide_empty' => false));
                         foreach ($categories as $category) {
@@ -75,38 +73,38 @@ get_header();
                 <!-- Tag Filter -->
                 <div class="input-group tag-filter">
                     <input type="text" id="tag-filter" name="tag" placeholder=" " value="<?php echo esc_attr(isset($_GET['tag']) ? sanitize_text_field($_GET['tag']) : ''); ?>">
-                    <label for="tag-filter">Filter by tag</label>
+                    <label for="tag-filter">Szűrés címke szerint</label>
                 </div>
 
                
                 <!-- Order Options -->
                 <div class="input-group">
                     <select id="orderby" name="orderby">
-                        <option value="date" <?php selected(isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'date', 'date'); ?>>Date</option>
-                        <option value="title" <?php selected(isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : '', 'title'); ?>>Title</option>
+                        <option value="date" <?php selected(isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'date', 'date'); ?>>Dátum</option>
+                        <option value="title" <?php selected(isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : '', 'title'); ?>>Cím</option>
                     </select>
                 </div>
 
                 <div class="input-group">
                     <select id="order" name="order">
-                        <option value="DESC" <?php selected(isset($_GET['order']) ? sanitize_text_field($_GET['order']) : 'DESC', 'DESC'); ?>>Newest First</option>
-                        <option value="ASC" <?php selected(isset($_GET['order']) ? sanitize_text_field($_GET['order']) : '', 'ASC'); ?>>Oldest First</option>
+                        <option value="DESC" <?php selected(isset($_GET['order']) ? sanitize_text_field($_GET['order']) : 'DESC', 'DESC'); ?>>Előlröl hátra</option>
+                        <option value="ASC" <?php selected(isset($_GET['order']) ? sanitize_text_field($_GET['order']) : '', 'ASC'); ?>>Hátulról előre</option>
                     </select>
                 </div>
 
                 <!-- Layout Toggle -->
                 <div class="layout-toggle">
-                    <label for="layout">Display as:</label>
+                    <label for="layout">Megjelenítés:</label>
                     <select id="layout" name="layout">
-                        <option value="list" <?php selected(isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : 'list', 'list'); ?>>List</option>
-                        <option value="grid" <?php selected(isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : '', 'grid'); ?>>Grid</option>
+                        <option value="grid" <?php selected(isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : 'grid', 'grid'); ?>>Rács</option>
+                        <option value="list" <?php selected(isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : '', 'list'); ?>>Lista</option>
                     </select>
                 </div>
 
 
                 <!-- Submit Button -->
                 <button type="submit" class="search-submit-btn">
-                    Search <i class="fas fa-search"></i>
+                    Keresés <i class="fas fa-search"></i>
                 </button>
             </form>
         </div>
@@ -119,14 +117,12 @@ get_header();
         $tag = isset($_GET['tag']) ? sanitize_text_field($_GET['tag']) : '';
         $orderby = isset($_GET['orderby']) ? sanitize_text_field($_GET['orderby']) : 'date';
         $order = isset($_GET['order']) ? sanitize_text_field($_GET['order']) : 'DESC';
-        $layout = isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : 'list';
-
-       
+        $layout = isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : 'grid'; // Changed default to grid
 
         // Build the query arguments
         $query_args = array(
             'post_type' => $post_type,
-            'posts_per_page' => 10,
+            'posts_per_page' => 16,
             'orderby' => $orderby,
             'order' => $order,
         );
@@ -146,8 +142,6 @@ get_header();
             $query_args['tag'] = $tag;
         }
 
-
-
         // For regular posts, also consider sticky posts
         if ($post_type == 'post' || $post_type == 'any') {
             $sticky_posts = get_option('sticky_posts');
@@ -160,10 +154,15 @@ get_header();
         $custom_query = new WP_Query($query_args);
         ?>
 
-        <!-- Display Search Results -->
-        <div class="search-results-count">
-            <h2>Search Results</h2>
-            <p>Found <?php echo esc_html($custom_query->found_posts); ?> results</p>
+        <!-- Combined Search Results Count / No Results Container -->
+        <div class="no-results">
+            <?php if ($custom_query->have_posts()) : ?>
+                <h3>Keresési eredmények</h3>
+                <p><?php echo esc_html($custom_query->found_posts); ?> találat</p>
+            <?php else : ?>
+                <h3>Nincs találat</h3>
+                <p>Sajnáljuk, de nem találtunk a keresési feltételeknek megfelelő tartalmat. Kérjük, próbálja újra más paraméterekkel.</p>
+            <?php endif; ?>
         </div>
 
         <?php if ($custom_query->have_posts()) : ?>
@@ -171,7 +170,6 @@ get_header();
                 <?php while ($custom_query->have_posts()) : $custom_query->the_post(); ?>
                     <article <?php post_class('result-item'); ?>>
                         
-
                         <?php if (has_post_thumbnail() && $layout === 'grid') : ?>
                             <div class="post-thumbnail">
                                 <a href="<?php the_permalink(); ?>">
@@ -193,7 +191,7 @@ get_header();
                                         <span class="result-date"><?php echo get_the_date(); ?></span>
                                     <?php endif; ?>
                                     <?php if (get_post_type() === 'post') : ?>
-                                        <span class="result-author">By <?php the_author(); ?></span>
+                                        <span class="result-author">Írta: <?php the_author(); ?></span>
                                     <?php endif; ?>
                                 </div>
                             </header>
@@ -245,18 +243,15 @@ get_header();
                 echo paginate_links(array(
                     'base' => add_query_arg('paged', '%#%'),
                     'format' => '',
-                    'prev_text' => __('<i class="fas fa-chevron-left"></i> Previous'),
-                    'next_text' => __('Next <i class="fas fa-chevron-right"></i>'),
+                    'prev_text' => __('<i class="fas fa-chevron-left"></i> Előző'),
+                    'next_text' => __('Következő <i class="fas fa-chevron-right"></i>'),
                     'total' => $custom_query->max_num_pages,
                     'current' => max(1, get_query_var('paged'))
                 ));
                 ?>
             </div>
         <?php else : ?>
-            <div class="no-results">
-                <h3>No results found</h3>
-                <p>Sorry, but nothing matched your search criteria. Please try again with different parameters.</p>
-            </div>
+            
         <?php endif; ?>
 
         <?php wp_reset_postdata(); ?>

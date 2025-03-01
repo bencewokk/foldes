@@ -64,12 +64,16 @@ get_header();
         // $fontos_toggle is already set above.
         $layout = isset($_GET['layout']) ? sanitize_text_field( $_GET['layout'] ) : 'list';
 
+        // Define the current page for pagination.
+        $paged = ( get_query_var( 'paged' ) ) ? absint( get_query_var( 'paged' ) ) : 1;
+
         // Build the basic query arguments.
         $query_args = array_merge( $wp_query->query_vars, array(
             'order'         => $order,
             's'             => $tag,
             'tag'           => $tag ? $tag . '+hir' : 'hir',
             'tag_operator'  => 'AND',
+            'paged'         => $paged, // Added pagination support
         ));
 
         // Add date query if at least one year is provided.
@@ -149,10 +153,17 @@ get_header();
                 <?php endwhile; ?>
             </div>
 
+            <!-- Pagination -->
             <div class="pagination">
                 <?php 
-                previous_posts_link( '<i class="fas fa-chevron-left"></i> Newer Posts', $custom_query->max_num_pages );
-                next_posts_link( 'Older Posts <i class="fas fa-chevron-right"></i>', $custom_query->max_num_pages );
+                echo paginate_links( array(
+                    'base'      => add_query_arg( 'paged', '%#%' ),
+                    'format'    => '',
+                    'current'   => $paged,
+                    'total'     => $custom_query->max_num_pages,
+                    'prev_text' => '<i class="fas fa-chevron-left"></i> Newer Posts',
+                    'next_text' => 'Older Posts <i class="fas fa-chevron-right"></i>',
+                ) );
                 ?>
             </div>
         <?php else : ?>

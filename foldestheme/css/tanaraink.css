@@ -192,3 +192,65 @@ h4 {
   background-color: transparent;
   color: #2c3e50 !important;
 }
+
+/* Mobile View for Teacher Grid */
+@media screen and (max-width: 1240px) {
+  .teachers-grid {
+    width: 100%;
+    padding: 0 1rem;
+    margin: 1.5rem auto;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .teachers-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  
+  .teacher-card {
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+  }
+  
+  .teacher-info h3 {
+    font-size: 1.1rem;
+  }
+  
+  .teacher-overlay {
+    padding: 1rem;
+  }
+  
+  .teacher-overlay h4 {
+    font-size: 1.15rem;
+    margin-bottom: 0.75rem;
+  }
+  
+  .teacher-overlay ul {
+    font-size: 0.85rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .teachers-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  
+  .teacher-card .teacher-button {
+    padding: 0.5em 1.2em;
+    font-size: 0.85em;
+  }
+  
+  /* Adjust animation for mobile */
+  @keyframes cardEntrance {
+    from {
+      opacity: 0;
+      transform: translateY(100px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+}

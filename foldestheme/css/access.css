@@ -1,18 +1,21 @@
 /* ============================================================
    Accessibility Panel & Controls
 ============================================================ */
+/* Modified CSS */
 .accessibility-panel {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  z-index: 1000;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
   gap: 10px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
 }
 
+
 .accessibility-button {
+  order: 2; /* Positions below the back-to-top button */
   border: none;
   border-radius: 50%;
   width: 50px;
@@ -30,6 +33,7 @@
 }
 
 .accessibility-options {
+  order: 3; /* Keeps options panel at the bottom */
   background: #fff;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

@@ -32,11 +32,16 @@
     </div>
 </header>
 
+
 <!-- Accessibility Panel -->
 <div class="accessibility-panel">
+  <button class="back-to-top" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
   <button class="accessibility-button" aria-label="Accessibility Options">
     <i class="fas fa-universal-access"></i>
   </button>
+  
   <div class="accessibility-options">
     <!-- Theme Toggle -->
     <div class="theme-toggle">
@@ -58,6 +63,59 @@
   </div>
 </div>
 
+
+
+<style>
+.back-to-top {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  order: 1; /* Positions above the accessibility button */
+}
+
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.back-to-top:hover {
+  background-color: #0056b3;
+}
+</style>
+
+<script>
+// Existing JavaScript remains the same
+const backToTopButton = document.querySelector('.back-to-top');
+
+window.addEventListener('scroll', () => {
+  if (window.pageYOffset > 300) {
+    backToTopButton.classList.add('show');
+  } else {
+    backToTopButton.classList.remove('show');
+  }
+});
+
+backToTopButton.addEventListener('click', () => {
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth'
+  });
+});
+</script>
+
+
 <!-- Mobile Menu Toggle Button -->
 <button class="mobile-menu-toggle" aria-label="Toggle mobile menu">
   <span class="bar"></span>
@@ -72,26 +130,34 @@
 <div class="nav-container">
     <nav id="main-navigation">
     <div class="toggle-container">
-        <ul class="custom-menu">
-            <li><a href="<?php echo esc_url(home_url('/')); ?>">Otthon</a></li>
-            <li><a href="<?php echo esc_url(home_url('/iskolankrol')); ?>">Iskolánkról</a></li>
-            <li><a href="<?php echo esc_url(home_url('/beiratkozas')); ?>">Beiratkozás</a></li>
-            <li><a href="<?php echo esc_url(home_url('/esemenyek')); ?>">Események</a></li>
-            <li><a href="<?php echo esc_url(home_url('/tanaraink')); ?>">Tanáraink</a></li>
-            <li><a href="<?php echo esc_url(home_url('/tablok')); ?>">Tablók</a></li>
-            <li><a href="<?php echo esc_url(home_url('/versenyek')); ?>">Versenyek</a></li>
-            <li class="has-dropdown">
-                <a href="<?php echo esc_url(home_url('/konyvtar')); ?>">Könyvtár</a>
-                <ul class="dropdown-menu">
-                    <li><a href="<?php echo esc_url('https://opac.rfmlib.hu/WebPac_SULI/CorvinaWeb?action=advancedsearchpage&CLOC=M106'); ?>">Katalógus</a></li>
-                </ul>
-            </li>
-            <li><a href="<?php echo esc_url(home_url('/kapcsolat')); ?>">Kapcsolat</a></li>
-            <li><a href="<?php echo esc_url('https://ffg.e-kreta.hu'); ?>">Enapló</a></li>
-            <li><a href="<?php echo esc_url('/?s'); ?>">Keresés</a></li>
+      <ul class="custom-menu">
+        <li><a href="<?php echo esc_url(home_url('/')); ?>">Otthon</a></li>
+        <li><a href="<?php echo esc_url(home_url('/iskolankrol')); ?>">Iskolánkról</a></li>
+        <li><a href="<?php echo esc_url(home_url('/beiratkozas')); ?>">Beiratkozás</a></li>
+        <li><a href="<?php echo esc_url(home_url('/esemenyek')); ?>">Események</a></li>
+        <li><a href="<?php echo esc_url(home_url('/tanaraink')); ?>">Tanáraink</a></li>
+        <li><a href="<?php echo esc_url(home_url('/tablok')); ?>">Tablók</a></li>
+        <li><a href="<?php echo esc_url(home_url('/versenyek')); ?>">Versenyek</a></li>
+        <li class="has-dropdown">
+            <a href="<?php echo esc_url(home_url('/konyvtar')); ?>">Könyvtár</a>
+            <ul class="dropdown-menu">
+                <li>
+                    <a href="<?php echo esc_url('https://opac.rfmlib.hu/WebPac_SULI/CorvinaWeb?action=advancedsearchpage&CLOC=M106'); ?>" target="_blank">
+                        <i class="fas fa-external-link-alt"></i> Katalógus
+                    </a>
+                </li>
+            </ul>
+        </li>
+        <li><a href="<?php echo esc_url(home_url('/kapcsolat')); ?>">Kapcsolat</a></li>
+        <li>
+            <a href="<?php echo esc_url('https://ffg.e-kreta.hu'); ?>" target="_blank">
+                <i class="fas fa-external-link-alt"></i> Enapló
+            </a>
+        </li>
+        <li><a href="<?php echo esc_url('/?s'); ?>">Keresés</a></li>
+      </ul>
+  </div>
 
-        </ul>
-    </div>
     </nav>
     
     <nav id="lower-navigation" class="secondary-nav">

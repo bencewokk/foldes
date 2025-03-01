@@ -3,9 +3,7 @@
 ============================================================ */
 
 @media (max-width: 1200px) {
-    .page-container {
-        padding: 0 20px;
-    }
+    
     
     .page-container.has-posts {
         gap: 30px;
@@ -54,12 +52,10 @@
     }
     
     .post-content {
-        padding: 15px;
         font-size: 1em;
     }
     
     .sidebar-column {
-        padding: 20px;
         margin-bottom: 30px;
     }
     
@@ -82,7 +78,7 @@
 
 @media (max-width: 480px) {
     .page-container {
-        padding: 0 15px;
+        padding: 0;
         margin: 10px auto;
     }
     
@@ -121,9 +117,6 @@
         content: none;
     }
     
-    .container {
-        padding: 0 10px;
-    }
 }
 
 /* Mobile-first adjustments for small devices */

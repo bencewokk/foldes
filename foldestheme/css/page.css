@@ -97,82 +97,124 @@
   width: 100%;
 }
 
-/* ============================================================
- RESPONSIVE DESIGN
-============================================================ */
-
-@media (max-width: 1200px) {
-  .page-container.has-posts {
-      grid-template-columns: 2fr 1fr;
-      gap: 30px;
-  }
-
-  .sidebar-column {
-      width: 280px;
-  }
+/* Overall container remains a flex container */
+.page-container {
+  display: flex;
+  gap: 20px;
+  width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  min-height: 100vh;
 }
 
-@media (max-width: 1024px) {
-  .page-container.has-posts {
-      grid-template-columns: 1fr;
-      gap: 20px;
-  }
-
-  .content-column {
-      width: 100%;
-  }
-
-  .sidebar-column {
-      width: 100%;
-      max-width: 600px;
-      margin: 0 auto;
-      position: relative;
-      top: auto;
-      box-shadow: none;
-      padding: 20px;
-  }
-
-  .sidebar-column.collapsed {
-      display: none;
-  }
-
-  .sidebar-toggle {
-      left: 10px;
-      top: 10px;
-      border-right: 1px solid #ddd;
-      border-left: none;
-      border-radius: 0 4px 4px 0;
-  }
+/* New container for the main content */
+.content-wrapper {
+  flex: 1;
 }
 
-@media (max-width: 768px) {
-  .page-container {
-      flex-direction: column;
-      gap: 10px;
-  }
-
-  .content-column {
-      width: 100%;
-  }
-
-  .sidebar-column {
-      width: 100%;
-      padding: 15px;
-  }
-
-  .sidebar-column.collapsed {
-      display: none;
-  }
+/* Main content column */
+.content-column {
+  transition: all 0.3s ease;
+  min-width: 0;
 }
 
-@media (max-width: 480px) {
-  .sidebar-column {
-      width: 100%;
-      padding: 10px;
-  }
+/* Make the sidebar a positioning context */
+.sidebar-column {
+  position: sticky;
+  top: 85px;
+  width: 300px;
+  min-width: 300px;
+  background: var(--background-color);
+  padding: 20px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+  transition: all 0.3s ease;
+}
 
-  .sidebar-toggle {
-      left: 5px;
-      padding: 6px 10px;
-  }
+.sidebar-content {
+  width: 100%;
+  transition: opacity 0.3s ease;
+}
+
+.sidebar-post-excerpt {
+  padding: 10px;
+}
+
+.sidebar-post-title {
+  background-color: var(--primary-color);
+  padding: 5px;
+}
+
+/* Default state: transparent background and vertically centered */
+.sidebar-toggle-btn {
+  position: absolute;
+  left: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  background: transparent;
+  border: 1px transparent;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.toggle-icon, .toggle-news-icon {
+  display: inline-block;
+  transition: transform 0.3s ease;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.toggle-news-icon {
+  display: none;
+  font-size: 18px; /* Slightly smaller for better proportion */
+}
+
+/* Collapsed state adjustments */
+.page-container.sidebar-collapsed .content-column {
+  margin-right: 0;
+}
+
+.page-container.sidebar-collapsed .sidebar-column {
+  transform: translateX(0);
+  width: 30px;
+  height: 30px;
+  min-width: 30px;
+  padding: 0;
+  border-left: none;
+}
+
+.page-container.sidebar-collapsed .sidebar-content {
+  opacity: 0;
+}
+
+/* Collapsed state: maintain vertical centering */
+.page-container.sidebar-collapsed .sidebar-toggle-btn {
+  left: 0;
+}
+
+.page-container.sidebar-collapsed .toggle-icon {
+  display: none;
+}
+
+.page-container.sidebar-collapsed .toggle-news-icon {
+  display: block;
+  transform: rotate(0deg); /* Reset any rotation */
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.sidebar-column::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.sidebar-column {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;     /* Firefox */
 }

@@ -121,7 +121,7 @@
   }
   
   /* Media query for mobile devices */
-  @media (max-width: 768px) {
+  @media (max-width: 1200px) {
     /* Adjust header for mobile */
     .header-container {
       flex-direction: column;
@@ -167,3 +167,9 @@
       overflow: hidden;
     }
   }
+  
+@media (max-width: 510px) {
+    .school-motto {
+        display: none;
+    }
+}

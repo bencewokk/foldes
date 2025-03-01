@@ -1,12 +1,10 @@
-
-
 /* ============================================================
     Tag Search Container & Background Effects
 ============================================================ */
 .tag-search {
-    /* Using primary & secondary for a blue gradient */
+    /* Using primary & accent for a blue gradient */
     background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
-    /* Text uses the light background color for contrast */
+    /* Text uses the background color for contrast */
     color: var(--background-color);
     align-self: center;
     width: 1200px;
@@ -15,8 +13,6 @@
     position: relative;
     overflow: hidden;
     border-radius: 12px;
-
-
 }
 
 .tag-search::before {
@@ -26,8 +22,8 @@
     left: -50%;
     width: 200%;
     height: 200%;
-    /* Replace white with the RGB equivalent of --white (226,226,226) */
-    background: linear-gradient(45deg, transparent, rgba(226, 226, 226, 0.1), transparent);
+    /* Using the white RGB variable for transparency effects */
+    background: linear-gradient(45deg, transparent, rgba(var(--white-rgb), 0.1), transparent);
     transform: rotate(45deg);
     animation: shimmer 8s infinite linear;
 }
@@ -44,12 +40,12 @@
     max-width: 1200px;
     margin: 0 auto;
     position: relative;
-    background: rgba(226, 226, 226, 0.05);
+    background: rgba(var(--white-rgb), 0.05);
     backdrop-filter: blur(10px);
     border-radius: 12px;
     padding: 1.5rem;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-    border: 1px solid rgba(226, 226, 226, 0.1);
+    border: 1px solid rgba(var(--white-rgb), 0.1);
     transition: transform 0.3s ease;
 }
 
@@ -74,8 +70,8 @@
     font-size: 0.9rem;
     border: none;
     border-radius: 8px;
-    background: rgba(226, 226, 226, 0.1);
-    /* Using background color for text so it contrasts the dark gradient */
+    background: rgba(var(--white-rgb), 0.1);
+    /* Using the background color for text so it contrasts the dark gradient */
     color: var(--background-color);
     transition: all 0.3s ease;
     backdrop-filter: blur(5px);
@@ -87,7 +83,7 @@
 /* Style for the select dropdown */
 .tag-search select {
     padding-right: 2.5rem;  /* To make space for the dropdown arrow */
-    background: rgba(226, 226, 226, 0.1)
+    background: rgba(var(--white-rgb), 0.1)
       url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23e2e2e2'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e")
       no-repeat right 0.75rem center/0.8em;
     appearance: none;
@@ -104,9 +100,9 @@
 .tag-search input[type="text"]:focus,
 .tag-search input[type="number"]:focus,
 .tag-search select:focus {
-    background: rgba(226, 226, 226, 0.2);
+    background: rgba(var(--white-rgb), 0.2);
     outline: none;
-    box-shadow: 0 0 0 2px rgba(226, 226, 226, 0.3);
+    box-shadow: 0 0 0 2px rgba(var(--white-rgb), 0.3);
 }
 
 /* Floating Label Styles for Year Filter */
@@ -115,8 +111,8 @@
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    /* Replace white with the RGB equivalent of --white */
-    color: rgba(226, 226, 226, 0.7);
+    /* Using the white RGB equivalent for label color */
+    color: rgba(var(--white-rgb), 0.7);
     pointer-events: none;
     transition: all 0.3s ease;
     font-size: 0.9rem;
@@ -135,14 +131,14 @@
 }
 
 /* ============================================================
-    Floating Labels
+    Floating Labels (General)
 ============================================================ */
 .input-group label {
     position: absolute;
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: rgba(226, 226, 226, 0.7);
+    color: rgba(var(--white-rgb), 0.7);
     pointer-events: none;
     transition: all 0.3s ease;
     font-size: 0.9rem;
@@ -199,7 +195,7 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(226, 226, 226, 0.1);
+    background: rgba(var(--white-rgb), 0.1);
     border-radius: 13px;
     transition: all 0.3s ease;
 }
@@ -210,7 +206,7 @@
     width: 22px;
     left: 2px;
     bottom: 2px;
-    background: #fff;
+    background: var(--badge-color);
     border-radius: 50%;
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
@@ -225,16 +221,16 @@
 }
 
 .toggle-switch-wrapper:hover .toggle-switch-track {
-    background: rgba(226, 226, 226, 0.2);
+    background: rgba(var(--white-rgb), 0.2);
 }
 
 .toggle-switch-input:focus-visible + .toggle-switch-track {
-    outline: 2px solid rgba(226, 226, 226, 0.5);
+    outline: 2px solid rgba(var(--white-rgb), 0.5);
     outline-offset: 2px;
 }
 
 .toggle-label {
-    color: rgba(226, 226, 226, 0.9);
+    color: rgba(var(--white-rgb), 0.9);
     font-size: 0.95rem;
     white-space: nowrap;
 }
@@ -248,7 +244,7 @@
 }
 
 .layout-toggle label {
-    color: rgba(226, 226, 226, 0.9);
+    color: rgba(var(--white-rgb), 0.9);
     font-size: 0.9rem;
 }
 
@@ -268,8 +264,7 @@
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-    /* Using the RGB equivalent of var(--highlight-color) for the box-shadow */
-    box-shadow: 0 2px 8px rgba(0, 166, 230, 0.3);
+    box-shadow: 0 2px 8px rgba(var(--highlight-color-rgb), 0.3);
     flex: 1 1 auto;
 }
 
@@ -280,13 +275,13 @@
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(226, 226, 226, 0.3), transparent);
+    background: linear-gradient(120deg, transparent, rgba(var(--white-rgb), 0.3), transparent);
     transition: 0.5s;
 }
 
 .tag-search button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 166, 230, 0.5);
+    box-shadow: 0 4px 12px rgba(var(--highlight-color-rgb), 0.5);
 }
 
 .tag-search button:hover::before {
@@ -322,7 +317,7 @@
     font-size: 0.9rem;
     border: none;
     border-radius: 8px;
-    background: rgba(226, 226, 226, 0.1);
+    background: rgba(var(--white-rgb), 0.1);
     color: var(--background-color);
     transition: all 0.3s ease;
     backdrop-filter: blur(5px);
@@ -332,9 +327,9 @@
 }
 
 .year-filter input[type="number"]:focus {
-    background: rgba(226, 226, 226, 0.2);
+    background: rgba(var(--white-rgb), 0.2);
     outline: none;
-    box-shadow: 0 0 0 2px rgba(226, 226, 226, 0.3);
+    box-shadow: 0 0 0 2px rgba(var(--white-rgb), 0.3);
 }
 
 .year-filter input[type="number"]::placeholder {
@@ -348,7 +343,7 @@
     left: 1rem;
     top: 50%;
     transform: translateY(-50%);
-    color: rgba(226, 226, 226, 0.7);
+    color: rgba(var(--white-rgb), 0.7);
     pointer-events: none;
     transition: all 0.3s ease;
     font-size: 0.9rem;
@@ -375,7 +370,6 @@
     appearance: textfield;
     -moz-appearance: textfield;
 }
-
 
 /* ============================================================
     Search & Year Filter in One Row
@@ -405,6 +399,7 @@
 .search-year-row button {
     flex: 1 1 auto;
 }
+
 /* ============================================================
     Search Results Layouts
 ============================================================ */
@@ -415,9 +410,10 @@
 /* Grid View Styles */
 .results-container.grid-view {
     display: grid;
+    width: 1200px;
     gap: 2rem;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    grid-auto-rows: minmax(400px, auto); /* Ensures each row is at least 400px tall, adjusts dynamically */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: minmax(400px, auto);
 }
 
 .grid-view .result-item {
@@ -473,7 +469,7 @@
 
 .grid-view .result-meta {
     font-size: 0.875rem;
-    color: var(--gray-600);
+    color: var(--text-color);
     margin-bottom: 0.5rem;
 }
 
@@ -487,6 +483,7 @@
 /* List View Styles */
 .results-container.list-view {
     display: flex;
+    width: 1200px;
     flex-direction: column;
     gap: 1.5rem;
 }
@@ -496,7 +493,6 @@
     border-radius: 8px;
     padding: 2rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    /* min-height: 200px; */ /* Uncomment if you want a minimum height for list items */
 }
 
 .list-view .result-title {
@@ -506,7 +502,7 @@
 
 .list-view .result-meta {
     font-size: 0.9375rem;
-    color: var(--gray-600);
+    color: var(--text-color);
     margin-bottom: 1rem;
 }
 
@@ -514,6 +510,27 @@
     font-size: 1rem;
     line-height: 1.6;
     margin-bottom: 1rem;
+}
+
+.no-results {
+    text-align: center;
+    width: 1200px;
+    margin: 15px;
+    padding: 20px 20px;
+    background-color: var(--background-color);  
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.no-results h3 {
+    font-size: 1.8em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+}
+
+.no-results p {
+    font-size: 1em;
+    color: var(--text-color);
 }
 
 /* Responsive Adjustments */

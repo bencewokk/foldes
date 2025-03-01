@@ -1,17 +1,16 @@
-/* Default Palette */
 :root {
-    
     --primary-color: #003C76; 
     --secondary-color: #007bd2;
     --accent-color: #005d85; 
     --highlight-color: #00A6E6; 
     --white: #e2e2e2;
+    --white-rgb: 226, 226, 226; /* For use in rgba() */
     --background-color: #cad0d9; 
     --text-color: #333; 
     --badge-color: #ffffff;
+    --highlight-color-rgb: 0, 166, 230; /* For use in rgba() */
 }
 
-/* Second Palette */
 body.theme-two {
     --primary-color: #000000;   
     --secondary-color: #fffb00; 

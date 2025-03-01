@@ -9,10 +9,10 @@
                 <p>Levelezési cím:<br>
                 ME Földes Ferenc Gimnázium,<br>
                 3515 Miskolc-Egyetemváros, Pf.: 1/2</p>
+                <p>Fenntartó: Miskolci Egyetem</p>
             </div>
             
             <div class="footer-column">
-                <p>Fenntartó: Miskolci Egyetem</p>
                 <p>E-mail: <a href="mailto:ffg@ffg.hu">ffg@ffg.hu</a></p>
                 <p>Titkárság: <a href="tel:+3646508459">+36 (46) 508-459</a></p>
                 <p>Gazdasági iroda: <a href="tel:+3646508461">+36 (46) 508-461</a></p>

@@ -56,3 +56,18 @@
     transform: none;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
+
+/* Style for the current page indicator */
+.pagination span.current {
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(45deg, var(--secondary-color), var(--highlight-color));
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 180, 216, 0.5);
+    cursor: default;
+}

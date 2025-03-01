@@ -2,7 +2,8 @@
    VERSENYEK STYLES
 ============================================================ */
 .versenyek-container {
-    width: 1200px;
+    width: 100%;
+    max-width: 1200px;
     margin: 10px auto;
     padding: 20px;
     background-color: var(--background-color);
@@ -74,3 +75,101 @@
     margin-top: 20px;
 }
 
+/* ============================================================
+   MOBILE RESPONSIVE IMPROVEMENTS
+============================================================ */
+@media screen and (max-width: 768px) {
+    .versenyek-container {
+        padding: 15px;
+        margin: 8px auto;
+    }
+
+    .versenyek-table {
+        display: block;
+        overflow-x: hidden;
+        white-space: normal;
+    }
+
+    .versenyek-table thead {
+        display: none;
+    }
+
+    .versenyek-table tr {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 15px;
+        background: var(--white);
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        border: 1px solid var(--border-color);
+    }
+
+    .versenyek-table td {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px;
+        border: none !important;
+        border-bottom: 1px solid var(--border-color) !important;
+    }
+
+    .versenyek-table td:last-child {
+        border-bottom: none !important;
+    }
+
+    .versenyek-table td::before {
+        content: attr(data-label);
+        font-weight: 600;
+        color: var(--secondary-color);
+        margin-right: 15px;
+        flex-shrink: 0;
+    }
+
+    /* Image handling */
+    .versenyek-table td img {
+        max-width: 80px;
+        height: auto;
+        border-radius: 4px;
+        margin-left: auto;
+    }
+
+    /* Remove border-radius from table cells */
+    .versenyek-table td:first-child,
+    .versenyek-table td:last-child {
+        border-radius: 0;
+        border: none;
+    }
+
+    /* Adjust hover effects for mobile */
+    .versenyek-table tr.versenyek-row:hover {
+        transform: none;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .versenyek-table td {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .versenyek-table td::before {
+        margin-bottom: 5px;
+    }
+
+    .versenyek-table td img {
+        margin-top: 8px;
+        margin-left: 0;
+        max-width: 100%;
+    }
+
+    .versenyek-title {
+        font-size: 1.3em;
+        padding: 0 10px;
+    }
+    
+    .versenyek-container {
+        padding: 10px;
+    }
+}

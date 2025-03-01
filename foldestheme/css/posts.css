@@ -1,6 +1,3 @@
-/* ============================================================
-   L-SHAPED GRID LAYOUT
-============================================================ */
 
 /* Base container styles */
 .page-container {
@@ -137,7 +134,7 @@ article {
 
 .fontos-badge {
     position: sticky;
-    top: 10px;
+    top: 80px;
     right: -10px;
     background: var(--highlight-color);
     color: var(--badge-color);
