@@ -303,7 +303,7 @@ $has_recent_posts = $recent_posts->have_posts();
 }
 
 /* Media Query to Switch Layouts */
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1200px) {
   .desktop-layout {
     display: none;
   }
