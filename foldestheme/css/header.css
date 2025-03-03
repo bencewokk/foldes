@@ -110,7 +110,8 @@
 
 /* Adjust gtranslate wrapper if needed */
 .gtranslate_wrapper {
-    display: inline-block;
+    display: inline-flex;
+    gap: 10px;
     vertical-align: middle;
 }
 

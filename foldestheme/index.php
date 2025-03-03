@@ -167,7 +167,7 @@ get_header();
                 ?>
             </div>
         <?php else : ?>
-            <p class="no-results">No posts found. Try a different search!</p>
+            <p class="no-results">Nem találtunk semmit itt sajnos :(</p>
         <?php endif; ?>
 
         <?php wp_reset_postdata(); ?>
