@@ -11,6 +11,30 @@
     
     .post-container.grid-view {
         grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        padding: 20px;
+        padding-top: 0;
+
+    }
+
+    .post-container.list-view {
+        padding-top: 0;
+
+        padding: 20px;
+    }
+
+    .fontos-badge {
+        top: 15px;
+        right: 0;
+        display: inline-block;
+        margin-bottom: 10px;
+        font-size: 0.7em;
+        padding: 4px 12px;
+    }
+    
+    .fontos-badge::after {
+        content: none;
+        bottom: -8px;
+        border-width: 8px;
     }
 }
 
@@ -63,17 +87,7 @@
         grid-template-columns: 1fr;
     }
     
-    .fontos-badge {
-        right: 0;
-        top: 5px;
-        font-size: 0.7em;
-        padding: 4px 12px;
-    }
     
-    .fontos-badge::after {
-        bottom: -8px;
-        border-width: 8px;
-    }
 }
 
 @media (max-width: 480px) {
@@ -105,17 +119,7 @@
         font-size: 0.9em;
     }
     
-    .fontos-badge {
-        position: relative;
-        top: auto;
-        right: auto;
-        display: inline-block;
-        margin-bottom: 10px;
-    }
     
-    .fontos-badge::after {
-        content: none;
-    }
     
 }
 

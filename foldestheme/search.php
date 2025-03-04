@@ -96,8 +96,8 @@ get_header();
                 <div class="layout-toggle">
                     <label for="layout">Megjelenítés:</label>
                     <select id="layout" name="layout">
-                        <option value="grid" <?php selected(isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : 'grid', 'grid'); ?>>Rács</option>
-                        <option value="list" <?php selected(isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : '', 'list'); ?>>Lista</option>
+                        <option value="grid" <?php selected(isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : 'grid', 'grid'); ?>>Kompakt</option>
+                        <option value="list" <?php selected(isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : '', 'list'); ?>>Teljes</option>
                     </select>
                 </div>
 

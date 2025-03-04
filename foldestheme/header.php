@@ -131,7 +131,7 @@ backToTopButton.addEventListener('click', () => {
     <nav id="main-navigation">
     <div class="toggle-container">
       <ul class="custom-menu">
-        <li><a href="<?php echo esc_url(home_url('/')); ?>">Otthon</a></li>
+        <li><a href="<?php echo esc_url(home_url('/')); ?>">Főoldal</a></li>
         <li><a href="<?php echo esc_url(home_url('/iskolankrol')); ?>">Iskolánkról</a></li>
         <li><a href="<?php echo esc_url(home_url('/beiratkozas')); ?>">Beiratkozás</a></li>
         <li><a href="<?php echo esc_url(home_url('/esemenyek')); ?>">Események</a></li>
@@ -161,13 +161,13 @@ backToTopButton.addEventListener('click', () => {
     </nav>
     
     <nav id="lower-navigation" class="secondary-nav">
+        
         <button id="lower-nav-toggle" aria-expanded="false" aria-controls="lower-navigation">
-        <div class="hamburger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
+          <div class="arrow">
+            <i class="fa-solid fa-arrow-down"></i>
+          </div>
         </button>
+
         <div class="secondary-nav__content">
             <div class="nav-section">
                 <h3>Szülőknek</h3>
@@ -184,8 +184,8 @@ backToTopButton.addEventListener('click', () => {
                 <ul>
                     <li><a href="/csengetes">Csengetés</a></li>
                     <li><a href="/szakkorok">Szakkörök</a></li>
-                    <li><a href="/galeria">Sport</a></li>
-                    <li><a href="/galeria">Továbbtanulás</a></li>
+                    <li><a href="/sport">Sport</a></li>
+                    <li><a href="/tovabbtanulas">Továbbtanulás</a></li>
                 </ul>
             </div>
             
@@ -279,6 +279,19 @@ backToTopButton.addEventListener('click', () => {
 
 <!-- Consolidated JavaScript for all functionality -->
 <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const lowerNavToggle = document.getElementById('lower-nav-toggle');
+  const arrow = lowerNavToggle.querySelector('.arrow');
+
+  lowerNavToggle.addEventListener('click', function () {
+    arrow.classList.toggle('flipped');
+    
+    // Optionally update the aria-expanded attribute
+    const expanded = lowerNavToggle.getAttribute('aria-expanded') === 'true';
+    lowerNavToggle.setAttribute('aria-expanded', !expanded);
+  });
+});
+
 document.addEventListener('DOMContentLoaded', function () {
   // --- Accessibility Panel ---
   const accessibilityPanel = document.querySelector('.accessibility-panel');

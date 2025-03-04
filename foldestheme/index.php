@@ -13,7 +13,7 @@ get_header();
                 <!-- Search Input -->
                 <div class="input-group searchbar-group">
                     <input type="text" id="tag-search" name="tag" placeholder=" " value="<?php echo esc_attr( isset($_GET['tag']) ? sanitize_text_field( $_GET['tag'] ) : '' ); ?>">
-                    <label for="tag-search">Keress rá bármire...</label>
+                    <label for="tag-search">Írj be egy címkét...</label>
                 </div>
 
                 <!-- Order Select -->
@@ -28,8 +28,8 @@ get_header();
                 <div class="layout-toggle">
                     <label for="layout">Megjelenítés:</label>
                     <select id="layout" name="layout">
-                        <option value="list" <?php selected( isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : 'list', 'list' ); ?>>Lista</option>
-                        <option value="grid" <?php selected( isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : '', 'grid' ); ?>>Rács</option>
+                        <option value="list" <?php selected( isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : 'list', 'list' ); ?>>Teljes</option>
+                        <option value="grid" <?php selected( isset($_GET['layout']) ? sanitize_text_field($_GET['layout']) : '', 'grid' ); ?>>Kompakt</option>
                     </select>
                 </div>
 
@@ -147,8 +147,23 @@ get_header();
                         </div>
 
                         <p class="post-meta">
-                            By <?php the_author(); ?> | <?php echo get_the_date(); ?>
+                            <?php the_author(); ?> | <?php echo get_the_date(); ?>
                         </p>
+
+                        <!-- Display Tags -->
+                        <?php
+                        $tags = get_the_tags();
+                        if ( ! empty( $tags ) ) :
+                        ?>
+                            <div class="post-tags">
+                                <span class="tags-label">Címkék:</span>
+                                <?php foreach ( $tags as $tag ) : ?>
+                                    <a href="<?php echo esc_url( get_tag_link( $tag->term_id ) ); ?>" class="tag">
+                                        <?php echo esc_html( $tag->name ); ?>
+                                    </a>
+                                <?php endforeach; ?>
+                            </div>
+                        <?php endif; ?>
                     </article>
                 <?php endwhile; ?>
             </div>

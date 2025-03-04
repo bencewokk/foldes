@@ -168,7 +168,7 @@ article {
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 20px 0;
+    padding-top: 15px;
 }
 
 .post-container.list-view {
@@ -176,7 +176,7 @@ article {
     max-width: 1200px;
     width: 100%;
     margin: 0 auto;
-    padding: 10px 0;
+    padding-top: 15px;
 }
 
 .post-container.grid-view article {
@@ -195,3 +195,14 @@ article {
     max-width: 1200px;
     margin: 0 auto;
 }
+
+.post-tags {
+    margin-top: 1rem;
+    font-size: 0.9em;
+}
+
+.tags-label {
+    margin-right: 0.5rem;
+    color: #666;
+}
+

@@ -147,7 +147,6 @@ nav {
 nav a {
     color: var(--secondary-color);
     text-decoration: none !important;
-    padding: 12px 20px;
     font-size: 1rem;
     border-radius: 4px;
     font-weight: bold;
@@ -246,3 +245,13 @@ nav .custom-menu li a {
 .theme-two .custom-menu .dropdown-menu a:hover {
     background-color: var(--accent-color);
 }
+
+.arrow i {
+    transition: transform 0.3s ease;
+    color: var(--background-color);
+}
+
+.arrow.flipped i {
+    transform: rotate(180deg);
+}
+  

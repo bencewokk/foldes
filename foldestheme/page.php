@@ -10,7 +10,7 @@ $recent_posts = new WP_Query(array(
     'tag'                 => sanitize_title($page_slug),
     'date_query'          => array(
         array(
-            'after'     => '1 month ago',
+            'after'     => '2 weeks ago',
             'inclusive' => true
         )
     )
