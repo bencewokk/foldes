@@ -1,0 +1,145 @@
+/* Upcoming Events Section */
+.upcoming-events-container {
+    flex: 1;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-color);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.upcoming-events-title {
+    margin: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--secondary-color);
+}
+
+/* Calendar Timeline Container */
+.calendar-timeline {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1rem 1rem 1rem 2rem;
+    position: relative;
+}
+
+.calendar-timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, var(--secondary-color), var(--highlight-color));
+    opacity: 0.5;
+}
+
+/* Calendar Event */
+.calendar-event {
+    position: relative;
+    margin-bottom: 30px;
+    display: flex;
+    align-items: flex-start;
+}
+
+/* Timeline Container (Dots & Connector) */
+.timeline {
+    position: absolute;
+    left: -30px;
+    width: 40px;
+    top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Timeline Dot */
+.timeline-dot {
+    width: 16px;
+    height: 16px;
+    background: var(--secondary-color);
+    border-radius: 50%;
+    border: 2px solid var(--badge-color);
+    z-index: 2;
+}
+
+/* Timeline Line (Connector) */
+.timeline-line {
+    width: 3px;
+    background: var(--secondary-color);
+    flex-grow: 1;
+    margin: 8px 0;
+    opacity: 0.5;
+}
+
+/* Event Date */
+.event-date {
+    background: var(--white);
+    border: 2px solid var(--secondary-color);
+    border-radius: 8px;
+    padding: 8px;
+    text-align: center;
+    min-width: 60px;
+    margin: 15px;
+    box-shadow: 0 2px 8px rgba(var(--text-color-rgb), 0.1);
+}
+
+.date-day {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--secondary-color);
+}
+
+.date-month {
+    font-size: 0.9em;
+    text-transform: uppercase;
+    color: var(--text-color);
+}
+
+/* Event Details */
+.event-details {
+    background: var(--white);
+    padding: 15px;
+    border-radius: 8px;
+    flex-grow: 1;
+    box-shadow: 0 2px 8px rgba(var(--text-color-rgb), 0.1);
+    transition: transform 0.2s ease;
+    margin-right: 1rem;
+}
+
+.event-details:hover {
+    transform: translateX(5px);
+}
+
+.event-title {
+    margin: 0 0 8px 0;
+    font-size: 1.1em;
+}
+
+.event-title a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.event-time {
+    color: var(--text-color);
+    font-size: 0.9em;
+    margin-bottom: 8px;
+}
+
+.event-excerpt {
+    color: var(--text-color);
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+/* Fontos Event Badge */
+.fontos-event-badge {
+    display: inline-block;
+    background: var(--highlight-color);
+    color: var(--white);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    margin-bottom: 0.4rem;
+}

@@ -25,6 +25,10 @@ function foldestheme_enqueue_styles() {
     wp_enqueue_style( 'foldestheme-access', get_template_directory_uri() . '/css/access.css' );
     wp_enqueue_style( 'foldestheme-searchpage', get_template_directory_uri() . '/css/searchpage.css' );
     wp_enqueue_style( 'foldestheme-page', get_template_directory_uri() . '/css/page.css' );
+    wp_enqueue_style( 'foldestheme-highlight', get_template_directory_uri() . '/css/highlight.css' );
+    wp_enqueue_style( 'foldestheme-events', get_template_directory_uri() . '/css/events.css' );
+
+
 
     wp_enqueue_style( 'foldestheme-searchresponsive', get_template_directory_uri() . '/css/searchresponsive.css' );
     wp_enqueue_style( 'foldestheme-navresponsive', get_template_directory_uri() . '/css/navresponsive.css' );
