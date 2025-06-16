@@ -124,3 +124,7 @@
     opacity: 1;
     transform: scale(1.1);
 }
+
+p.no-events {
+    padding: 1rem;
+}
